@@ -9,18 +9,35 @@ import com.ai.bss.aggregate.party.Individual;
 import com.ai.bss.aggregate.party.Party;
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.command.CreateIndividualCommand;
+import com.ai.bss.api.party.command.RenameIndividualCommand;
+import com.ai.bss.api.party.command.TerminateIndividualCommand;
 
 public class IndividualCommandHandler{
 
 	 private Repository<Party> repository;
 
     @CommandHandler
-    public PartyId handleCreateUser(CreateIndividualCommand command) {
+    public PartyId handleCreateIndividual(CreateIndividualCommand command) {
     	PartyId identifier = command.getPartyId();
         Individual individual = new Individual(identifier, command.getFirstName(),command.getLastName());
         repository.add(individual);
         return identifier;
     }
+    
+    @CommandHandler
+    public void handleRenameIndividual(RenameIndividualCommand command) throws Exception{
+    	PartyId identifier = command.getPartyId();
+        Individual individual = (Individual)repository.load(identifier);
+        individual.rename(command.getFirstName(), command.getLastName());
+    }
+    
+    @CommandHandler
+    public void handleTerminateIndividual(TerminateIndividualCommand command) throws Exception{
+    	PartyId identifier = command.getPartyId();
+        Individual individual = (Individual)repository.load(identifier);
+        individual.rename(command.getFirstName(), command.getLastName());
+    }
+    
     
     @Autowired
     @Qualifier("partyRepository")

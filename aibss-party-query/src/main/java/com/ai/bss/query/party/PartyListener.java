@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.bss.api.party.event.IndividualCreatedEvent;
+import com.ai.bss.api.party.event.IndividualRenamedEvent;
+import com.ai.bss.api.party.event.IndividualTerminatedEvent;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
 
 /**
@@ -33,11 +35,31 @@ public class PartyListener {
 
     @EventHandler
     public void handleIndividualCreatedEvent(IndividualCreatedEvent event) {
-        IndividualEntry PartyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
-        PartyEntry.setType(event.getPartyType());
-        PartyEntry.setName(event.getPartyName());
-        PartyEntry.setState("initial");
-        partyRepository.save(PartyEntry);
+        IndividualEntry partyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
+        partyEntry.setType(event.getPartyType());
+        partyEntry.setName(event.getPartyName());
+        partyEntry.setState("initial");
+        partyRepository.save(partyEntry);
+    }
+        
+    @EventHandler
+    public void handleIndividualRenamedEvent(IndividualRenamedEvent event) {
+        IndividualEntry partyEntry = (IndividualEntry)partyRepository.findOne(event.getPartyId().toString());
+        partyEntry.setFirstName(event.getFirstName());
+        partyEntry.setLastName(event.getLastName());
+        partyEntry.setName(event.getPartyName());
+        partyRepository.save(partyEntry);
+    }
+    
+    @EventHandler
+    public void handleIndividualTerminatedEvent(IndividualTerminatedEvent event) {
+        this.terminateParty(event.getPartyId().toString());
+    }
+    
+    private void terminateParty(String partyId){
+    	PartyEntry partyEntry = partyRepository.findOne(partyId);
+    	partyEntry.setState("Terminated");
+    	partyRepository.save(partyEntry);
     }
 
     @Autowired

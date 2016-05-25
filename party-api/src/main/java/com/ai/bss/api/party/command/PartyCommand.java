@@ -4,11 +4,11 @@ import org.axonframework.common.Assert;
 
 import com.ai.bss.api.party.PartyId;
 
-public abstract class CreatePartyCommand {
+public abstract class PartyCommand {
 	private PartyId partyId;
 
 	
-	public CreatePartyCommand(PartyId partyId) {
+	public PartyCommand(PartyId partyId) {
 		Assert.notNull(partyId, "The provided partyId cannot be null");
 		this.partyId=partyId;
 	}

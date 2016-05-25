@@ -54,6 +54,8 @@
             <td><c:out value='${item.type}'/></td>
             <td><c:out value='${item.state}'/></td>
             <td><a href="${ctx}/party/<c:out value='${item.partyId}'/>">details</a></td>
+            <td><a href="${ctx}/party/rename/<c:out value='${item.partyId}'/>">rename</a></td>
+            <td><a href="${ctx}/party/terminate/<c:out value='${item.partyId}'/>">terminate</a></td>
         </tr>
     </c:forEach>
     </tbody>

@@ -1,9 +1,10 @@
 package com.ai.bss.aggregate.party;
 
 import org.axonframework.eventhandling.annotation.EventHandler;
-
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.event.IndividualCreatedEvent;
+import com.ai.bss.api.party.event.IndividualRenamedEvent;
+import com.ai.bss.api.party.event.IndividualTerminatedEvent;
 
 public class Individual extends Party {
 	private String firstName;
@@ -21,6 +22,22 @@ public class Individual extends Party {
 	public void onIndividualCreated(IndividualCreatedEvent event){
 		this.setPartyId(event.getPartyId());
 		this.setState("Initial");
+	}
+	
+	public void rename(String firstName,String lastName) throws Exception{
+		if (firstName.equalsIgnoreCase(this.firstName) &&
+				lastName.equalsIgnoreCase(this.lastName)	){
+			throw new Exception("The to be name is same as currently name.");
+		}
+		this.firstName=firstName;
+		this.lastName=lastName;
+		apply(new IndividualRenamedEvent(this.getPartyId(), firstName, lastName));
+	}
+	
+	public void terminate() throws Exception{
+		//TODO check if party has partyRoles, if have, notify to terminate partyRole first.
+		this.setState("Terminated");
+		apply(new IndividualTerminatedEvent(this.getPartyId()));
 	}
 
 	public String getFirstName() {

@@ -2,9 +2,9 @@ package com.ai.bss.api.party.event;
 
 import com.ai.bss.api.party.PartyId;
 
-public abstract class PartyCreatedEvent {
+public abstract class PartyEvent {
 	private PartyId partyId;
-	protected PartyCreatedEvent(PartyId partyId,String partyType) {
+	protected PartyEvent(PartyId partyId) {
 		this.partyId=partyId;
 	}
 	

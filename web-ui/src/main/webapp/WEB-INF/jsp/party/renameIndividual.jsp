@@ -17,5 +17,5 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   --%>
-<content tag="title">Create new Individual</content>
-<jsp:include page="form-individual-include.jsp?actionName=createIndividual"/>
+<content tag="title">Renamne Individual</content>
+<jsp:include page="form-individual-include.jsp?actionName=renameIndividual"/>

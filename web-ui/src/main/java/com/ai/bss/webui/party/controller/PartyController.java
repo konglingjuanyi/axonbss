@@ -31,12 +31,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.command.CreateIndividualCommand;
+import com.ai.bss.api.party.command.RenameIndividualCommand;
+import com.ai.bss.api.party.command.TerminateIndividualCommand;
 import com.ai.bss.query.party.IndividualEntry;
 import com.ai.bss.query.party.PartyEntry;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
 import com.ai.bss.query.user.repositories.UserQueryRepository;
 import com.ai.bss.webui.party.model.Individual;
-import com.ai.bss.webui.party.model.Party;
 
 /**
  * @author Jettro Coenradie
@@ -86,6 +87,25 @@ public class PartyController {
         return "party";
     }
     
+    @RequestMapping(value = "/rename/{partyId}", method = RequestMethod.GET)
+    public String rename(@PathVariable String partyId, Model model) {
+        PartyEntry partyEntry = partyRepository.findOne(partyId);
+        if(null!=partyEntry){
+        	if (partyEntry instanceof IndividualEntry){
+        		IndividualEntry individualEntry=(IndividualEntry)partyEntry;
+        		Individual individual=new Individual();
+        		individual.setPartyId(partyEntry.getPartyId());
+        		individual.setFirstName(individualEntry.getFirstName());
+        		individual.setLastName(individualEntry.getLastName());
+                model.addAttribute("individual", individual);
+                return "party/renameIndividual";
+        	}else{
+        		return "party/renameOrganization";
+        	}
+        }
+        return "party";
+    }
+    
     @RequestMapping(value = "/createIndividual", method = RequestMethod.GET)
     public String createIndividualForm(Model model) {
     	Individual individual = new Individual();
@@ -102,6 +122,45 @@ public class PartyController {
     		return "redirect:/party";
     	}
     	return "createIndividual";
+    }
+    
+    @RequestMapping(value = "/rename/renameIndividual", method = RequestMethod.POST)
+    public String renameIndividual(@ModelAttribute("Individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
+    	if (!bindingResult.hasErrors()) {
+    		PartyId partyId=new PartyId(individual.getPartyId());
+    		RenameIndividualCommand command =new RenameIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
+    		try {
+    			commandBus.dispatch(new GenericCommandMessage<RenameIndividualCommand>(command));
+    			return "redirect:/party";
+			} catch (Exception e) {
+				bindingResult.rejectValue("renameIndividual",
+                        "error.renameIndividual.notChanged",
+                        e.getMessage());
+			}   		
+    		
+    	}
+    	return "renameIndividual";
+    }
+    
+    @RequestMapping(value = "/terminate/{partyId}", method = RequestMethod.POST)
+    public String terminateIndividual(@PathVariable String partyId, Model model) {
+    	try {
+    		PartyEntry partyEntry = partyRepository.findOne(partyId);
+	        if(null!=partyEntry){
+	        	if (partyEntry instanceof IndividualEntry){
+	        		TerminateIndividualCommand command =new TerminateIndividualCommand(new PartyId(partyId));
+	        		commandBus.dispatch(new GenericCommandMessage<TerminateIndividualCommand>(command));
+	        	}else{
+	        		//TODO
+	        	}
+	        }
+    		
+    		return "redirect:/party";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    		
+    	return "terminate/"+partyId;
     }
 
 }

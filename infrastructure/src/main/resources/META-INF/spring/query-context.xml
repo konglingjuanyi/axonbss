@@ -25,7 +25,7 @@
 
     <beans profile="mongodb">
         <mongo:repositories base-package="com.ai.bss.query.*.repositories"
-                            mongo-template-ref="mongoSpringTemplate"/>
+                            mongo-template-ref="mongoSpringTemplate" />
     </beans>
 
     <beans profile="hsqldb">

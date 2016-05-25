@@ -17,10 +17,11 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   --%>
+  <% String actionName=request.getParameter("actionName"); %>  
 <div class="row">
     <div class="span14">
 
-        <form:form commandName="individual">
+        <form:form commandName="individual" action="<%= actionName %>" method="Post">
             <form:errors path="*" cssClass="alert-message block-message error" element="div"/>
             <form:hidden path="partyId"/>
             <table>
@@ -36,7 +37,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <input class="btn primary" type="submit" name="submit" value="Create"/>
+                        <input class="btn primary" type="submit" name="submit" value="<%= actionName %>"/>
                         <input class="btn" type="reset" name="reset" value="Reset"/>
                         <a href="${ctx}/party/list" class="btn">Cancel</a>
                     </td>

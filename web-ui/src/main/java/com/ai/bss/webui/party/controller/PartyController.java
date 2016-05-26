@@ -20,6 +20,7 @@ import javax.validation.Valid;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
+import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -114,7 +115,7 @@ public class PartyController {
     }
 
     @RequestMapping(value = "/createIndividual", method = RequestMethod.POST)
-    public String createIndividual(@ModelAttribute("Individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
+    public String createIndividual(@ModelAttribute("individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateIndividualCommand command =new CreateIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
@@ -125,21 +126,27 @@ public class PartyController {
     }
     
     @RequestMapping(value = "/rename/renameIndividual", method = RequestMethod.POST)
-    public String renameIndividual(@ModelAttribute("Individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
+    public String renameIndividual(@ModelAttribute("individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId(individual.getPartyId());
-    		RenameIndividualCommand command =new RenameIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
-    		try {
-    			commandBus.dispatch(new GenericCommandMessage<RenameIndividualCommand>(command));
-    			return "redirect:/party";
-			} catch (Exception e) {
-				bindingResult.rejectValue("renameIndividual",
-                        "error.renameIndividual.notChanged",
-                        e.getMessage());
-			}   		
-    		
+    		IndividualEntry individualEntry = (IndividualEntry)partyRepository.findOne(partyId.toString());
+            if(null!=individualEntry){
+            	RenameIndividualCommand command =new RenameIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
+            	command.setOldFirstName(individualEntry.getFirstName());
+            	command.setOldLastName(individualEntry.getLastName());            	
+            	FutureCallback callback = new FutureCallback();
+        		commandBus.dispatch(new GenericCommandMessage<RenameIndividualCommand>(command),callback);
+        		try {
+        			callback.getResult();
+        			return "redirect:/party";
+    			} catch (Exception e) {
+    				bindingResult.rejectValue("firstName",
+                            "error.renameIndividual.notChanged",
+                            e.getCause().getMessage());
+    			}
+            }    		   		    		
     	}
-    	return "renameIndividual";
+    	return "party/renameIndividual";
     }
     
     @RequestMapping(value = "/terminate/{partyId}", method = RequestMethod.POST)

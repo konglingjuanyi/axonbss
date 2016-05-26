@@ -13,6 +13,11 @@
             <artifactId>axonbss-party-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-party-query</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- other dependencies-->
         <dependency>

@@ -5,6 +5,7 @@ import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.event.IndividualCreatedEvent;
 import com.ai.bss.api.party.event.IndividualRenamedEvent;
 import com.ai.bss.api.party.event.IndividualTerminatedEvent;
+import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
 
 public class Individual extends Party {
 	private String firstName;
@@ -27,7 +28,7 @@ public class Individual extends Party {
 	public void rename(String firstName,String lastName) throws Exception{
 		if (firstName.equalsIgnoreCase(this.firstName) &&
 				lastName.equalsIgnoreCase(this.lastName)	){
-			throw new Exception("The to be name is same as currently name.");
+			throw new NewPartyNameSameAsOldException(this.getName());
 		}
 		this.firstName=firstName;
 		this.lastName=lastName;

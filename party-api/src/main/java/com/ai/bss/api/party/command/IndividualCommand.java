@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 import com.ai.bss.api.party.PartyId;
 
-public class IndividualCommand extends PartyCommand{
+public abstract class IndividualCommand extends PartyCommand{
 	@NotNull
     @Size(min = 1)	
 	private String firstName;
@@ -13,11 +13,11 @@ public class IndividualCommand extends PartyCommand{
     @Size(min = 1)	
 	private String lastName;
 	
-	public IndividualCommand(PartyId partyId){
+	protected IndividualCommand(PartyId partyId){
 		super(partyId);
 	}
 
-	public IndividualCommand(PartyId partyId, String firstName,String lastName) {
+	protected IndividualCommand(PartyId partyId, String firstName,String lastName) {
 		super(partyId);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);

@@ -18,11 +18,16 @@ package com.ai.bss.query.party;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,10 +41,14 @@ public abstract class PartyEntry {
 
     @Id
     @javax.persistence.Id
+    @Column(name="PARTY_ID")
     private String partyId;
     private String name;
     private String type;
     private String state ;
+    
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="party")
+	private Set<PartyRoleEntry> partyRoles; 
     
     public PartyEntry(){}
     
@@ -78,5 +87,12 @@ public abstract class PartyEntry {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public Set<PartyRoleEntry> getPartyRoles() {
+		return partyRoles;
+	}
+	public void addPartyRole(PartyRoleEntry partyRole) {
+		this.partyRoles.add(partyRole);
 	}
 }

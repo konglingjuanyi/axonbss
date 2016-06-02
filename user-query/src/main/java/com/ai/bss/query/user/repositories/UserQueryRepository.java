@@ -24,8 +24,8 @@ import com.ai.bss.query.user.UserEntry;
 /**
  * @author Jettro Coenradie
  */
-public interface UserQueryRepository extends MongoRepository<UserEntry, String> {
-
+public interface UserQueryRepository extends PagingAndSortingRepository<UserEntry, String> {
+//MongoRepository
     UserEntry findByUsername(String username);
 
     UserEntry findByIdentifier(String identifier);

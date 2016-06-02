@@ -25,8 +25,8 @@ import com.ai.bss.query.policy.RegisteredCommandEntry;
 /**
  * @author Jettro Coenradie
  */
-public interface CommandPolicyQueryRepository extends MongoRepository<RegisteredCommandEntry, Long> {
-	//extends PagingAndSortingRepository<RegisteredCommandEntry, Long> 
+public interface CommandPolicyQueryRepository extends PagingAndSortingRepository<RegisteredCommandEntry, Long> {
+	//extends PagingAndSortingRepository<RegisteredCommandEntry, Long>   MongoRepository
 	List<RegisteredCommandEntry> findByCommandNameAndPropertyValue(String commandName,String propertyValue);
 	List<RegisteredCommandEntry> findByCommandName(String commandName);
 }

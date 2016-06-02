@@ -22,6 +22,8 @@ public class Individual extends Party {
 	@EventHandler
 	public void onIndividualCreated(IndividualCreatedEvent event){
 		this.setPartyId(event.getPartyId());
+		this.firstName=event.getFirstName();
+		this.lastName=event.getLastName();
 		this.setState("Initial");
 	}
 	

@@ -20,21 +20,23 @@ public class IndividualEntry extends PartyEntry{
 	public IndividualEntry(){}
 	
 	public IndividualEntry(String partyId,String firstName,String lastName){
-		super(partyId,lastName+"_"+firstName,"Individual");
-		this.firstName=firstName;
-		this.lastName=lastName;
+		super(partyId,"Individual");
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
 	}
 	
 	public String getFirstName() {
 		return firstName;
 	}
 	public void setFirstName(String firstName) {
+		super.setName(this.getLastName()+" "+firstName);
 		this.firstName = firstName;
 	}
 	public String getLastName() {
 		return lastName;
 	}
 	public void setLastName(String lastName) {
+		super.setName(lastName+" "+this.getFirstName());
 		this.lastName = lastName;
 	}
 

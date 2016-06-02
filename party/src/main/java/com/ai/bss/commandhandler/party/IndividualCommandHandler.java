@@ -24,16 +24,17 @@ public class IndividualCommandHandler{
         return identifier;
     }
     
+    
     @CommandHandler
     public void handleRenameIndividual(RenameIndividualCommand command) throws NewPartyNameSameAsOldException,Exception{
     	PartyId identifier = command.getPartyId();
         Individual individual = (Individual)repository.load(identifier);
         individual.setFirstName(command.getOldFirstName());
-        individual.setLastName(command.getLastName());
-        individual.rename(command.getFirstName(), command.getLastName());      
+        individual.setLastName(command.getOldLastName());
+        individual.rename(command.getNewFirstName(), command.getNewLastName());      
     }
     
-    @CommandHandler
+     @CommandHandler
     public void handleTerminateIndividual(TerminateIndividualCommand command) throws Exception{
     	PartyId identifier = command.getPartyId();
         Individual individual = (Individual)repository.load(identifier);

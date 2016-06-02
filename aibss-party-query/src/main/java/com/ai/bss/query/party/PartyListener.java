@@ -16,19 +16,29 @@
 
 package com.ai.bss.query.party;
 
+import javax.transaction.Transactional;
+
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.bss.api.party.event.ChildDepartmentCreatedEvent;
+import com.ai.bss.api.party.event.DepartmentRenamedEvent;
+import com.ai.bss.api.party.event.DepartmentTerminatedEvent;
 import com.ai.bss.api.party.event.IndividualCreatedEvent;
 import com.ai.bss.api.party.event.IndividualRenamedEvent;
 import com.ai.bss.api.party.event.IndividualTerminatedEvent;
+import com.ai.bss.api.party.event.LegalCreatedEvent;
+import com.ai.bss.api.party.event.LegalRenamedEvent;
+import com.ai.bss.api.party.event.LegalTerminatedEvent;
+import com.ai.bss.api.party.event.TopDepartmentCreatedEvent;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
 
 /**
  * @author Jettro Coenradie
  */
 @Component
+@Transactional
 public class PartyListener {
 
     private PartyQueryRepository partyRepository;
@@ -36,8 +46,29 @@ public class PartyListener {
     @EventHandler
     public void handleIndividualCreatedEvent(IndividualCreatedEvent event) {
         IndividualEntry partyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
-        partyEntry.setType(event.getPartyType());
-        partyEntry.setName(event.getPartyName());
+        partyEntry.setState("initial");
+        partyRepository.save(partyEntry);
+    }
+    
+    @EventHandler
+    public void handleLegalCreatedEvent(LegalCreatedEvent event) {
+        LegalOrganizationEntry partyEntry = new LegalOrganizationEntry(event.getPartyId().toString(),event.getTradingName());
+        partyEntry.setState("initial");
+        partyRepository.save(partyEntry);
+    }
+    
+    @EventHandler
+    public void handleTopDepartmentCreatedEvent(TopDepartmentCreatedEvent event) {
+    	OrganizationEntry legal=(OrganizationEntry)partyRepository.findOne(event.getLegalId());
+        DepartmentEntry partyEntry = new DepartmentEntry(event.getPartyId().toString(),event.getDepartmentName(),true,legal);
+        partyEntry.setState("initial");
+        partyRepository.save(partyEntry);
+    }
+    
+    @EventHandler
+    public void handleChildDepartmentCreatedEvent(ChildDepartmentCreatedEvent event) {
+    	OrganizationEntry parentDepartment=(OrganizationEntry)partyRepository.findOne(event.getParentDepartmentId());
+        DepartmentEntry partyEntry = new DepartmentEntry(event.getPartyId().toString(),event.getDepartmentName(),false,parentDepartment);
         partyEntry.setState("initial");
         partyRepository.save(partyEntry);
     }
@@ -45,14 +76,37 @@ public class PartyListener {
     @EventHandler
     public void handleIndividualRenamedEvent(IndividualRenamedEvent event) {
         IndividualEntry partyEntry = (IndividualEntry)partyRepository.findOne(event.getPartyId().toString());
-        partyEntry.setFirstName(event.getFirstName());
-        partyEntry.setLastName(event.getLastName());
-        partyEntry.setName(event.getPartyName());
+        partyEntry.setFirstName(event.getNewFirstName());
+        partyEntry.setLastName(event.getNewLastName());
+        partyRepository.save(partyEntry);
+    }
+    
+    @EventHandler
+    public void handleLegalRenamedEvent(LegalRenamedEvent event) {
+        LegalOrganizationEntry partyEntry = (LegalOrganizationEntry)partyRepository.findOne(event.getPartyId().toString());
+        partyEntry.setTradingName(event.getTradingName());
+        partyRepository.save(partyEntry);
+    }
+    
+    @EventHandler
+    public void handleDepartmentRenamedEvent(DepartmentRenamedEvent event) {
+        DepartmentEntry partyEntry = (DepartmentEntry)partyRepository.findOne(event.getPartyId().toString());
+        partyEntry.setDepartmentName(event.getDepartmentName());
         partyRepository.save(partyEntry);
     }
     
     @EventHandler
     public void handleIndividualTerminatedEvent(IndividualTerminatedEvent event) {
+        this.terminateParty(event.getPartyId().toString());
+    }
+    
+    @EventHandler
+    public void handleLegalTerminatedEvent(LegalTerminatedEvent event) {
+        this.terminateParty(event.getPartyId().toString());
+    }
+    
+    @EventHandler
+    public void handleDepartmentTerminatedEvent(DepartmentTerminatedEvent event) {
         this.terminateParty(event.getPartyId().toString());
     }
     

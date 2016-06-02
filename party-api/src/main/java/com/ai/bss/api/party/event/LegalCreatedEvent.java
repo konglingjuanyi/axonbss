@@ -2,27 +2,30 @@ package com.ai.bss.api.party.event;
 
 import com.ai.bss.api.party.PartyId;
 
-public class LegalCreatedEvent extends OrganizationEvent {
-	private String parentLegalId;
-	public LegalCreatedEvent(PartyId partyId) {
+public class LegalCreatedEvent extends PartyCreatedEvent{
+	private String tradingName;
+	
+	public LegalCreatedEvent(PartyId partyId){
 		super(partyId);
 	}
 
-	public LegalCreatedEvent(PartyId partyId, String tradingName) {
-		super(partyId, tradingName);
+	public LegalCreatedEvent(PartyId partyId,String tradingName) {
+		super(partyId);
+		this.tradingName=tradingName;
 	}
+
 
 	@Override
-	public String getPartyType() {
-		return "Legal";
+	public String getPartyName() {
+		return tradingName;
 	}
 
-	public String getParentLegalId() {
-		return parentLegalId;
+	public String getTradingName() {
+		return tradingName;
 	}
 
-	public void setParentLegalId(String parentLegalId) {
-		this.parentLegalId = parentLegalId;
+	public void setTradingName(String tradingName) {
+		this.tradingName = tradingName;
 	}
 
 }

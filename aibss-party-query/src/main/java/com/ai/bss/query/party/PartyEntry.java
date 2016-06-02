@@ -43,9 +43,8 @@ public abstract class PartyEntry {
     
     public PartyEntry(){}
     
-    protected PartyEntry(String identifier,String name,String type){
+    protected PartyEntry(String identifier,String type){
     	this.partyId=identifier;
-    	this.name=name;
     	this.type=type;
     }
 
@@ -61,7 +60,7 @@ public abstract class PartyEntry {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 

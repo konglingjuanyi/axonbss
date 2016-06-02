@@ -4,21 +4,18 @@ import javax.validation.constraints.NotNull;
 
 import com.ai.bss.api.party.PartyId;
 
-public class ChildDepartmentCreatedEvent extends OrganizationEvent {
+public class ChildDepartmentCreatedEvent extends PartyCreatedEvent {
 	@NotNull
 	private String parentDepartmentId;
+	private String departmentName;
 	public ChildDepartmentCreatedEvent(PartyId partyId) {
 		super(partyId);
 	}
 
 	public ChildDepartmentCreatedEvent(PartyId partyId, String departmentName,String parentDepartmentId) {
-		super(partyId, departmentName);
+		super(partyId);
 		this.parentDepartmentId=parentDepartmentId;
-	}
-
-	@Override
-	public String getPartyType() {
-		return "Department";
+		this.departmentName=departmentName;
 	}
 
 	public String getParentDepartmentId() {
@@ -27,6 +24,19 @@ public class ChildDepartmentCreatedEvent extends OrganizationEvent {
 
 	public void setParentDepartmentId(String parentDepartmentId) {
 		this.parentDepartmentId = parentDepartmentId;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	@Override
+	public String getPartyName() {
+		return this.departmentName;
 	}
 
 

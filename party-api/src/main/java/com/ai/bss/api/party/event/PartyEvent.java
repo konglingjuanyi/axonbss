@@ -15,7 +15,4 @@ public abstract class PartyEvent {
 	public void setPartyId(PartyId partyId) {
 		this.partyId = partyId;
 	}
-	
-	public abstract String getPartyName();
-	public abstract String getPartyType();
 }

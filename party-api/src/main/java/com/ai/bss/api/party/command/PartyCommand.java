@@ -21,6 +21,4 @@ public abstract class PartyCommand {
 		this.partyId = partyId;
 	}
 
-	public abstract String getName();
-
 }

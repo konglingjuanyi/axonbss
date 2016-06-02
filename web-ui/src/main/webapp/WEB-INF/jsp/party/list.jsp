@@ -66,7 +66,7 @@
                 <a class="btn primary"
                    href="${ctx}/party/createIndividual">Create Individual &raquo;</a>
                 <a class="btn primary"
-                   href="${ctx}/party/createOrganization">Create Organization &raquo;</a>
+                   href="${ctx}/party/createLegal">Create Legal &raquo;</a>
             </p>
         </div>
     </div>

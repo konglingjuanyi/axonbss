@@ -26,7 +26,7 @@ import com.ai.bss.query.party.PartyEntry;
 /**
  * @author Jettro Coenradie
  */
-public interface PartyQueryRepository extends MongoRepository<PartyEntry, String> {
-	//PagingAndSortingRepository
+public interface PartyQueryRepository extends PagingAndSortingRepository<PartyEntry, String> {
+	// MongoRepository
 	List<PartyEntry> findByType(String type);
 }

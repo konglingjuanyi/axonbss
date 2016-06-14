@@ -111,7 +111,7 @@ public class CustomerController {
     	PartyEntry partyEntry = partyRepository.findOne(partyId);
     	customer.setCustomerName(partyEntry.getName());
         model.addAttribute("customer", customer);        
-        return "party/createCustomerFromParty";
+        return "customer/createCustomerFromParty";
     }
     
     @RequestMapping(value = "/createIndividualCustomer", method = RequestMethod.GET)
@@ -128,7 +128,7 @@ public class CustomerController {
         return "customer/createLegalCustomer";
     }
     
-    @RequestMapping(value = "/createCustomerFromParty", method = RequestMethod.POST)
+    @RequestMapping(value = "/createCustomerFromParty/createCustomerFromParty", method = RequestMethod.POST)
     public String createCustomerFromParty(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		CustomerId customerId=new CustomerId();

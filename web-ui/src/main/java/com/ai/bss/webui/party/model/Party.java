@@ -1,7 +1,5 @@
 package com.ai.bss.webui.party.model;
 
-import com.ai.bss.api.party.PartyId;
-
 public class Party {
 	/**
 	 * 

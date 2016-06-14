@@ -67,9 +67,10 @@
     <div class="span4">
         <h2>Check parties</h2>
 
-        <p>If you have logged in, you can see the parties</p>
+        <p>If you have logged in, you can see the parties and customers</p>
 
-        <p><a class="btn primary" href="${ctx}/party">To the items &raquo;</a></p>
+        <p><a class="btn primary" href="${ctx}/party">View all parties &raquo;</a></p>
+        <p><a class="btn primary" href="${ctx}/customer">View all customers &raquo;</a></p>
     </div>
     <div class="span5">
         <h2>Executed trades</h2>

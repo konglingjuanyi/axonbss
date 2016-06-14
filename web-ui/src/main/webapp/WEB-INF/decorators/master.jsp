@@ -42,6 +42,8 @@
             <a class="brand" href="${ctx}/">Asiainfo Veris BSS</a>
             <ul class="nav">
                 <li><a href="${ctx}/">Home</a></li>
+                <li><a href="${ctx}/customer">Customers</a></li>
+                <li><a href="${ctx}/party">Parties</a></li>
                 <!--
                 <li><a href="${ctx}/dashboard">Dashboard</a></li>
                 <li><a href="${ctx}/company">Companies</a></li>

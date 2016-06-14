@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package com.ai.bss.query.party.repositories;
+package com.ai.bss.query.customer.repositories;
 
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.ai.bss.query.party.PartyRoleEntry;
+import com.ai.bss.query.customer.CustomerEntry;
 
 /**
  * @author Jettro Coenradie
  */
-public interface PartyRoleQueryRepository extends PagingAndSortingRepository<PartyRoleEntry, String> {
+public interface CustomerQueryRepository extends PagingAndSortingRepository<CustomerEntry, String> {
 	// MongoRepository
-	List<PartyRoleEntry> findByPartyRoleType(String partyRoleType);
+	List<CustomerEntry> findByType(String type);
 }

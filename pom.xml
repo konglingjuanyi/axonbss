@@ -57,6 +57,9 @@
   	<module>policy</module>
   	<module>aibss-party-query</module>
   	<module>aibss-policy-query</module>
+  	<module>aibss-customer</module>
+  	<module>aibss-customer-api</module>
+  	<module>aibss-customer-query</module>
   </modules>
   
    <dependencyManagement>

@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @DiscriminatorColumn(name="PARTY_ROLE_TYPE",discriminatorType=DiscriminatorType.STRING)
 public abstract class PartyRoleEntry {
 	@Id
-	private long partyRoleId;	
+	private String partyRoleId;	
 	public PartyRoleEntry(){}
 	
 	
@@ -39,7 +39,8 @@ public abstract class PartyRoleEntry {
 	}
 
 	
-	public PartyRoleEntry(PartyEntry party){
+	public PartyRoleEntry(String partyRoleId,PartyEntry party){
+		this.partyRoleId=partyRoleId;
 		this.party=(PartyEntry)party;
 	}
 	
@@ -51,11 +52,11 @@ public abstract class PartyRoleEntry {
 		this.party =(PartyEntry) party;
 	}
 
-	public long getPartyRoleId() {
+	public String getPartyRoleId() {
 		return partyRoleId;
 	}
 
-	public void setPartyRoleId(long partyRoleId) {
+	public void setPartyRoleId(String partyRoleId) {
 		this.partyRoleId = partyRoleId;
 	}
 

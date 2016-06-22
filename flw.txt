@@ -1,0 +1,32 @@
+@startuml create-individual-customer-flow.png
+participant "com.ai.bss.webui.customer.controller\n**CustomerController**" as com.ai.bss.webui.customer.controller.CustomerController
+participant "com.ai.bss.api.customer.command\n**CreateIndividualCustomerCommand**" as com.ai.bss.api.customer.command.CreateIndividualCustomerCommand
+participant "com.ai.bss.commandhandler.customer\n**CustomerCommandHandler**" as com.ai.bss.commandhandler.customer.CustomerCommandHandler
+participant "com.ai.bss.api.party.command\n**CreateIndividualCommand**" as com.ai.bss.api.party.command.CreateIndividualCommand
+participant "com.ai.bss.commandhandler.party\n**IndividualCommandHandler**" as com.ai.bss.commandhandler.party.IndividualCommandHandler
+participant "com.ai.bss.aggregate.party\n**Individual**" as com.ai.bss.aggregate.party.Individual
+participant "com.ai.bss.api.party.event\n**IndividualCreatedEvent**" as com.ai.bss.api.party.event.IndividualCreatedEvent
+participant "com.ai.bss.api.customer.command\n**CreateCustomerFromPartyCommand**" as com.ai.bss.api.customer.command.CreateCustomerFromPartyCommand
+participant "com.ai.bss.commandhandler.customer\n**CustomerCommandHandler**" as com.ai.bss.commandhandler.customer.CustomerCommandHandler
+participant "com.ai.bss.aggregate.customer\n**Customer**" as com.ai.bss.aggregate.customer.Customer
+participant "com.ai.bss.api.customer.event\n**CustomerCreatedEvent**" as com.ai.bss.api.customer.event.CustomerCreatedEvent
+participant "com.ai.bss.api.customer.event\n**CustomerCreatedEvent**" as com.ai.bss.api.customer.event.CustomerCreatedEvent
+participant "com.ai.bss.api.customer.event\n**CustomerCreatedEvent**" as com.ai.bss.api.customer.event.CustomerCreatedEvent
+participant "com.ai.bss.api.customer.event\n**CustomerCreatedEvent**" as com.ai.bss.api.customer.event.CustomerCreatedEvent
+participant "com.ai.bss.api.customer.event\n**CustomerCreatedEvent**" as com.ai.bss.api.customer.event.CustomerCreatedEvent
+
+com.ai.bss.webui.customer.controller.CustomerController -> com.ai.bss.api.customer.command.CreateIndividualCustomerCommand: create
+com.ai.bss.api.customer.command.CreateIndividualCustomerCommand --> com.ai.bss.commandhandler.customer.CustomerCommandHandler: handleCreateIndividualCustomer
+com.ai.bss.commandhandler.customer.CustomerCommandHandler -> com.ai.bss.api.party.command.CreateIndividualCommand: create
+com.ai.bss.api.party.command.CreateIndividualCommand --> com.ai.bss.commandhandler.party.IndividualCommandHandler: handleCreateIndividual
+com.ai.bss.commandhandler.party.IndividualCommandHandler -> com.ai.bss.aggregate.party.Individual: create
+com.ai.bss.aggregate.party.Individual -> com.ai.bss.api.party.event.IndividualCreatedEvent: <init>
+com.ai.bss.commandhandler.customer.CustomerCommandHandler -> com.ai.bss.api.customer.command.CreateCustomerFromPartyCommand: create
+com.ai.bss.api.customer.command.CreateCustomerFromPartyCommand --> com.ai.bss.commandhandler.customer.CustomerCommandHandler: handleCreateCustomerFromParty
+com.ai.bss.commandhandler.customer.CustomerCommandHandler -> com.ai.bss.aggregate.customer.Customer: create
+com.ai.bss.aggregate.customer.Customer -> com.ai.bss.api.customer.event.CustomerCreatedEvent: <init>
+com.ai.bss.aggregate.customer.Customer -> com.ai.bss.api.customer.event.CustomerCreatedEvent: setPartyId
+com.ai.bss.aggregate.customer.Customer -> com.ai.bss.api.customer.event.CustomerCreatedEvent: setCustomerId
+com.ai.bss.aggregate.customer.Customer -> com.ai.bss.api.customer.event.CustomerCreatedEvent: setServiceCode
+com.ai.bss.aggregate.customer.Customer -> com.ai.bss.api.customer.event.CustomerCreatedEvent: setServicePassword
+@enduml

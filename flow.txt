@@ -1,0 +1,16 @@
+@startuml create-individual-customer-flow.png
+participant "com.ai.bss.webui.customer.controller\n**CustomerController**" as com.ai.bss.webui.customer.controller.CustomerController
+participant "com.ai.bss.api.customer.command\n**CreateIndividualCustomerCommand**" as com.ai.bss.api.customer.command.CreateIndividualCustomerCommand
+participant "com.ai.bss.commandhandler.customer\n**CustomerCommandHandler**" as com.ai.bss.commandhandler.customer.CustomerCommandHandler
+participant "com.ai.bss.api.customer.command\n**CreateIndividualCustomerCommand**" as com.ai.bss.api.customer.command.CreateIndividualCustomerCommand
+participant "com.ai.bss.commandhandler.customer\n**CustomerCommandHandler**" as com.ai.bss.commandhandler.customer.CustomerCommandHandler
+participant "com.ai.bss.api.customer.command\n**CreateIndividualCustomerCommand**" as com.ai.bss.api.customer.command.CreateIndividualCustomerCommand
+participant "com.ai.bss.commandhandler.customer\n**CustomerCommandHandler**" as com.ai.bss.commandhandler.customer.CustomerCommandHandler
+
+com.ai.bss.webui.customer.controller.CustomerController -> com.ai.bss.api.customer.command.CreateIndividualCustomerCommand: create
+com.ai.bss.api.customer.command.CreateIndividualCustomerCommand --> com.ai.bss.commandhandler.customer.CustomerCommandHandler: handleCreateIndividualCustomer
+com.ai.bss.webui.customer.controller.CustomerController -> com.ai.bss.api.customer.command.CreateIndividualCustomerCommand: create
+com.ai.bss.api.customer.command.CreateIndividualCustomerCommand --> com.ai.bss.commandhandler.customer.CustomerCommandHandler: handleCreateIndividualCustomer
+com.ai.bss.webui.customer.controller.CustomerController -> com.ai.bss.api.customer.command.CreateIndividualCustomerCommand: create
+com.ai.bss.api.customer.command.CreateIndividualCustomerCommand --> com.ai.bss.commandhandler.customer.CustomerCommandHandler: handleCreateIndividualCustomer
+@enduml

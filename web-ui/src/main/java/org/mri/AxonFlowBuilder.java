@@ -48,20 +48,17 @@ public class AxonFlowBuilder {
     private void buildCommandFlow(AxonNode node) {
         MethodCall methodCall = this.callHierarchyBuilder.buildCalleesMethodHierarchy(node.reference());
         Iterable<MethodCall> allCommandConstructionCalls = Iterables.filter(methodCall.asList(), isCommandPredicate());
-        System.out.println("buildCommandFlow::start::"+node.reference());
-        for (MethodCall commandConstruction : allCommandConstructionCalls) {        	
-            CtMethodImpl commandHandler = commandHandlers.get(commandConstruction.reference().getDeclaringType());
-            System.out.println("commandConstruction.reference().name::"+commandConstruction.reference().getDeclaration()+commandConstruction.reference().getSimpleName());
+        for (MethodCall commandConstruction : allCommandConstructionCalls) {        	           
     		if (!commandConstruction.reference().getSimpleName().equalsIgnoreCase("<init>")){
     			continue;
     		}
+    		CtMethodImpl commandHandler = commandHandlers.get(commandConstruction.reference().getDeclaringType());
             AxonNode commandConstructionNode = new AxonNode(AxonNode.Type.COMMAND, commandConstruction.reference());
             node.add(commandConstructionNode);
             AxonNode commandHandlerNode = new AxonNode(AxonNode.Type.COMMAND_HANDLER, commandHandler.getReference());
             commandConstructionNode.add(commandHandlerNode);
             buildAggregateFlow(commandHandlerNode);
         }
-        System.out.println("buildCommandFlow::end::"+node.reference());
     }
 
     private Predicate<MethodCall> isCommandPredicate() {
@@ -74,7 +71,6 @@ public class AxonFlowBuilder {
     }
 
     private void buildAggregateFlow(AxonNode node) {
-    	System.out.println("node"+":"+node.reference().toString());
         MethodCall methodCall = this.callHierarchyBuilder.buildCalleesMethodHierarchy(node.reference());
 
         Iterable<MethodCall> aggregateCallInstances =
@@ -86,11 +82,11 @@ public class AxonFlowBuilder {
         		hasAggregateCall=true;
         	}
             AxonNode aggregateNode = new AxonNode(AxonNode.Type.AGGREGATE, aggregateCall.reference());
-            System.out.println("aggregate"+":"+aggregateNode.reference().toString());
             buildEventFlow(aggregateNode);
             if (aggregateNode.hasChildren()) {
                 node.add(aggregateNode);
-            }                  }        	
+            }                  
+        }        	
         if (!hasAggregateCall){
         	//dispatch other command
         	 buildCommandFlow(node);
@@ -109,17 +105,16 @@ public class AxonFlowBuilder {
 
     private AxonNode buildEventFlow(AxonNode node) {
         MethodCall methodCall = this.callHierarchyBuilder.buildCalleesMethodHierarchy(node.reference());
-
         Iterable<MethodCall> eventConstructionInstances =
                 Iterables.filter(methodCall.asList(), eventHandlerIdentificationStrategy.isEventPredicate());
-        for (MethodCall eventConstruction : eventConstructionInstances) {
+        for (MethodCall eventConstruction : eventConstructionInstances) {            
+            if (!eventConstruction.reference().getSimpleName().equalsIgnoreCase("<init>")){
+    			continue;
+    		}
             AxonNode eventNode = new AxonNode(AxonNode.Type.EVENT, eventConstruction.reference());
             node.add(eventNode);
             for (CtMethodImpl eventHandler : eventHandlerIdentificationStrategy.findEventHandlers(eventNode.reference().getDeclaringType())) {
                 AxonNode eventHandlerNode = new AxonNode(AxonNode.Type.EVENT_LISTENER, eventHandler.getReference());
-                if (!eventHandlerNode.reference().getSimpleName().equalsIgnoreCase("<init>")){
-        			continue;
-        		}
                 eventNode.add(eventHandlerNode);
                 buildCommandFlow(eventHandlerNode);
             }

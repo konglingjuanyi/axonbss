@@ -23,9 +23,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.ai.bss.query.customer.CustomerEntry;
 
-/**
- * @author Jettro Coenradie
- */
 public interface CustomerQueryRepository extends PagingAndSortingRepository<CustomerEntry, String> {
 	// MongoRepository
 	List<CustomerEntry> findByType(String type);

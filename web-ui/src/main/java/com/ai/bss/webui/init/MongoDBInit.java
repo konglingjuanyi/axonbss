@@ -9,11 +9,16 @@ import com.ai.bss.query.user.UserEntry;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.eventstore.EventStore;
 import org.axonframework.eventstore.mongo.MongoEventStore;
+import org.axonframework.saga.repository.mongo.MongoSagaRepository;
 import org.axonframework.saga.repository.mongo.MongoTemplate;
+import org.axonframework.saga.spring.SpringResourceInjector;
+import org.axonframework.serializer.json.JacksonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +41,12 @@ public class MongoDBInit extends BaseDBInit {
     private org.springframework.data.mongodb.core.MongoTemplate mongoTemplate;
     private MongoTemplate systemAxonSagaMongo;
     private org.springframework.data.mongodb.core.MongoTemplate springTemplate;
+    
+    @Autowired
+    private JacksonSerializer axonJsonSerializer;
+    private org.axonframework.eventstore.mongo.MongoTemplate axonMongoTemplate;
+    
+    private SpringResourceInjector springResourceInjector;
 
     @Autowired
     public MongoDBInit(CommandBus commandBus,
@@ -90,22 +101,28 @@ public class MongoDBInit extends BaseDBInit {
     void initializeDB() {
         systemAxonMongo.domainEventCollection().drop();
         systemAxonMongo.snapshotEventCollection().drop();
-
         systemAxonSagaMongo.sagaCollection().drop();
-
         mongoTemplate.dropCollection(UserEntry.class);
-//        mongoTemplate.dropCollection(OrderBookEntry.class);
-//        mongoTemplate.dropCollection(OrderEntry.class);
         mongoTemplate.dropCollection(IndividualEntry.class);
         mongoTemplate.dropCollection(OrganizationEntry.class);
         mongoTemplate.dropCollection(PartyEntry.class);
-//        mongoTemplate.dropCollection(TradeExecutedEntry.class);
-//        mongoTemplate.dropCollection(PortfolioEntry.class);
-//        mongoTemplate.dropCollection(TransactionEntry.class);
     }
 
     @Override
     void additionalDBSteps() {
         eventStore.ensureIndexes();
+    }
+    
+    @Bean
+    EventStore eventStore() {
+        //MongoEventStore eventStore = new MongoEventStore(xmlSerializer(), axonMongoTemplate());
+        MongoEventStore eventStore = new MongoEventStore(axonJsonSerializer, axonMongoTemplate);
+        return eventStore;
+    }
+    @Bean
+    MongoSagaRepository sagaRepository(){
+    	MongoSagaRepository sagaRepository=new MongoSagaRepository(systemAxonSagaMongo);
+    	sagaRepository.setResourceInjector(springResourceInjector);
+    	return sagaRepository;
     }
 }

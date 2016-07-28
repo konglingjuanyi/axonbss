@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.ai.bss.api.customer.CustomerId;
 import com.ai.bss.api.customer.command.CreateCustomerFromPartyCommand;
 import com.ai.bss.api.customer.command.CreateIndividualCustomerCommand;

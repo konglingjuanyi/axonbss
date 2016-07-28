@@ -10,6 +10,11 @@
         <!-- Internal dependencies -->
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-infrastructure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>axonbss-party-api</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -29,11 +34,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
         </dependency>
+        
         <dependency>
-	        <groupId>org.springframework</groupId>
-	        <artifactId>spring-context</artifactId>
-	        <version>4.2.0.RELEASE</version>
-	    </dependency>
+        	<groupId>org.springframework.cloud</groupId>
+    		<artifactId>spring-cloud-starter-eureka</artifactId>
+    	</dependency>
 
         <!-- test dependencies -->
         <dependency>
@@ -43,4 +48,15 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <dependencyManagement>  
+    <dependencies>
+        <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Brixton.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    </dependencies>
+</dependencyManagement>
 </project>

@@ -19,9 +19,6 @@
         <dependent-module archiveName="axonbss-party-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/party-api/party-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="axonbss-party-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/party/party">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="aibss-customer-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customer-query/aibss-customer-query">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -29,6 +26,9 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="aibss-customer-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customer/aibss-customer">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="axonbss-party-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/party/party">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="aibss-policy-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-policy-query/aibss-policy-query">

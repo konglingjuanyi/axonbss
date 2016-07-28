@@ -12,5 +12,10 @@
             <artifactId>axonbss-party-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+         	<groupId>com.ai.axonbss</groupId>
+         	<artifactId>aibss-query</artifactId>
+         	<version>0.0.1-SNAPSHOT</version>
+         </dependency>
    </dependencies>    
 </project>

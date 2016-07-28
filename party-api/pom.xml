@@ -18,9 +18,8 @@
             <version>${javax.validation.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>policy</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
     </dependencies>
 </project>

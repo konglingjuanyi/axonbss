@@ -62,6 +62,7 @@
                     <input class="input-small" type="text" placeholder="Username" name='j_username'
                            value='<c:if test="${not empty param.login_error}"><c:out value="${SPRING_SECURITY_LAST_USERNAME}"/></c:if>'/>
                     <input class="input-small" type="password" placeholder="Password" name='j_password'/>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                     <button class="btn" type="submit">Sign in</button>
                 </form>
             </sec:authorize>
@@ -87,7 +88,7 @@
     </div>
 
     <footer>
-        <p>&copy; Gridshore 2011</p>
+        <p>&copy; Levon Zhang - Asiainfo 2016</p>
     </footer>
 
 </div>

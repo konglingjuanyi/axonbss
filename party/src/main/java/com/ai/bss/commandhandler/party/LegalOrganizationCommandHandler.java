@@ -14,7 +14,7 @@ import com.ai.bss.api.party.command.TerminateLegalCommand;
 import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
 
 public class LegalOrganizationCommandHandler{
-	private Repository<Party> repository;
+	private Repository<Legal> repository;
     
     @CommandHandler
     public PartyId handleCreateLegal(CreateLegalCommand command) {
@@ -41,9 +41,9 @@ public class LegalOrganizationCommandHandler{
     
     
     @Autowired
-    @Qualifier("partyRepository")
-    public void setRepository(Repository<Party> partyRepository) {
-        this.repository = partyRepository;
+    @Qualifier("legalRepository")
+    public void setRepository(Repository<Legal> legalRepository) {
+        this.repository = legalRepository;
     }
 
 }

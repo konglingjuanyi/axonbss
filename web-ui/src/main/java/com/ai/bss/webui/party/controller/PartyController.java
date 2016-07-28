@@ -22,6 +22,7 @@ import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.command.CreateChildDepartmentCommand;
@@ -53,13 +55,15 @@ import com.ai.bss.webui.party.model.Individual;
 import com.ai.bss.webui.party.model.Legal;
 import com.ai.bss.webui.party.model.Party;
 import com.ai.bss.webui.party.model.TopDepartment;
+import com.ai.bss.webui.util.BaseController;
 
 /**
- * @author Jettro Coenradie
+ * @author Lianhua Zhang
  */
-@Controller
+@RestController
 @RequestMapping("/party")
-public class PartyController {
+
+public class PartyController extends BaseController{
 
     private PartyQueryRepository partyRepository;
     private UserQueryRepository userRepository;
@@ -199,7 +203,8 @@ public class PartyController {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateIndividualCommand command =new CreateIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
-    		commandBus.dispatch(new GenericCommandMessage<CreateIndividualCommand>(command));
+    		client.postForObject("http://party-service/createIndividualCommand",command,FutureCallback.class);
+    		//commandBus.dispatch(new GenericCommandMessage<CreateIndividualCommand>(command));
     		return "redirect:/party";
     	}
     	return "createIndividual";
@@ -210,7 +215,8 @@ public class PartyController {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateLegalCommand command =new CreateLegalCommand(partyId,legal.getLegalName());
-    		commandBus.dispatch(new GenericCommandMessage<CreateLegalCommand>(command));
+    		client.postForObject("http://party-service/createLegalCommand",command,FutureCallback.class);
+    		//commandBus.dispatch(new GenericCommandMessage<CreateLegalCommand>(command));
     		return "redirect:/party";
     	}
     	return "createLegal";
@@ -221,7 +227,8 @@ public class PartyController {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateTopDepartmentCommand command =new CreateTopDepartmentCommand(partyId,topDepartment.getDepartmentName(),topDepartment.getLegalId());
-    		commandBus.dispatch(new GenericCommandMessage<CreateTopDepartmentCommand>(command));
+    		client.postForObject("http://party-service/createTopDepartmentCommand",command,FutureCallback.class);
+    		//commandBus.dispatch(new GenericCommandMessage<CreateTopDepartmentCommand>(command));
     		return "redirect:/party";
     	}
     	return "createTopDepartment";

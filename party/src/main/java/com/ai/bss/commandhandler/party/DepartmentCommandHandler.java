@@ -15,7 +15,7 @@ import com.ai.bss.api.party.command.TerminateDepartmentCommand;
 import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
 
 public class DepartmentCommandHandler{
-	private Repository<Party> repository;
+	private Repository<Department> repository;
     
     @CommandHandler
     public PartyId handleCreateTopDepartment(CreateTopDepartmentCommand command) {
@@ -50,9 +50,9 @@ public class DepartmentCommandHandler{
     
     
     @Autowired
-    @Qualifier("partyRepository")
-    public void setRepository(Repository<Party> partyRepository) {
-        this.repository = partyRepository;
+    @Qualifier("departmentRepository")
+    public void setRepository(Repository<Department> departmentRepository) {
+        this.repository = departmentRepository;
     }
 
 }

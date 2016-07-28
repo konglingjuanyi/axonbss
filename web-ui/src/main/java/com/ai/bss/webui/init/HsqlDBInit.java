@@ -1,11 +1,16 @@
 package com.ai.bss.webui.init;
 
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.eventstore.EventStore;
 import org.axonframework.eventstore.jdbc.EventSqlSchema;
+import org.axonframework.eventstore.jdbc.JdbcEventStore;
+import org.axonframework.eventstore.mongo.MongoEventStore;
+import org.axonframework.saga.repository.jdbc.JdbcSagaRepository;
 import org.axonframework.saga.repository.jdbc.SagaSqlSchema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -33,34 +38,22 @@ public class HsqlDBInit extends BaseDBInit {
     private UserQueryRepository userQueryRepository;
     private PartyQueryRepository partyQueryRepository;
     private CommandPolicyQueryRepository commandPolicyQueryRepository;
-//    private OrderBookQueryRepository orderBookQueryRepository;
-//    private PortfolioQueryRepository portfolioQueryRepository;
-//    private TradeExecutedQueryRepository tradeExecutedQueryRepository;
-//    private TransactionQueryRepository transactionQueryRepository;
 
     @Autowired
     public HsqlDBInit(CommandBus commandBus,
                       PartyQueryRepository partyQueryRepository,
                       CommandPolicyQueryRepository commandPolicyQueryRepository,
-//                      OrderBookQueryRepository orderBookRepository,
                       EventSqlSchema eventSqlSchema,
                       SagaSqlSchema sagaSqlSchema, DataSource dataSource,
                       UserQueryRepository userQueryRepository
-//                      , 
-//                      CompanyQueryRepository companyQueryRepository, OrderBookQueryRepository orderBookQueryRepository, PortfolioQueryRepository portfolioQueryRepository, TradeExecutedQueryRepository tradeExecutedQueryRepository, TransactionQueryRepository transactionQueryRepository
                       ) {
         super(commandBus, partyQueryRepository,commandPolicyQueryRepository);
-//        		, companyRepository, portfolioRepository, orderBookRepository);
         this.eventSqlSchema = eventSqlSchema;
         this.sagaSqlSchema = sagaSqlSchema;
         this.dataSource = dataSource;
         this.userQueryRepository = userQueryRepository;
         this.partyQueryRepository = partyQueryRepository;
         this.commandPolicyQueryRepository=commandPolicyQueryRepository;
-//        this.orderBookQueryRepository = orderBookQueryRepository;
-//        this.portfolioQueryRepository = portfolioQueryRepository;
-//        this.tradeExecutedQueryRepository = tradeExecutedQueryRepository;
-//        this.transactionQueryRepository = transactionQueryRepository;
     }
 
     @Override
@@ -76,10 +69,6 @@ public class HsqlDBInit extends BaseDBInit {
             sql_dropTableSagaEntry(connection).execute();
 
             userQueryRepository.deleteAll();
-//            transactionQueryRepository.deleteAll();
-//            tradeExecutedQueryRepository.deleteAll();
-//            orderBookQueryRepository.deleteAll();
-//            portfolioQueryRepository.deleteAll();
             partyQueryRepository.deleteAll();
 
             connection.commit();
@@ -140,5 +129,16 @@ public class HsqlDBInit extends BaseDBInit {
     public PreparedStatement sql_dropTableSagaEntry(Connection conn) throws SQLException {
         return conn.prepareStatement("drop table SAGAENTRY if exists;");
     }
-
+    
+    @Bean
+    EventStore eventStore() {
+        JdbcEventStore eventStore = new JdbcEventStore(dataSource);
+        return eventStore;
+    }
+    
+    @Bean
+    JdbcSagaRepository sagaRepository(){
+    	JdbcSagaRepository sagaRepository=new JdbcSagaRepository(dataSource,sagaSqlSchema);
+    	return sagaRepository;
+    }
 }

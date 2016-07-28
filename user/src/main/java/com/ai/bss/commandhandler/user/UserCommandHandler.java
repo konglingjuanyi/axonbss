@@ -69,7 +69,7 @@ public class UserCommandHandler {
     }
 
     @Autowired
-    public void setUserRepository(UserQueryRepository userRepository) {
-        this.userQueryRepository = userRepository;
+    public void setUserRepository(UserQueryRepository userQueryRepository) {
+        this.userQueryRepository = userQueryRepository;
     }
 }

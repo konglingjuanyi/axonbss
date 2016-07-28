@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.ai.bss.aggregate.party.Individual;
-import com.ai.bss.aggregate.party.Party;
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.command.CreateIndividualCommand;
 import com.ai.bss.api.party.command.RenameIndividualCommand;
@@ -14,7 +13,7 @@ import com.ai.bss.api.party.command.TerminateIndividualCommand;
 import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
 
 public class IndividualCommandHandler{
-	private Repository<Party> repository;
+	private Repository<Individual> repository;
 
     @CommandHandler
     public PartyId handleCreateIndividual(CreateIndividualCommand command) {
@@ -43,9 +42,9 @@ public class IndividualCommandHandler{
     
     
     @Autowired
-    @Qualifier("partyRepository")
-    public void setRepository(Repository<Party> partyRepository) {
-        this.repository = partyRepository;
+    @Qualifier("individualRepository")
+    public void setRepository(Repository<Individual> individualRepository) {
+        this.repository = individualRepository;
     }
 
 }

@@ -5,6 +5,9 @@ import com.ai.bss.api.party.PartyId;
 public class RenameDepartmentCommand extends RenamePartyCommand {
 	private String oldDepartmentName;
 	private String newDepartmentName;
+	
+	public RenameDepartmentCommand(){}
+	
 	public RenameDepartmentCommand(PartyId partyId, String newTradingName) {
 		super(partyId);
 		this.newDepartmentName=newTradingName;

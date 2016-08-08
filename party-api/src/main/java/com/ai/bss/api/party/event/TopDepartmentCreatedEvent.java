@@ -5,6 +5,7 @@ import com.ai.bss.api.party.PartyId;
 public class TopDepartmentCreatedEvent extends PartyCreatedEvent {
 	private String legalId;
 	private String departmentName;
+	public TopDepartmentCreatedEvent(){}
 	public TopDepartmentCreatedEvent(PartyId partyId) {
 		super(partyId);
 	}

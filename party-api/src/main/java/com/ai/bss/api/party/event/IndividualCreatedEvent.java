@@ -1,10 +1,12 @@
 package com.ai.bss.api.party.event;
 
 import com.ai.bss.api.party.PartyId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class IndividualCreatedEvent extends PartyCreatedEvent{
 	private String firstName;
 	private String lastName;	
+	public IndividualCreatedEvent(){}
 	
 	public IndividualCreatedEvent(PartyId partyId){
 		super(partyId);
@@ -33,6 +35,7 @@ public class IndividualCreatedEvent extends PartyCreatedEvent{
 	}
 
 	@Override
+	@JsonIgnore
 	public String getPartyName() {
 		StringBuffer name=new StringBuffer();
 		name.append(this.getLastName()).append(" ").append(this.getFirstName());

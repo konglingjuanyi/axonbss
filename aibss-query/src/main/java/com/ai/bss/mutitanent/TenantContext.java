@@ -11,7 +11,7 @@ public class TenantContext  {
         return currentTenantName.get();
     }
 
-    public static void setTenant(final String tenantName) {
+    public static void setCurrentTenant(final String tenantName) {
         currentTenantName.set(tenantName);
     }
 

@@ -7,6 +7,9 @@ public class CreateChildDepartmentCommand extends CreatePartyCommand{
 	@NotNull
 	private String parentDepartmentId;
 	private String departmentName;
+	
+	public CreateChildDepartmentCommand(){}
+	
 	public CreateChildDepartmentCommand(PartyId partyId,String departmentName,String parentDepartmentId) {
 		super(partyId);
 		this.parentDepartmentId=parentDepartmentId;

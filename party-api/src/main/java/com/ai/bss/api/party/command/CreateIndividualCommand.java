@@ -13,6 +13,10 @@ public class CreateIndividualCommand extends CreatePartyCommand{
     @Size(min = 1)	
 	private String lastName;
 	
+	
+	public CreateIndividualCommand(){
+		
+	}
 	public CreateIndividualCommand(PartyId partyId){
 		super(partyId);
 	}

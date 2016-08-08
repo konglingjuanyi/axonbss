@@ -11,17 +11,16 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import com.ai.bss.mutitanent.TenantContext;
 
-@EnableAutoConfiguration
-@EnableJpaRepositories(basePackages={"com.ai.bss.query"})
-@SpringBootApplication(scanBasePackages={"com.ai.bss"})
-@EntityScan({"com.ai.bss"})
 @EnableDiscoveryClient
+@EnableAutoConfiguration
+@SpringBootApplication(scanBasePackages={"com.ai.bss"})
+@EnableJpaRepositories(basePackages={"com.ai.bss.query"})
+@EntityScan({"com.ai.bss"})
 public class AiBssWebApplication {
 	
 	public static void main(String[] args) throws Exception {
-		TenantContext.setTenant("asiainfo-nj");
+		//TenantContext.setCurrentTenant("asia-nj");
 		SpringApplication.run(AiBssWebApplication.class, args);
 	}
 	

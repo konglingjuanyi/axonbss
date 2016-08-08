@@ -11,12 +11,14 @@ import com.ai.bss.api.party.command.CreateIndividualCommand;
 import com.ai.bss.api.party.command.RenameIndividualCommand;
 import com.ai.bss.api.party.command.TerminateIndividualCommand;
 import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
+import com.ai.bss.mutitanent.TenantContext;
 
 public class IndividualCommandHandler{
 	private Repository<Individual> repository;
 
     @CommandHandler
     public PartyId handleCreateIndividual(CreateIndividualCommand command) {
+    	TenantContext.setCurrentTenant(command.getTenantId());
     	PartyId identifier = command.getPartyId();
         Individual individual = new Individual(identifier, command.getFirstName(),command.getLastName());
         repository.add(individual);
@@ -26,6 +28,7 @@ public class IndividualCommandHandler{
     
     @CommandHandler
     public void handleRenameIndividual(RenameIndividualCommand command) throws NewPartyNameSameAsOldException,Exception{
+    	TenantContext.setCurrentTenant(command.getTenantId());
     	PartyId identifier = command.getPartyId();
         Individual individual = (Individual)repository.load(identifier);
         individual.setFirstName(command.getOldFirstName());
@@ -35,6 +38,7 @@ public class IndividualCommandHandler{
     
      @CommandHandler
     public void handleTerminateIndividual(TerminateIndividualCommand command) throws Exception{
+    	TenantContext.setCurrentTenant(command.getTenantId());
     	PartyId identifier = command.getPartyId();
         Individual individual = (Individual)repository.load(identifier);
         individual.terminate();

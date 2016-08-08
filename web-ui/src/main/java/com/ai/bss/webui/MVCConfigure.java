@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import com.opensymphony.sitemesh.webapp.SiteMeshFilter;
 
 @Configuration
-@ComponentScan(basePackages={"com.ai.bss.webui"})
+@ComponentScan(basePackages={"com.ai.bss"})
 public class MVCConfigure extends WebMvcConfigurerAdapter{
 	 @Override
 	 public void addViewControllers(ViewControllerRegistry registry) {

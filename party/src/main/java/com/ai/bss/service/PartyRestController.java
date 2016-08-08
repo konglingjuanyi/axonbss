@@ -5,6 +5,7 @@ import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,57 +31,79 @@ public class PartyRestController {
 	@Autowired
 	private CommandBus commandBus;
 	
+	 @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home() throws Exception{
+    	return "Welcome to party service!";
+    }
+	
     @RequestMapping(value = "/createIndividualCommand", method = RequestMethod.POST)
-    public FutureCallback createIndividual(@RequestParam("createIndividualCommand") CreateIndividualCommand command) throws Exception{
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateIndividualCommand>(command));
-
+    public CreateIndividualCommand createIndividual(@RequestBody CreateIndividualCommand command) throws Exception{
+    	FutureCallback callback= CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateIndividualCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/createLegalCommand", method = RequestMethod.POST)
-    public FutureCallback createLegal(@RequestParam("createLegalCommand") CreateLegalCommand command) throws Exception{
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateLegalCommand>(command));
+    public CreateLegalCommand createLegal(@RequestBody CreateLegalCommand command) throws Exception{
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateLegalCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/createTopDepartmentCommand", method = RequestMethod.POST)
-    public FutureCallback createTopDepartment(@RequestParam("createTopDepartmentCommand") CreateTopDepartmentCommand command) throws Exception{
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateTopDepartmentCommand>(command));
+    public CreateTopDepartmentCommand createTopDepartment(@RequestBody CreateTopDepartmentCommand command) throws Exception{
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateTopDepartmentCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/createChildDepartmentCommand", method = RequestMethod.POST)
-    public FutureCallback createChildDepartment(@RequestParam("createChildDepartmentCommand") CreateChildDepartmentCommand command) throws Exception{
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateChildDepartmentCommand>(command));
+    public CreateChildDepartmentCommand createChildDepartment(@RequestBody CreateChildDepartmentCommand command) throws Exception{
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<CreateChildDepartmentCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/renameIndividualCommand", method = RequestMethod.POST)
-    public FutureCallback renameIndividual(@RequestParam("renameIndividualCommand") RenameIndividualCommand command) throws Exception{
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<RenameIndividualCommand>(command));
-
+    public RenameIndividualCommand renameIndividual(@RequestBody RenameIndividualCommand command) throws Exception{
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<RenameIndividualCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/renameLegalCommand", method = RequestMethod.POST)
-    public FutureCallback renameLegal(@RequestParam("renameLegalCommand") RenameLegalCommand command) throws Exception{         	              	
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<RenameLegalCommand>(command));
-
+    public RenameLegalCommand renameLegal(@RequestBody RenameLegalCommand command) throws Exception{         	              	
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<RenameLegalCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/renameDepartmentCommand", method = RequestMethod.POST)
-    public FutureCallback renameDepartment(@RequestParam("renameDepartmentCommand") RenameDepartmentCommand command) throws Exception{         	              	
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<RenameDepartmentCommand>(command));
+    public RenameDepartmentCommand renameDepartment(@RequestBody RenameDepartmentCommand command) throws Exception{         	              	
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<RenameDepartmentCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/terminateIndividualCommand", method = RequestMethod.POST)
-    public FutureCallback terminateIndividual(@RequestParam("terminateIndividualCommand") TerminateIndividualCommand command) throws Exception {
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<TerminateIndividualCommand>(command));
+    public TerminateIndividualCommand terminateIndividual(@RequestBody TerminateIndividualCommand command) throws Exception {
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<TerminateIndividualCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/terminateLegalCommand", method = RequestMethod.POST)
-    public FutureCallback terminateLegal(@RequestParam("terminateLegalCommand") TerminateLegalCommand command) throws Exception {
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<TerminateLegalCommand>(command));
+    public TerminateLegalCommand terminateLegal(@RequestBody TerminateLegalCommand command) throws Exception {
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<TerminateLegalCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
     
     @RequestMapping(value = "/terminateDepartmentCommand", method = RequestMethod.POST)
-    public FutureCallback terminateDepartment(@RequestParam("terminateDepartmentCommand") TerminateDepartmentCommand command) throws Exception {
-    	return CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<TerminateDepartmentCommand>(command));
+    public TerminateDepartmentCommand terminateDepartment(@RequestBody TerminateDepartmentCommand command) throws Exception {
+    	FutureCallback callback =  CommandExecuter.executeCommand(commandBus, new GenericCommandMessage<TerminateDepartmentCommand>(command));
+    	command.setCallback(callback);
+    	return command;
     }
 
 }

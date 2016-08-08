@@ -1,4 +1,11 @@
 package com.ai.bss.mutitanent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -10,24 +17,16 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
-import javax.sql.DataSource;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-
-@Configuration
+//@Configuration
 public class MultitenantConfiguration {
-
     @Autowired
     private DataSourceProperties properties;
-
+    
     /**
      * Defines the data source for the application
      * @return
      */
-    @Bean
+    //@Bean
     @ConfigurationProperties(
             prefix = "spring"
     )
@@ -43,7 +42,6 @@ public class MultitenantConfiguration {
                 tenantProperties=PropertiesLoaderUtils.loadProperties(resource);
 
                 String tenantId = tenantProperties.getProperty("name");
-                System.out.println("==============tenantId is: "+tenantId);
                 dataSourceBuilder.driverClassName(properties.getDriverClassName())
                         .url(tenantProperties.getProperty("datasource.url"))
                         .username(tenantProperties.getProperty("datasource.username"))
@@ -69,7 +67,6 @@ public class MultitenantConfiguration {
 
         // Call this to finalize the initialization of the data source.
         dataSource.afterPropertiesSet();
-
         return dataSource;
     }
 

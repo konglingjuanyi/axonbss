@@ -16,12 +16,15 @@
 
 package com.ai.bss.webui.party.controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +33,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.command.CreateChildDepartmentCommand;
@@ -43,6 +45,7 @@ import com.ai.bss.api.party.command.RenameLegalCommand;
 import com.ai.bss.api.party.command.TerminateDepartmentCommand;
 import com.ai.bss.api.party.command.TerminateIndividualCommand;
 import com.ai.bss.api.party.command.TerminateLegalCommand;
+import com.ai.bss.mutitanent.TenantContext;
 import com.ai.bss.query.party.DepartmentEntry;
 import com.ai.bss.query.party.IndividualEntry;
 import com.ai.bss.query.party.LegalOrganizationEntry;
@@ -53,14 +56,14 @@ import com.ai.bss.webui.party.model.ChildDepartment;
 import com.ai.bss.webui.party.model.Department;
 import com.ai.bss.webui.party.model.Individual;
 import com.ai.bss.webui.party.model.Legal;
-import com.ai.bss.webui.party.model.Party;
 import com.ai.bss.webui.party.model.TopDepartment;
 import com.ai.bss.webui.util.BaseController;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Lianhua Zhang
  */
-@RestController
+@Controller
 @RequestMapping("/party")
 
 public class PartyController extends BaseController{
@@ -201,10 +204,17 @@ public class PartyController extends BaseController{
     @RequestMapping(value = "/createIndividual", method = RequestMethod.POST)
     public String createIndividual(@ModelAttribute("individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
-    		PartyId partyId=new PartyId();
+    		PartyId partyId=new PartyId();            
     		CreateIndividualCommand command =new CreateIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
-    		client.postForObject("http://party-service/createIndividualCommand",command,FutureCallback.class);
-    		//commandBus.dispatch(new GenericCommandMessage<CreateIndividualCommand>(command));
+    		command.setTenantId(TenantContext.getCurrentTenant());
+    		command=client.postForObject("http://party-service/party/createIndividualCommand",command,CreateIndividualCommand.class);    		
+    		try {
+    			command.getCallback().getResult();
+			} catch (Exception e) {
+				bindingResult.rejectValue("firstName",
+                        "error.createIndividual.failed",
+                        e.getCause().getMessage());
+			}
     		return "redirect:/party";
     	}
     	return "createIndividual";
@@ -215,8 +225,15 @@ public class PartyController extends BaseController{
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateLegalCommand command =new CreateLegalCommand(partyId,legal.getLegalName());
-    		client.postForObject("http://party-service/createLegalCommand",command,FutureCallback.class);
-    		//commandBus.dispatch(new GenericCommandMessage<CreateLegalCommand>(command));
+    		command.setTenantId(TenantContext.getCurrentTenant());
+    		command=client.postForObject("http://party-service/party/createLegalCommand",command,CreateLegalCommand.class);
+    		try {
+    			command.getCallback().getResult();
+			} catch (Exception e) {
+				bindingResult.rejectValue("legalName",
+                        "error.createLegal.failed",
+                        e.getCause().getMessage());
+			}
     		return "redirect:/party";
     	}
     	return "createLegal";
@@ -227,7 +244,8 @@ public class PartyController extends BaseController{
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateTopDepartmentCommand command =new CreateTopDepartmentCommand(partyId,topDepartment.getDepartmentName(),topDepartment.getLegalId());
-    		client.postForObject("http://party-service/createTopDepartmentCommand",command,FutureCallback.class);
+    		command.setTenantId(TenantContext.getCurrentTenant());
+    		command=client.postForObject("http://party-service/createTopDepartmentCommand",command,CreateTopDepartmentCommand.class);
     		//commandBus.dispatch(new GenericCommandMessage<CreateTopDepartmentCommand>(command));
     		return "redirect:/party";
     	}
@@ -239,6 +257,7 @@ public class PartyController extends BaseController{
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();
     		CreateChildDepartmentCommand command =new CreateChildDepartmentCommand(partyId,childDepartment.getDepartmentName(),childDepartment.getParentDepartmentId());
+    		command.setTenantId(TenantContext.getCurrentTenant());
     		commandBus.dispatch(new GenericCommandMessage<CreateChildDepartmentCommand>(command));
     		return "redirect:/party";
     	}
@@ -254,6 +273,7 @@ public class PartyController extends BaseController{
             	RenameIndividualCommand command =new RenameIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
             	command.setOldFirstName(individualEntry.getFirstName());
             	command.setOldLastName(individualEntry.getLastName());            	
+            	command.setTenantId(TenantContext.getCurrentTenant());
             	FutureCallback callback = new FutureCallback();
         		commandBus.dispatch(new GenericCommandMessage<RenameIndividualCommand>(command),callback);
         		try {
@@ -278,7 +298,8 @@ public class PartyController extends BaseController{
             	FutureCallback callback = new FutureCallback();
         		RenameLegalCommand command =new RenameLegalCommand(partyId,legal.getLegalName());
             	command.setOldLegalName(partyEntry.getName());          	              	
-        		commandBus.dispatch(new GenericCommandMessage<RenameLegalCommand>(command),callback);
+            	command.setTenantId(TenantContext.getCurrentTenant());
+            	commandBus.dispatch(new GenericCommandMessage<RenameLegalCommand>(command),callback);
         		try {
         			callback.getResult();
         			return "redirect:/party";
@@ -301,6 +322,7 @@ public class PartyController extends BaseController{
             	FutureCallback callback = new FutureCallback();            	
         		RenameDepartmentCommand command =new RenameDepartmentCommand(partyId,department.getDepartmentName());
         		command.setOldDepartmentName(partyEntry.getName());          	              	
+        		command.setTenantId(TenantContext.getCurrentTenant());
         		commandBus.dispatch(new GenericCommandMessage<RenameDepartmentCommand>(command),callback);
         		try {
         			callback.getResult();
@@ -322,12 +344,15 @@ public class PartyController extends BaseController{
 	        if(null!=partyEntry){
 	        	if (partyEntry instanceof IndividualEntry){
 	        		TerminateIndividualCommand command =new TerminateIndividualCommand(new PartyId(partyId));
+	        		command.setTenantId(TenantContext.getCurrentTenant());
 	        		commandBus.dispatch(new GenericCommandMessage<TerminateIndividualCommand>(command));
 	        	}else if (partyEntry instanceof LegalOrganizationEntry){
 	        		TerminateLegalCommand command =new TerminateLegalCommand(new PartyId(partyId));
+	        		command.setTenantId(TenantContext.getCurrentTenant());
 	        		commandBus.dispatch(new GenericCommandMessage<TerminateLegalCommand>(command));
 	        	}else{
 	        		TerminateDepartmentCommand command =new TerminateDepartmentCommand(new PartyId(partyId));
+	        		command.setTenantId(TenantContext.getCurrentTenant());
 	        		commandBus.dispatch(new GenericCommandMessage<TerminateDepartmentCommand>(command));
 	        	}
 	        }

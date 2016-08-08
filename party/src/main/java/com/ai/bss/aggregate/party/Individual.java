@@ -6,6 +6,7 @@ import com.ai.bss.api.party.event.IndividualCreatedEvent;
 import com.ai.bss.api.party.event.IndividualRenamedEvent;
 import com.ai.bss.api.party.event.IndividualTerminatedEvent;
 import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
+import com.ai.bss.mutitanent.TenantContext;
 
 public class Individual extends Party {
 	private String firstName;
@@ -16,7 +17,9 @@ public class Individual extends Party {
 	}
 	
 	public Individual(PartyId partyId,String firstName,String lastName){
-		apply(new IndividualCreatedEvent(partyId, firstName,lastName));
+		IndividualCreatedEvent event = new IndividualCreatedEvent(partyId, firstName,lastName);
+		event.setTenantId(TenantContext.getCurrentTenant());
+		apply(event);
 	}
 
 	@EventHandler
@@ -34,13 +37,17 @@ public class Individual extends Party {
 		}
 		this.firstName=firstName;
 		this.lastName=lastName;
-		apply(new IndividualRenamedEvent(this.getPartyId(), firstName, lastName));
+		IndividualRenamedEvent event=new IndividualRenamedEvent(this.getPartyId(), firstName, lastName);
+		event.setTenantId(TenantContext.getCurrentTenant());
+		apply(event);
 	}
 	
 	public void terminate() throws Exception{
 		//TODO check if party has partyRoles, if have, notify to terminate partyRole first.
 		this.setState("Terminated");
-		apply(new IndividualTerminatedEvent(this.getPartyId()));
+		IndividualTerminatedEvent event =new IndividualTerminatedEvent(this.getPartyId());
+		event.setTenantId(TenantContext.getCurrentTenant());
+		apply(event);
 	}
 
 	public String getFirstName() {

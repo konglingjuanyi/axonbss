@@ -4,6 +4,9 @@ import com.ai.bss.api.party.PartyId;
 public class CreateLegalCommand extends CreatePartyCommand{
 	private String parentLegalId;
 	private String legalName;
+	
+	public CreateLegalCommand(){}
+	
 	public CreateLegalCommand(PartyId partyId, String legalName) {
 		super(partyId);
 		this.legalName=legalName;

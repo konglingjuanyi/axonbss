@@ -21,7 +21,6 @@ import javax.transaction.Transactional;
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.ai.bss.api.party.event.ChildDepartmentCreatedEvent;
 import com.ai.bss.api.party.event.DepartmentRenamedEvent;
 import com.ai.bss.api.party.event.DepartmentTerminatedEvent;
@@ -32,28 +31,30 @@ import com.ai.bss.api.party.event.LegalCreatedEvent;
 import com.ai.bss.api.party.event.LegalRenamedEvent;
 import com.ai.bss.api.party.event.LegalTerminatedEvent;
 import com.ai.bss.api.party.event.TopDepartmentCreatedEvent;
+import com.ai.bss.mutitanent.TenantContext;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
 
-/**
- * @author Jettro Coenradie
- */
 @Component
-@Transactional
 public class PartyListener {
-
+	@Autowired
     private PartyQueryRepository partyRepository;
 
     @EventHandler
+    @Transactional
     public void handleIndividualCreatedEvent(IndividualCreatedEvent event) {
-        IndividualEntry partyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
-        partyEntry.setState("initial");
+        //IndividualEntry partyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
+    	IndividualEntry partyEntry = new IndividualEntry(event.getFirstName(),event.getLastName());
+    	partyEntry.setState("initial");
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
+        System.out.println("Party:"+partyEntry.getPartyId()+" saved!");
     }
     
     @EventHandler
     public void handleLegalCreatedEvent(LegalCreatedEvent event) {
         LegalOrganizationEntry partyEntry = new LegalOrganizationEntry(event.getPartyId().toString(),event.getTradingName());
         partyEntry.setState("initial");
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }
     
@@ -62,6 +63,7 @@ public class PartyListener {
     	OrganizationEntry legal=(OrganizationEntry)partyRepository.findOne(event.getLegalId());
         DepartmentEntry partyEntry = new DepartmentEntry(event.getPartyId().toString(),event.getDepartmentName(),true,legal);
         partyEntry.setState("initial");
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }
     
@@ -70,6 +72,7 @@ public class PartyListener {
     	OrganizationEntry parentDepartment=(OrganizationEntry)partyRepository.findOne(event.getParentDepartmentId());
         DepartmentEntry partyEntry = new DepartmentEntry(event.getPartyId().toString(),event.getDepartmentName(),false,parentDepartment);
         partyEntry.setState("initial");
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }
         
@@ -78,6 +81,7 @@ public class PartyListener {
         IndividualEntry partyEntry = (IndividualEntry)partyRepository.findOne(event.getPartyId().toString());
         partyEntry.setFirstName(event.getNewFirstName());
         partyEntry.setLastName(event.getNewLastName());
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }
     
@@ -85,6 +89,7 @@ public class PartyListener {
     public void handleLegalRenamedEvent(LegalRenamedEvent event) {
         LegalOrganizationEntry partyEntry = (LegalOrganizationEntry)partyRepository.findOne(event.getPartyId().toString());
         partyEntry.setTradingName(event.getTradingName());
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }
     
@@ -92,21 +97,25 @@ public class PartyListener {
     public void handleDepartmentRenamedEvent(DepartmentRenamedEvent event) {
         DepartmentEntry partyEntry = (DepartmentEntry)partyRepository.findOne(event.getPartyId().toString());
         partyEntry.setDepartmentName(event.getDepartmentName());
+        TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }
     
     @EventHandler
     public void handleIndividualTerminatedEvent(IndividualTerminatedEvent event) {
+    	TenantContext.setCurrentTenant(event.getTenantId());
         this.terminateParty(event.getPartyId().toString());
     }
     
     @EventHandler
     public void handleLegalTerminatedEvent(LegalTerminatedEvent event) {
+    	TenantContext.setCurrentTenant(event.getTenantId());
         this.terminateParty(event.getPartyId().toString());
     }
     
     @EventHandler
     public void handleDepartmentTerminatedEvent(DepartmentTerminatedEvent event) {
+    	TenantContext.setCurrentTenant(event.getTenantId());
         this.terminateParty(event.getPartyId().toString());
     }
     

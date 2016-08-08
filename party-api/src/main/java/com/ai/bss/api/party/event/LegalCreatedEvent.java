@@ -1,10 +1,11 @@
 package com.ai.bss.api.party.event;
 
 import com.ai.bss.api.party.PartyId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class LegalCreatedEvent extends PartyCreatedEvent{
 	private String tradingName;
-	
+	public LegalCreatedEvent(){}
 	public LegalCreatedEvent(PartyId partyId){
 		super(partyId);
 	}
@@ -16,6 +17,7 @@ public class LegalCreatedEvent extends PartyCreatedEvent{
 
 
 	@Override
+	@JsonIgnore
 	public String getPartyName() {
 		return tradingName;
 	}

@@ -5,11 +5,14 @@ import java.io.Serializable;
 import org.axonframework.common.Assert;
 import org.axonframework.domain.IdentifierFactory;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PartyId  implements Serializable{
 	 /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@JsonProperty
 	private String identifier;
 
 	    public PartyId() {

@@ -12,12 +12,14 @@ import com.ai.bss.api.party.command.CreateLegalCommand;
 import com.ai.bss.api.party.command.RenameLegalCommand;
 import com.ai.bss.api.party.command.TerminateLegalCommand;
 import com.ai.bss.exception.party.NewPartyNameSameAsOldException;
+import com.ai.bss.mutitanent.TenantContext;
 
 public class LegalOrganizationCommandHandler{
 	private Repository<Legal> repository;
     
     @CommandHandler
     public PartyId handleCreateLegal(CreateLegalCommand command) {
+    	TenantContext.setCurrentTenant(command.getTenantId());
     	PartyId identifier = command.getPartyId();
         Legal legal = new Legal(identifier, command.getLegalName());
         repository.add(legal);
@@ -26,6 +28,7 @@ public class LegalOrganizationCommandHandler{
     
     @CommandHandler
     public void handleRenameLegal(RenameLegalCommand command) throws NewPartyNameSameAsOldException,Exception{
+    	TenantContext.setCurrentTenant(command.getTenantId());
     	PartyId identifier = command.getPartyId();
         Legal legal = (Legal)repository.load(identifier);
         legal.setLegalName(command.getOldLegalName());
@@ -34,6 +37,7 @@ public class LegalOrganizationCommandHandler{
     
     @CommandHandler
     public void handleTerminateLegal(TerminateLegalCommand command) throws Exception{
+    	TenantContext.setCurrentTenant(command.getTenantId());
     	PartyId identifier = command.getPartyId();
     	Legal legal = (Legal)repository.load(identifier);
     	legal.terminate();

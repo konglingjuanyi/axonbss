@@ -35,6 +35,7 @@ public class CustomerController {
 	public CustomerController() {
 		// TODO Auto-generated constructor stub
 	}
+	@Autowired
 	private PartyQueryRepository partyRepository;
 	private CustomerQueryRepository customerRepository;
     private UserQueryRepository userRepository;

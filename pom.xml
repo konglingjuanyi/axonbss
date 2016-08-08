@@ -21,21 +21,7 @@
 
         <!-- TODO check these for updates -->
         <javax.validation.version>1.1.0.Final</javax.validation.version>
-        <commons.io.version>1.4</commons.io.version>
         <xstream.version>1.4.9</xstream.version>
-        <ehcache-jcache.version>1.5.0-0.5</ehcache-jcache.version>
-
-        <!-- data store libraries -->
-        <springdata.mongodb.version>1.9.1.RELEASE</springdata.mongodb.version>
-        <springdata.jpa.version>1.10.1.RELEASE</springdata.jpa.version>
-        <hibernate.em.version>4.3.10.Final</hibernate.em.version>
-        <hibernate.javax.version>1.0.0.Final</hibernate.javax.version>
-
-        <!-- Maven plugins -->
-        <maven.enforcer.plugin>1.4.1</maven.enforcer.plugin>
-        <maven.version.range>3.5.1</maven.version.range>
-        <java.version>1.8</java.version>
-        <maven.tomcat7.version>2.2</maven.tomcat7.version>
     </properties>
     
   <modules>
@@ -53,49 +39,15 @@
   	<module>aibss-customer</module>
   	<module>aibss-customer-api</module>
   	<module>aibss-customer-query</module>
+  	<module>aibss-common-api</module>
   </modules>
-  
-   <dependencyManagement>
-        <dependencies>
-            <!-- Testing -->
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-all</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.hamcrest</groupId>
-                <artifactId>hamcrest-all</artifactId>
-                <version>${hamcrest.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
-        <!-- Global dependencies -->
-        <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>jta</artifactId>
-            <version>1.1</version>
-        </dependency>
-
-        <!-- Global test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit-dep</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-        </dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-test</artifactId>
+    		<scope>test</scope>
+		</dependency>
     </dependencies>
 
     <build>

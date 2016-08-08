@@ -7,6 +7,8 @@ public class CreateTopDepartmentCommand extends CreatePartyCommand{
 	@NotNull
 	private String legalId;
 	private String departmentName;
+	public CreateTopDepartmentCommand(){}
+	
 	public CreateTopDepartmentCommand(PartyId partyId, String departmentName,String legalId) {
 		super(partyId);
 		this.legalId=legalId;

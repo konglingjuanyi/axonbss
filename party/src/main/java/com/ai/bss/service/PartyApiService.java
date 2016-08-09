@@ -1,7 +1,6 @@
 package com.ai.bss.service;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.system.ApplicationPidFileWriter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -11,9 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @EnableDiscoveryClient
 public class PartyApiService {
 	public static void main(String[] args) throws Exception {
-		SpringApplication notificationMicroService = new SpringApplication(PartyApiService.class);
-        notificationMicroService.addListeners(new ApplicationPidFileWriter("party-micro-service.pid"));
-        notificationMicroService.run(args);
+		SpringApplication.run(PartyApiService.class, args);
 	}
 
 }

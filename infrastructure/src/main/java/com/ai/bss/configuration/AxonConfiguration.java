@@ -49,8 +49,11 @@ import com.mongodb.MongoClient;
 @Configuration
 @AnnotationDriven
 public class AxonConfiguration {
-
+	
     private static final String AMQP_CONFIG_KEY = "AMQP.Config";
+
+    @Autowired
+    public Mongo mongo;
 
     @Autowired
     public ConnectionFactory connectionFactory;

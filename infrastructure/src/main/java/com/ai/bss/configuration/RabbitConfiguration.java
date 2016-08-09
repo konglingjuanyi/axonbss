@@ -1,6 +1,5 @@
 package com.ai.bss.configuration;
 
-import org.axonframework.contextsupport.spring.AnnotationDriven;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.Configuration;
  * Created by ben on 23/02/16.
  */
 @Configuration
-@AnnotationDriven
 public class RabbitConfiguration {
 
     @Value("${spring.rabbitmq.hostname}")
@@ -34,14 +32,6 @@ public class RabbitConfiguration {
 
     @Value("${spring.application.queue}")
     private String queueName;
-
-    @Value("${spring.application.index}")
-    private Integer index;
-
-    @Bean
-    public String uniqueQueueName() {
-        return queueName + "." + index;
-    }
     
     @Bean
     Queue defaultStream() {
@@ -49,18 +39,13 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    Queue eventStream(String uniqueQueueName) {
-        return new Queue(uniqueQueueName, false, false, true);
-    }
-
-    @Bean
     FanoutExchange eventBusExchange() {
         return new FanoutExchange(exchangeName, true, false);
     }
-
+    
     @Bean
-    Binding binding(String uniqueQueueName) {
-        return new Binding(uniqueQueueName, Binding.DestinationType.QUEUE, exchangeName, "*.*", null);
+    Binding binding() {
+        return new Binding(queueName, Binding.DestinationType.QUEUE, exchangeName, "*.*", null);
     }
 
     @Bean
@@ -74,11 +59,11 @@ public class RabbitConfiguration {
     @Bean
     @Required
     RabbitAdmin rabbitAdmin(String uniqueQueueName) {
-        RabbitAdmin admin = new RabbitAdmin(connectionFactory());
+    	RabbitAdmin admin = new RabbitAdmin(connectionFactory());
         admin.setAutoStartup(true);
         admin.declareExchange(eventBusExchange());
-        admin.declareQueue(eventStream(uniqueQueueName));
-        admin.declareBinding(binding(uniqueQueueName));
+        admin.declareQueue(defaultStream());
+        admin.declareBinding(binding());
         return admin;
     }
     

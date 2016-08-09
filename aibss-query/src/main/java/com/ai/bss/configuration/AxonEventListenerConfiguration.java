@@ -9,19 +9,13 @@ import org.axonframework.eventhandling.SimpleCluster;
 import org.axonframework.eventhandling.amqp.spring.ListenerContainerLifecycleManager;
 import org.axonframework.eventhandling.amqp.spring.SpringAMQPConsumerConfiguration;
 import org.axonframework.eventhandling.amqp.spring.SpringAMQPTerminal;
-import org.axonframework.eventhandling.annotation.AnnotationEventListenerBeanPostProcessor;
-import org.axonframework.eventstore.jdbc.EventSqlSchema;
-import org.axonframework.eventstore.jdbc.GenericEventSqlSchema;
-import org.axonframework.saga.repository.jdbc.HsqlSagaSqlSchema;
-import org.axonframework.saga.repository.jdbc.SagaSqlSchema;
-import org.axonframework.saga.spring.SpringResourceInjector;
 import org.axonframework.serializer.json.JacksonSerializer;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.transaction.RabbitTransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * Created by ben on 23/02/16.
@@ -36,15 +30,14 @@ public class AxonEventListenerConfiguration {
     public ConnectionFactory connectionFactory;
 
     @Autowired
-    public RabbitTransactionManager transactionManager;
-
-    @Value("${spring.application.queue}")
-    private String queueName;
-
-    @Value("${spring.application.exchange}")
-    private String exchangeName;
+    public PlatformTransactionManager transactionManager;
+    
+    @Autowired
+    public String uniqueQueueName;
    
-
+    @Value("${spring.application.terminal}")
+    private String terminalName;
+    
 /*    @Bean
     XStreamSerializer xmlSerializer() {
         return new XStreamSerializer();
@@ -57,74 +50,44 @@ public class AxonEventListenerConfiguration {
 
     @Bean
     ListenerContainerLifecycleManager listenerContainerLifecycleManager() {
-        ListenerContainerLifecycleManager mgr = new ListenerContainerLifecycleManager();
-        mgr.setConnectionFactory(connectionFactory);
-        return mgr;
+        ListenerContainerLifecycleManager listenerContainerLifecycleManager = new ListenerContainerLifecycleManager();
+        listenerContainerLifecycleManager.setConnectionFactory(connectionFactory);
+        return listenerContainerLifecycleManager;
     }
 
     @Bean
     SpringAMQPConsumerConfiguration springAMQPConsumerConfiguration() {
-        SpringAMQPConsumerConfiguration cfg = new SpringAMQPConsumerConfiguration();
-        cfg.setTransactionManager(transactionManager);
-        cfg.setQueueName(queueName);
-        cfg.setTxSize(10);
-        return cfg;
+        SpringAMQPConsumerConfiguration amqpConsumerConfiguration = new SpringAMQPConsumerConfiguration();
+        amqpConsumerConfiguration.setTxSize(10);
+        amqpConsumerConfiguration.setTransactionManager(transactionManager);
+        amqpConsumerConfiguration.setQueueName(uniqueQueueName);
+        return amqpConsumerConfiguration;
     }
 
 
     @Bean
-    SimpleCluster simpleCluster() {
-        SimpleCluster cluster = new SimpleCluster(queueName);
-        cluster.getMetaData().setProperty(AMQP_CONFIG_KEY, springAMQPConsumerConfiguration());
-        return cluster;
+    SimpleCluster simpleCluster(SpringAMQPConsumerConfiguration springAMQPConsumerConfiguration) {
+        SimpleCluster simpleCluster = new SimpleCluster(uniqueQueueName);
+        simpleCluster.getMetaData().setProperty(AMQP_CONFIG_KEY, springAMQPConsumerConfiguration);
+        return simpleCluster;
     }
 
     @Bean
     EventBusTerminal terminal() {
         SpringAMQPTerminal terminal = new SpringAMQPTerminal();
         terminal.setConnectionFactory(connectionFactory);
-        terminal.setExchangeName(exchangeName);
+        //terminal.setSerializer(xmlSerializer());
+        terminal.setSerializer(axonJsonSerializer());
+        terminal.setExchangeName(terminalName);
+        terminal.setListenerContainerLifecycleManager(listenerContainerLifecycleManager());
         terminal.setDurable(true);
         terminal.setTransactional(true);
-        terminal.setSerializer(axonJsonSerializer());
-        //terminal.setSerializer(xmlSerializer());
-        terminal.setListenerContainerLifecycleManager(listenerContainerLifecycleManager());
         return terminal;
     }
 
     @Bean
-    EventBus eventBus() {
-        return new ClusteringEventBus(new DefaultClusterSelector(simpleCluster()), terminal());
+    EventBus eventBus(SimpleCluster simpleCluster) {
+        return new ClusteringEventBus(new DefaultClusterSelector(simpleCluster), terminal());
     }
-
-    /**
-     * This method allows Axon to automatically find your @EventHandler's
-     *
-     * @return
-     */
-    @Bean
-    AnnotationEventListenerBeanPostProcessor eventListenerBeanPostProcessor() {
-        AnnotationEventListenerBeanPostProcessor proc = new AnnotationEventListenerBeanPostProcessor();
-        proc.setEventBus(eventBus());
-        return proc;
-    }
-    
-    @Bean
-    EventSqlSchema eventSqlSchema(){
-    	EventSqlSchema eventSqlSchema=new GenericEventSqlSchema<>();
-    	return eventSqlSchema;
-    }
-    
-    @Bean
-    SagaSqlSchema sagaSqlSchema(){
-    	SagaSqlSchema sagaSqlSchema=new HsqlSagaSqlSchema();
-    	return sagaSqlSchema;
-    }
-
-    @Bean
-    SpringResourceInjector springResourceInjector(){
-    	return new SpringResourceInjector();
-    }
-
 
 }

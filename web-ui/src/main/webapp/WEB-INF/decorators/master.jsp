@@ -44,12 +44,6 @@
                 <li><a href="${ctx}/">Home</a></li>
                 <li><a href="${ctx}/customer">Customers</a></li>
                 <li><a href="${ctx}/party">Parties</a></li>
-                <!--
-                <li><a href="${ctx}/dashboard">Dashboard</a></li>
-                <li><a href="${ctx}/company">Companies</a></li>
-                <li><a href="${ctx}/data/collections">Data</a></li>
-                <li><a href="${ctx}/admin/portfolio">Portfolio</a></li>
-                  -->
             </ul>
             <sec:authorize access="isAuthenticated()">
                 <p class="pull-right credentials">

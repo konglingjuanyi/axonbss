@@ -8,9 +8,9 @@
   <artifactId>policy</artifactId>
   <dependencies>
   		<dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-core</artifactId>
-            <version>${axon.version}</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-command-infra</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

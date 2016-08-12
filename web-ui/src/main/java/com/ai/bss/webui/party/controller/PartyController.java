@@ -16,16 +16,12 @@
 
 package com.ai.bss.webui.party.controller;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,7 +54,6 @@ import com.ai.bss.webui.party.model.Individual;
 import com.ai.bss.webui.party.model.Legal;
 import com.ai.bss.webui.party.model.TopDepartment;
 import com.ai.bss.webui.util.BaseController;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Lianhua Zhang
@@ -70,15 +65,12 @@ public class PartyController extends BaseController{
 
     private PartyQueryRepository partyRepository;
     private UserQueryRepository userRepository;
-    private CommandBus commandBus;
 
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     public PartyController(PartyQueryRepository partyRepository,
-                             CommandBus commandBus,
                              UserQueryRepository userRepository) {
         this.partyRepository = partyRepository;
-        this.commandBus = commandBus;
         this.userRepository = userRepository;
     }
 
@@ -206,10 +198,9 @@ public class PartyController extends BaseController{
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId();            
     		CreateIndividualCommand command =new CreateIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
-    		command.setTenantId(TenantContext.getCurrentTenant());
-    		command=client.postForObject("http://party-service/party/createIndividualCommand",command,CreateIndividualCommand.class);    		
+    		command.setTenantId(TenantContext.getCurrentTenant());   				
     		try {
-    			command.getCallback().getResult();
+    			command=client.postForObject("http://party-service/party/createIndividualCommand",command,CreateIndividualCommand.class);    
 			} catch (Exception e) {
 				bindingResult.rejectValue("firstName",
                         "error.createIndividual.failed",
@@ -258,7 +249,7 @@ public class PartyController extends BaseController{
     		PartyId partyId=new PartyId();
     		CreateChildDepartmentCommand command =new CreateChildDepartmentCommand(partyId,childDepartment.getDepartmentName(),childDepartment.getParentDepartmentId());
     		command.setTenantId(TenantContext.getCurrentTenant());
-    		commandBus.dispatch(new GenericCommandMessage<CreateChildDepartmentCommand>(command));
+//    		commandBus.dispatch(new GenericCommandMessage<CreateChildDepartmentCommand>(command));
     		return "redirect:/party";
     	}
     	return "createChildDepartment";
@@ -275,7 +266,7 @@ public class PartyController extends BaseController{
             	command.setOldLastName(individualEntry.getLastName());            	
             	command.setTenantId(TenantContext.getCurrentTenant());
             	FutureCallback callback = new FutureCallback();
-        		commandBus.dispatch(new GenericCommandMessage<RenameIndividualCommand>(command),callback);
+//        		commandBus.dispatch(new GenericCommandMessage<RenameIndividualCommand>(command),callback);
         		try {
         			callback.getResult();
         			return "redirect:/party";
@@ -299,7 +290,7 @@ public class PartyController extends BaseController{
         		RenameLegalCommand command =new RenameLegalCommand(partyId,legal.getLegalName());
             	command.setOldLegalName(partyEntry.getName());          	              	
             	command.setTenantId(TenantContext.getCurrentTenant());
-            	commandBus.dispatch(new GenericCommandMessage<RenameLegalCommand>(command),callback);
+//            	commandBus.dispatch(new GenericCommandMessage<RenameLegalCommand>(command),callback);
         		try {
         			callback.getResult();
         			return "redirect:/party";
@@ -323,7 +314,7 @@ public class PartyController extends BaseController{
         		RenameDepartmentCommand command =new RenameDepartmentCommand(partyId,department.getDepartmentName());
         		command.setOldDepartmentName(partyEntry.getName());          	              	
         		command.setTenantId(TenantContext.getCurrentTenant());
-        		commandBus.dispatch(new GenericCommandMessage<RenameDepartmentCommand>(command),callback);
+//        		commandBus.dispatch(new GenericCommandMessage<RenameDepartmentCommand>(command),callback);
         		try {
         			callback.getResult();
         			return "redirect:/party";
@@ -345,15 +336,15 @@ public class PartyController extends BaseController{
 	        	if (partyEntry instanceof IndividualEntry){
 	        		TerminateIndividualCommand command =new TerminateIndividualCommand(new PartyId(partyId));
 	        		command.setTenantId(TenantContext.getCurrentTenant());
-	        		commandBus.dispatch(new GenericCommandMessage<TerminateIndividualCommand>(command));
+//	        		commandBus.dispatch(new GenericCommandMessage<TerminateIndividualCommand>(command));
 	        	}else if (partyEntry instanceof LegalOrganizationEntry){
 	        		TerminateLegalCommand command =new TerminateLegalCommand(new PartyId(partyId));
 	        		command.setTenantId(TenantContext.getCurrentTenant());
-	        		commandBus.dispatch(new GenericCommandMessage<TerminateLegalCommand>(command));
+//	        		commandBus.dispatch(new GenericCommandMessage<TerminateLegalCommand>(command));
 	        	}else{
 	        		TerminateDepartmentCommand command =new TerminateDepartmentCommand(new PartyId(partyId));
 	        		command.setTenantId(TenantContext.getCurrentTenant());
-	        		commandBus.dispatch(new GenericCommandMessage<TerminateDepartmentCommand>(command));
+//	        		commandBus.dispatch(new GenericCommandMessage<TerminateDepartmentCommand>(command));
 	        	}
 	        }
     		

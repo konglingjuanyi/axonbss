@@ -42,12 +42,10 @@ public class PartyListener {
     @EventHandler
     @Transactional
     public void handleIndividualCreatedEvent(IndividualCreatedEvent event) {
-        //IndividualEntry partyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
-    	IndividualEntry partyEntry = new IndividualEntry(event.getFirstName(),event.getLastName());
+        IndividualEntry partyEntry = new IndividualEntry(event.getPartyId().toString(),event.getFirstName(),event.getLastName());
     	partyEntry.setState("initial");
         TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
-        System.out.println("Party:"+partyEntry.getPartyId()+" saved!");
     }
     
     @EventHandler

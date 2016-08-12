@@ -72,13 +72,6 @@
         <p><a class="btn primary" href="${ctx}/party">View all parties &raquo;</a></p>
         <p><a class="btn primary" href="${ctx}/customer">View all customers &raquo;</a></p>
     </div>
-    <div class="span5">
-        <h2>Executed trades</h2>
-
-        <p>Trace all executed trades using the sockjs connection. Beware, vertx needs to be running as well.</p>
-
-        <p><a class="btn primary" href="${ctx}/orderbook/socket">Executed trades &raquo;</a></p>
-    </div>
 </div>
 
 </body>

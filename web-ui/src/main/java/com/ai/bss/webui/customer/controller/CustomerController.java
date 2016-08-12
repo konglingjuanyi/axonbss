@@ -39,19 +39,19 @@ public class CustomerController {
 	private PartyQueryRepository partyRepository;
 	private CustomerQueryRepository customerRepository;
     private UserQueryRepository userRepository;
-    private CommandBus commandBus;
+//    private CommandBus commandBus;
 
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    public CustomerController(CustomerQueryRepository customerRepository,
-    						 PartyQueryRepository partyRepository,
-                             CommandBus commandBus,
-                             UserQueryRepository userRepository) {
-        this.partyRepository = partyRepository;
-        this.customerRepository = customerRepository;
-        this.commandBus = commandBus;
-        this.userRepository = userRepository;
-    }
+//    @SuppressWarnings("SpringJavaAutowiringInspection")
+//    @Autowired
+//    public CustomerController(CustomerQueryRepository customerRepository,
+//    						 PartyQueryRepository partyRepository,
+//                             CommandBus commandBus,
+//                             UserQueryRepository userRepository) {
+//        this.partyRepository = partyRepository;
+//        this.customerRepository = customerRepository;
+//        this.commandBus = commandBus;
+//        this.userRepository = userRepository;
+//    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
@@ -136,7 +136,7 @@ public class CustomerController {
     		CreateCustomerFromPartyCommand command =new CreateCustomerFromPartyCommand(customerId,partyId);
     		command.setServiceCode(customer.getServiceCode());
     		command.setServicePassword(customer.getServicePassword());
-    		commandBus.dispatch(new GenericCommandMessage<CreateCustomerFromPartyCommand>(command));
+//    		commandBus.dispatch(new GenericCommandMessage<CreateCustomerFromPartyCommand>(command));
     		return "redirect:/customer";
     	}
     	return "createCustomerFromParty";
@@ -151,7 +151,7 @@ public class CustomerController {
     		command.setLastName(customer.getLastName());
     		command.setServiceCode(customer.getServiceCode());
     		command.setServicePassword(customer.getServicePassword());   		
-    		commandBus.dispatch(new GenericCommandMessage<CreateIndividualCustomerCommand>(command));
+//    		commandBus.dispatch(new GenericCommandMessage<CreateIndividualCustomerCommand>(command));
     		return "redirect:/customer";
     	}
     	return "createIndividualCustomer";
@@ -165,7 +165,7 @@ public class CustomerController {
     		command.setParentLegalId(customer.getParentLegalId());
     		command.setServiceCode(customer.getServiceCode());
     		command.setServicePassword(customer.getServicePassword());   		
-    		commandBus.dispatch(new GenericCommandMessage<CreateLegalCustomerCommand>(command));
+//    		commandBus.dispatch(new GenericCommandMessage<CreateLegalCustomerCommand>(command));
     		return "redirect:/customer";
     	}
     	return "createLegalCustomer";

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"com.ai.bss"})
 @EnableJpaRepositories(basePackages = {"com.ai.bss"})
 @EntityScan(basePackages = {"com.ai.bss"})
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 public class PartyQueryServiceApp {
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(PartyQueryServiceApp.class, args);

@@ -57,8 +57,8 @@ public class AiBssAuthenticationProvider implements AuthenticationProvider {
         userAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    @Autowired
-    private CommandBus commandBus;
+//    @Autowired
+//    private CommandBus commandBus;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -71,7 +71,7 @@ public class AiBssAuthenticationProvider implements AuthenticationProvider {
         FutureCallback<UserAccount> accountCallback = new FutureCallback<UserAccount>();
         AuthenticateUserCommand command = new AuthenticateUserCommand(username, password.toCharArray());
         try {
-            commandBus.dispatch(new GenericCommandMessage<AuthenticateUserCommand>(command), accountCallback);
+//            commandBus.dispatch(new GenericCommandMessage<AuthenticateUserCommand>(command), accountCallback);
             // the bean validating interceptor is defined as a dispatch interceptor, meaning it is executed before
             // the command is dispatched.
         } catch (StructuralCommandValidationFailedException e) {

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ai.bss.CommandExecuter;
 import com.ai.bss.api.party.command.CreateChildDepartmentCommand;
 import com.ai.bss.api.party.command.CreateIndividualCommand;
 import com.ai.bss.api.party.command.CreateLegalCommand;
@@ -22,6 +21,7 @@ import com.ai.bss.api.party.command.RenameLegalCommand;
 import com.ai.bss.api.party.command.TerminateDepartmentCommand;
 import com.ai.bss.api.party.command.TerminateIndividualCommand;
 import com.ai.bss.api.party.command.TerminateLegalCommand;
+import com.ai.bss.command.CommandExecuter;
 
 @RestController
 @RequestMapping("/party")

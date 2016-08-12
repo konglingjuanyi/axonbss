@@ -30,16 +30,9 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-query</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <!-- 
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>aibss-party-query</artifactId>
             <version>${project.version}</version>
         </dependency>
-         -->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>axonbss-party-api</artifactId>
@@ -52,28 +45,17 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-customer</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-policy-query</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-user</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>aibss-user-query</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- spring dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
     		<groupId>org.apache.tomcat.embed</groupId>
@@ -84,27 +66,13 @@
     		<groupId>javax.servlet</groupId>
     		<artifactId>jstl</artifactId>
 		</dependency>
-		
-
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-        </dependency>
-        <dependency>
-        <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-        </dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
+            <artifactId>spring-security-taglibs</artifactId>
         </dependency>
         <dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -127,18 +95,15 @@
         </dependency>
         <!-- web -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
             <version>2.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>fr.inria.gforge.spoon</groupId>
@@ -159,8 +124,7 @@
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
             <version>8043</version>
-        </dependency>      
-        
+        </dependency>            
     </dependencies>	
     <dependencyManagement>
 		<dependencies>

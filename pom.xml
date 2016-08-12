@@ -40,6 +40,7 @@
   	<module>aibss-customer-api</module>
   	<module>aibss-customer-query</module>
   	<module>aibss-common-api</module>
+  	<module>aibss-command-infra</module>
   </modules>
 
     <dependencies>

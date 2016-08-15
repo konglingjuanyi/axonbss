@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.ai.bss.query.party.PartyRoleEntry;
+import com.ai.bss.query.api.party.PartyRoleEntry;
 
 /**
  * @author Jettro Coenradie

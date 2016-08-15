@@ -5,14 +5,14 @@ import org.axonframework.commandhandling.GenericCommandMessage;
 
 import com.ai.bss.api.user.CreateUserCommand;
 import com.ai.bss.api.user.UserId;
-import com.ai.bss.query.party.repositories.PartyQueryRepository;
+//import com.ai.bss.query.party.repositories.PartyQueryRepository;
 
 /**
  * Base class for all DBInit implementations
  */
 public abstract class BaseDBInit implements DBInit {
 //    private CommandBus commandBus;
-    private PartyQueryRepository partyQueryRepository;
+//    private PartyQueryRepository partyQueryRepository;
 
 //    protected BaseDBInit(CommandBus commandBus, 
 //    		PartyQueryRepository partyQueryRepository

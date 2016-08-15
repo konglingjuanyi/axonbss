@@ -5,9 +5,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.bss.api.party.PartyId;
-import com.ai.bss.query.party.IndividualEntry;
-import com.ai.bss.query.party.PartyQueryServiceApp;
+import com.ai.bss.query.api.party.IndividualEntry;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
+import com.ai.bss.query.party.service.PartyQueryServiceApp;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

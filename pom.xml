@@ -41,6 +41,8 @@
   	<module>aibss-customer-query</module>
   	<module>aibss-common-api</module>
   	<module>aibss-command-infra</module>
+  	<module>aibss-party-query-api</module>
+  	<module>aibss-customer-query-api</module>
   </modules>
 
     <dependencies>

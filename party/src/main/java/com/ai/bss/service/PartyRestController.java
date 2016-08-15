@@ -31,7 +31,7 @@ public class PartyRestController {
 	@Autowired
 	private CommandBus commandBus;
 	
-	 @RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() throws Exception{
     	return "Welcome to party service!";
     }

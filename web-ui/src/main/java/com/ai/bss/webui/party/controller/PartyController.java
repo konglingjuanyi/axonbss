@@ -18,10 +18,7 @@ package com.ai.bss.webui.party.controller;
 
 import javax.validation.Valid;
 
-import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.GenericCommandMessage;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,12 +39,10 @@ import com.ai.bss.api.party.command.TerminateDepartmentCommand;
 import com.ai.bss.api.party.command.TerminateIndividualCommand;
 import com.ai.bss.api.party.command.TerminateLegalCommand;
 import com.ai.bss.mutitanent.TenantContext;
-import com.ai.bss.query.party.DepartmentEntry;
-import com.ai.bss.query.party.IndividualEntry;
-import com.ai.bss.query.party.LegalOrganizationEntry;
-import com.ai.bss.query.party.PartyEntry;
-import com.ai.bss.query.party.repositories.PartyQueryRepository;
-import com.ai.bss.query.user.repositories.UserQueryRepository;
+import com.ai.bss.query.api.party.DepartmentEntry;
+import com.ai.bss.query.api.party.IndividualEntry;
+import com.ai.bss.query.api.party.LegalOrganizationEntry;
+import com.ai.bss.query.api.party.PartyEntry;
 import com.ai.bss.webui.party.model.ChildDepartment;
 import com.ai.bss.webui.party.model.Department;
 import com.ai.bss.webui.party.model.Individual;
@@ -63,27 +58,15 @@ import com.ai.bss.webui.util.BaseController;
 
 public class PartyController extends BaseController{
 
-    private PartyQueryRepository partyRepository;
-    private UserQueryRepository userRepository;
-
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    public PartyController(PartyQueryRepository partyRepository,
-                             UserQueryRepository userRepository) {
-        this.partyRepository = partyRepository;
-        this.userRepository = userRepository;
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
-        model.addAttribute("items", partyRepository.findAll());
-        //model.addAttribute("items", partyRepository.findByType("INDIVIDUAL"));
+        model.addAttribute("items", client.getForObject("http://party-query-service/party",Iterable.class));
         return "party/list";
     }
 
     @RequestMapping(value = "/{partyId}", method = RequestMethod.GET)
     public String details(@PathVariable String partyId, Model model) {
-        PartyEntry partyEntry = partyRepository.findOne(partyId);
+        PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
         if(null!=partyEntry){
         	if (partyEntry instanceof IndividualEntry){
         		IndividualEntry individualEntry=(IndividualEntry)partyEntry;
@@ -130,7 +113,7 @@ public class PartyController extends BaseController{
     
     @RequestMapping(value = "/rename/{partyId}", method = RequestMethod.GET)
     public String rename(@PathVariable String partyId, Model model) {
-        PartyEntry partyEntry = partyRepository.findOne(partyId);
+    	PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
         if(null!=partyEntry){
         	if (partyEntry instanceof IndividualEntry){
         		IndividualEntry individualEntry=(IndividualEntry)partyEntry;
@@ -175,7 +158,8 @@ public class PartyController extends BaseController{
 
     @RequestMapping(value = "/createTopDepartment/{legalId}", method = RequestMethod.GET)
     public String createTopDepartmentForm(@PathVariable String legalId,Model model) {
-    	LegalOrganizationEntry legalEntry=(LegalOrganizationEntry)partyRepository.findOne(legalId);
+    	PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+legalId,PartyEntry.class);
+    	LegalOrganizationEntry legalEntry=(LegalOrganizationEntry)partyEntry;
     	TopDepartment topDepartment = new TopDepartment();
     	topDepartment.setLegalId(legalId);
     	topDepartment.setLegalName(legalEntry.getLegalName());
@@ -185,7 +169,8 @@ public class PartyController extends BaseController{
     
     @RequestMapping(value = "/createChildDepartment/{parentDepartmentId}", method = RequestMethod.GET)
     public String createChildDepartmentForm(@PathVariable String parentDepartmentId,Model model) {
-    	DepartmentEntry parentDepartment= (DepartmentEntry)partyRepository.findOne(parentDepartmentId);
+    	PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+parentDepartmentId,PartyEntry.class);
+    	DepartmentEntry parentDepartment= (DepartmentEntry)partyEntry;
     	ChildDepartment childDepartment = new ChildDepartment();
     	childDepartment.setParentDepartmentId(parentDepartmentId);
     	childDepartment.setParentDepartmentName(parentDepartment.getDepartmentName());
@@ -259,7 +244,8 @@ public class PartyController extends BaseController{
     public String renameIndividual(@ModelAttribute("individual") @Valid Individual individual, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId(individual.getPartyId());
-    		IndividualEntry individualEntry = (IndividualEntry)partyRepository.findOne(partyId.toString());
+    		PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
+    		IndividualEntry individualEntry = (IndividualEntry)partyEntry;
             if(null!=individualEntry){
             	RenameIndividualCommand command =new RenameIndividualCommand(partyId,individual.getFirstName(),individual.getLastName());
             	command.setOldFirstName(individualEntry.getFirstName());
@@ -284,7 +270,7 @@ public class PartyController extends BaseController{
     public String renameLegal(@ModelAttribute("legal") @Valid Legal legal, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId(legal.getPartyId());
-    		PartyEntry partyEntry = partyRepository.findOne(partyId.toString());
+    		PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
             if(null!=partyEntry&&(partyEntry instanceof LegalOrganizationEntry)){
             	FutureCallback callback = new FutureCallback();
         		RenameLegalCommand command =new RenameLegalCommand(partyId,legal.getLegalName());
@@ -308,7 +294,7 @@ public class PartyController extends BaseController{
     public String renameDepartment(@ModelAttribute("department") @Valid Department department, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		PartyId partyId=new PartyId(department.getPartyId());
-    		PartyEntry partyEntry = partyRepository.findOne(partyId.toString());
+    		PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
             if(null!=partyEntry&&(partyEntry instanceof DepartmentEntry)){
             	FutureCallback callback = new FutureCallback();            	
         		RenameDepartmentCommand command =new RenameDepartmentCommand(partyId,department.getDepartmentName());
@@ -331,7 +317,7 @@ public class PartyController extends BaseController{
     @RequestMapping(value = "/terminate/{partyId}", method = RequestMethod.POST)
     public String terminateIndividual(@PathVariable String partyId, Model model) {
     	try {
-    		PartyEntry partyEntry = partyRepository.findOne(partyId);
+    		PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
 	        if(null!=partyEntry){
 	        	if (partyEntry instanceof IndividualEntry){
 	        		TerminateIndividualCommand command =new TerminateIndividualCommand(new PartyId(partyId));

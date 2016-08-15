@@ -13,9 +13,7 @@ public abstract class PartyCommand extends BaseCommand{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private PartyId partyId;
-	private FutureCallback callback;
-	
+	private PartyId partyId;	
 	protected PartyCommand(){
 		
 	}
@@ -32,13 +30,4 @@ public abstract class PartyCommand extends BaseCommand{
 	public void setPartyId(PartyId partyId) {
 		this.partyId = partyId;
 	}
-
-	public FutureCallback getCallback() {
-		return callback;
-	}
-
-	public void setCallback(FutureCallback callback) {
-		this.callback = callback;
-	}
-
 }

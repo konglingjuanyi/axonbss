@@ -1,4 +1,4 @@
-package com.ai.bss.query.party;
+package com.ai.bss.query.api.party;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

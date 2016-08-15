@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ai.bss.query.party;
+package com.ai.bss.query.party.service;
 
 import javax.transaction.Transactional;
 
@@ -32,6 +32,11 @@ import com.ai.bss.api.party.event.LegalRenamedEvent;
 import com.ai.bss.api.party.event.LegalTerminatedEvent;
 import com.ai.bss.api.party.event.TopDepartmentCreatedEvent;
 import com.ai.bss.mutitanent.TenantContext;
+import com.ai.bss.query.api.party.DepartmentEntry;
+import com.ai.bss.query.api.party.IndividualEntry;
+import com.ai.bss.query.api.party.LegalOrganizationEntry;
+import com.ai.bss.query.api.party.OrganizationEntry;
+import com.ai.bss.query.api.party.PartyEntry;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
 
 @Component
@@ -86,7 +91,7 @@ public class PartyListener {
     @EventHandler
     public void handleLegalRenamedEvent(LegalRenamedEvent event) {
         LegalOrganizationEntry partyEntry = (LegalOrganizationEntry)partyRepository.findOne(event.getPartyId().toString());
-        partyEntry.setTradingName(event.getTradingName());
+        partyEntry.setLegalName(event.getTradingName());
         TenantContext.setCurrentTenant(event.getTenantId());
         partyRepository.save(partyEntry);
     }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ai.bss.query.customer;
+package com.ai.bss.query.customer.service;
 
 import javax.transaction.Transactional;
 
@@ -23,8 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ai.bss.api.customer.event.CustomerCreatedEvent;
+import com.ai.bss.query.api.customer.CustomerEntry;
+import com.ai.bss.query.api.party.PartyEntry;
 import com.ai.bss.query.customer.repositories.CustomerQueryRepository;
-import com.ai.bss.query.party.PartyEntry;
 import com.ai.bss.query.party.repositories.PartyQueryRepository;
 
 /**

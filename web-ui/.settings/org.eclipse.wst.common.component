@@ -7,10 +7,7 @@
         <dependent-module archiveName="aibss-infrastructure-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/infrastructure/infrastructure">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="aibss-party-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-party-query/aibss-party-query">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="aibss-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-query/aibss-query">
+        <dependent-module archiveName="aibss-party-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-party-query-api/aibss-party-query-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="axonbss-party-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/party-api/party-api">
@@ -19,7 +16,7 @@
         <dependent-module archiveName="aibss-common-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-common-api/aibss-common-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="aibss-customer-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customer-query/aibss-customer-query">
+        <dependent-module archiveName="aibss-customer-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customer-query-api/aibss-customer-query-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="aibss-customer-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customer-api/aibss-customer-api">
@@ -29,6 +26,9 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="aibss-user-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/user-api/user-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aibss-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-query/aibss-query">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/web-ui/target/classes"/>

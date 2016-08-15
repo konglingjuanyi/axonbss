@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.ai.bss.query.party.PartyEntry;
+import com.ai.bss.query.api.party.PartyEntry;
 
 public interface PartyQueryRepository extends CrudRepository<PartyEntry, String> {
 	// MongoRepository

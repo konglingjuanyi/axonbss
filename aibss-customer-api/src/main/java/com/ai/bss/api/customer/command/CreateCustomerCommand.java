@@ -1,8 +1,9 @@
 package com.ai.bss.api.customer.command;
 
+import com.ai.bss.api.base.BaseCommand;
 import com.ai.bss.api.customer.CustomerId;
 
-public abstract class CreateCustomerCommand {
+public abstract class CreateCustomerCommand extends BaseCommand{
 	private CustomerId customerId;
 	private String serviceCode;
 	private String servicePassword;

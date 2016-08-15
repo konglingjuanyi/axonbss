@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import com.ai.bss.query.party.repositories.PartyQueryRepository;
+//import com.ai.bss.query.party.repositories.PartyQueryRepository;
 import com.ai.bss.query.user.repositories.UserQueryRepository;
 
 import javax.sql.DataSource;
@@ -34,7 +34,7 @@ public class HsqlDBInit extends BaseDBInit {
     private SagaSqlSchema sagaSqlSchema;
     private DataSource dataSource;
     private UserQueryRepository userQueryRepository;
-    private PartyQueryRepository partyQueryRepository;
+//    private PartyQueryRepository partyQueryRepository;
 
 //    @Autowired
 //    public HsqlDBInit(CommandBus commandBus,
@@ -64,7 +64,7 @@ public class HsqlDBInit extends BaseDBInit {
             sql_dropTableSagaEntry(connection).execute();
 
             userQueryRepository.deleteAll();
-            partyQueryRepository.deleteAll();
+//            partyQueryRepository.deleteAll();
 
             connection.commit();
 

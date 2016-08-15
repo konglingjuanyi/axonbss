@@ -1,4 +1,4 @@
-package com.ai.bss.query.party;
+package com.ai.bss.query.api.party;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;

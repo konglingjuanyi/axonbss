@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-party-query</artifactId>
+            <artifactId>aibss-party-query-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -40,7 +40,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-customer-query</artifactId>
+            <artifactId>aibss-customer-query-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-customer-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

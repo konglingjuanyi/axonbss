@@ -1,4 +1,4 @@
-package com.ai.bss.query.customer;
+package com.ai.bss.query.api.customer;
 
 
 import java.sql.Timestamp;
@@ -10,9 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SecondaryTable;
 
-import com.ai.bss.query.party.IndividualEntry;
-import com.ai.bss.query.party.PartyEntry;
-import com.ai.bss.query.party.PartyRoleEntry;
+import com.ai.bss.query.api.party.IndividualEntry;
+import com.ai.bss.query.api.party.PartyEntry;
+import com.ai.bss.query.api.party.PartyRoleEntry;
 
 
 @Entity

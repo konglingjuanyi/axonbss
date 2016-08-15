@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.ai.bss.query.customer.CustomerEntry;
+import com.ai.bss.query.api.customer.CustomerEntry;
 
 public interface CustomerQueryRepository extends PagingAndSortingRepository<CustomerEntry, String> {
 	// MongoRepository

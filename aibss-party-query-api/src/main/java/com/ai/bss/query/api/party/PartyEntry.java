@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ai.bss.query.party;
+package com.ai.bss.query.api.party;
 import java.util.Set;
 
 import javax.persistence.Column;

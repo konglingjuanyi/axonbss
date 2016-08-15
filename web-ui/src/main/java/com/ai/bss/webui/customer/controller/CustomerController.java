@@ -2,9 +2,6 @@ package com.ai.bss.webui.customer.controller;
 
 import javax.validation.Valid;
 
-import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.GenericCommandMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,57 +9,36 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.ai.bss.api.customer.CustomerId;
 import com.ai.bss.api.customer.command.CreateCustomerFromPartyCommand;
 import com.ai.bss.api.customer.command.CreateIndividualCustomerCommand;
 import com.ai.bss.api.customer.command.CreateLegalCustomerCommand;
 import com.ai.bss.api.party.PartyId;
-import com.ai.bss.query.customer.CustomerEntry;
-import com.ai.bss.query.customer.repositories.CustomerQueryRepository;
-import com.ai.bss.query.party.IndividualEntry;
-import com.ai.bss.query.party.LegalOrganizationEntry;
-import com.ai.bss.query.party.PartyEntry;
-import com.ai.bss.query.party.repositories.PartyQueryRepository;
-import com.ai.bss.query.user.repositories.UserQueryRepository;
+import com.ai.bss.mutitanent.TenantContext;
+import com.ai.bss.query.api.customer.CustomerEntry;
+import com.ai.bss.query.api.party.IndividualEntry;
+import com.ai.bss.query.api.party.LegalOrganizationEntry;
+import com.ai.bss.query.api.party.PartyEntry;
 import com.ai.bss.webui.customer.model.Customer;
 import com.ai.bss.webui.customer.model.IndividualCustomer;
 import com.ai.bss.webui.customer.model.LegalCustomer;
+import com.ai.bss.webui.util.BaseController;
 
 @Controller
 @RequestMapping("/customer")
-public class CustomerController {
-
-	public CustomerController() {
-		// TODO Auto-generated constructor stub
-	}
-	@Autowired
-	private PartyQueryRepository partyRepository;
-	private CustomerQueryRepository customerRepository;
-    private UserQueryRepository userRepository;
-//    private CommandBus commandBus;
-
-//    @SuppressWarnings("SpringJavaAutowiringInspection")
-//    @Autowired
-//    public CustomerController(CustomerQueryRepository customerRepository,
-//    						 PartyQueryRepository partyRepository,
-//                             CommandBus commandBus,
-//                             UserQueryRepository userRepository) {
-//        this.partyRepository = partyRepository;
-//        this.customerRepository = customerRepository;
-//        this.commandBus = commandBus;
-//        this.userRepository = userRepository;
-//    }
+public class CustomerController  extends BaseController{
 
     @RequestMapping(method = RequestMethod.GET)
     public String get(Model model) {
-        model.addAttribute("items", customerRepository.findAll());
+        model.addAttribute("items", client.getForObject("http://customer-query-service/customer",Iterable.class));
         //model.addAttribute("items", partyRepository.findByType("INDIVIDUAL"));
         return "customer/list";
     }
 
     @RequestMapping(value = "/{customerId}", method = RequestMethod.GET)
     public String details(@PathVariable String customerId, Model model) {
-        CustomerEntry customerEntry = customerRepository.findOne(customerId);
+        CustomerEntry customerEntry = client.getForObject("http://customer-query-service/customer/"+customerId,CustomerEntry.class);
         if(null!=customerEntry){        	
         	if (customerEntry.getParty() instanceof IndividualEntry){
         		IndividualEntry individual=(IndividualEntry)customerEntry.getParty();
@@ -108,7 +84,7 @@ public class CustomerController {
     public String createCustomerFromPartyForm(@PathVariable String partyId,Model model) {
     	Customer customer=new Customer();
     	customer.setPartyId(partyId);
-    	PartyEntry partyEntry = partyRepository.findOne(partyId);
+    	PartyEntry partyEntry = client.getForObject("http://party-query-service/party/"+partyId,PartyEntry.class);
     	customer.setCustomerName(partyEntry.getName());
         model.addAttribute("customer", customer);        
         return "customer/createCustomerFromParty";
@@ -136,7 +112,8 @@ public class CustomerController {
     		CreateCustomerFromPartyCommand command =new CreateCustomerFromPartyCommand(customerId,partyId);
     		command.setServiceCode(customer.getServiceCode());
     		command.setServicePassword(customer.getServicePassword());
-//    		commandBus.dispatch(new GenericCommandMessage<CreateCustomerFromPartyCommand>(command));
+    		command.setTenantId(TenantContext.getCurrentTenant());
+    		command=client.postForObject("http://customer-service/createCustomerFromPartyCommand",command,CreateCustomerFromPartyCommand.class);
     		return "redirect:/customer";
     	}
     	return "createCustomerFromParty";
@@ -151,7 +128,7 @@ public class CustomerController {
     		command.setLastName(customer.getLastName());
     		command.setServiceCode(customer.getServiceCode());
     		command.setServicePassword(customer.getServicePassword());   		
-//    		commandBus.dispatch(new GenericCommandMessage<CreateIndividualCustomerCommand>(command));
+    		command=client.postForObject("http://customer-service/createIndividualCustomerCommand",command,CreateIndividualCustomerCommand.class);
     		return "redirect:/customer";
     	}
     	return "createIndividualCustomer";
@@ -165,7 +142,7 @@ public class CustomerController {
     		command.setParentLegalId(customer.getParentLegalId());
     		command.setServiceCode(customer.getServiceCode());
     		command.setServicePassword(customer.getServicePassword());   		
-//    		commandBus.dispatch(new GenericCommandMessage<CreateLegalCustomerCommand>(command));
+    		command=client.postForObject("http://customer-service/createLegalCustomerCommand",command,CreateLegalCustomerCommand.class);
     		return "redirect:/customer";
     	}
     	return "createLegalCustomer";

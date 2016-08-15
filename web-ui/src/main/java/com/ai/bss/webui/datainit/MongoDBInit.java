@@ -1,9 +1,9 @@
 package com.ai.bss.webui.datainit;
 
-import com.ai.bss.query.party.IndividualEntry;
-import com.ai.bss.query.party.OrganizationEntry;
-import com.ai.bss.query.party.PartyEntry;
-import com.ai.bss.query.party.repositories.PartyQueryRepository;
+import com.ai.bss.query.api.party.IndividualEntry;
+import com.ai.bss.query.api.party.OrganizationEntry;
+import com.ai.bss.query.api.party.PartyEntry;
+//import com.ai.bss.query.party.repositories.PartyQueryRepository;
 import com.ai.bss.query.user.UserEntry;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;

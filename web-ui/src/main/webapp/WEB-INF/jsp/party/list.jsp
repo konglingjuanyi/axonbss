@@ -14,7 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   --%>
-
+<meta http-equiv="refresh" content="5">
 <html>
 <head>
     <title>Parties</title>

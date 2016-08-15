@@ -28,6 +28,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * @author Lianhua Zhang
  */
@@ -35,6 +37,7 @@ import javax.persistence.Table;
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="PARTY_TYPE",discriminatorType=DiscriminatorType.STRING)
 @Table(name="PT_PARTY")
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
 public abstract class PartyEntry {
 
     @Id

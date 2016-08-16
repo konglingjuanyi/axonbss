@@ -5,11 +5,16 @@
     <artifactId>axonbss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>axonbss-party-api</artifactId>
+  <artifactId>aibss-shoppingcart-api</artifactId>
   <dependencies> 
    		<dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aibss-common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-shoppingcart-query-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

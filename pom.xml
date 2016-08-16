@@ -43,6 +43,9 @@
   	<module>aibss-command-infra</module>
   	<module>aibss-party-query-api</module>
   	<module>aibss-customer-query-api</module>
+  	<module>aibss-shoppingcart-api</module>
+  	<module>aibss-shoppingcart-query-api</module>
+  	<module>aibss-product-query-api</module>
   </modules>
 
     <dependencies>

@@ -5,6 +5,10 @@ import java.io.Serializable;
 import org.axonframework.commandhandling.callbacks.FutureCallback;
 
 public class BaseCommand  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String tenantId;
 	private FutureCallback callback;
 	public BaseCommand() {

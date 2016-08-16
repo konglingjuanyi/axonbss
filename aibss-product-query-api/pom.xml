@@ -5,20 +5,20 @@
     <artifactId>axonbss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>aibss-common-api</artifactId>
-  	<dependencies>
+  <artifactId>aibss-product-query-api</artifactId>
+	<dependencies>
+		<dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
  		 <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-core</artifactId>
-            <version>${axon.version}</version>
-        </dependency>
-        <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-	</dependencies>	
+	</dependencies>
 </project>

@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 public class ShoppingCartItemEntry {
 	@Id
 	private String Id;
-	private String ItemSpecificationId;//offerId
+	private String offerId;//offerId
 	private int quantity;
 	private long price; 
 	
@@ -25,11 +25,11 @@ public class ShoppingCartItemEntry {
 	public void setId(String id) {
 		Id = id;
 	}
-	public String getItemSpecificationId() {
-		return ItemSpecificationId;
+	public String getOfferId() {
+		return this.offerId;
 	}
-	public void setItemSpecificationId(String itemSpecificationId) {
-		ItemSpecificationId = itemSpecificationId;
+	public void setOfferId(String offerId) {
+		this.offerId = offerId;
 	}
 	public int getQuantity() {
 		return quantity;

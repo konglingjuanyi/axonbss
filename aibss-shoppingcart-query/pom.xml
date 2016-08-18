@@ -5,19 +5,19 @@
     <artifactId>axonbss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>aibss-party-query</artifactId>
+  <artifactId>aibss-shoppingcart-query</artifactId>
    <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>axonbss-party-api</artifactId>
+            <artifactId>aibss-shoppingcart-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-party-query-api</artifactId>
+            <artifactId>aibss-shoppingcart-query-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
+         <dependency>
          	<groupId>${project.groupId}</groupId>
          	<artifactId>aibss-query</artifactId>
          	<version>0.0.1-SNAPSHOT</version>

@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.ai.bss.api.party.PartyId;
 import com.ai.bss.api.party.command.CreateIndividualCommand;
-import com.ai.bss.service.PartyApiService;
+import com.ai.bss.service.party.PartyApiService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

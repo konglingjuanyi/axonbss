@@ -14,7 +14,9 @@ public class ShoppingCartEntry {
 	private String customerId;
 	 @OneToMany(fetch=FetchType.LAZY,mappedBy="shoppingCart")
 	private Set<ShoppingCartItemEntry> items; 
-	public ShoppingCartEntry() {
+	public ShoppingCartEntry(String customerId,String shoppingCartId) {
+		this.customerId=customerId;
+		this.Id=shoppingCartId;
 	}
 	public String getId() {
 		return Id;

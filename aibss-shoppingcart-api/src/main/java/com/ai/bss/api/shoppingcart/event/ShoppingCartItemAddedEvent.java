@@ -1,4 +1,4 @@
-package com.ai.bss.api.shoppingcart.command;
+package com.ai.bss.api.shoppingcart.event;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -6,14 +6,16 @@ import java.util.Set;
 import com.ai.bss.api.shoppingcart.ShoppingCartItemCharacter;
 import com.ai.bss.api.shoppingcart.ShoppingCartItemProductCharacter;
 
-public class AddShoppingCartItemCommand extends ShoppingCartItemCommand {
+public class ShoppingCartItemAddedEvent extends ShoppingCartItemEvent{
+	public ShoppingCartItemAddedEvent() {
+		// TODO Auto-generated constructor stub
+	}
 	private String offerId;
 	private int quantity;
 	private long price;  
-	private Set<ShoppingCartItemCharacter> offerCharacters = new LinkedHashSet<ShoppingCartItemCharacter>();
+	private Set<ShoppingCartItemCharacter> offerInstanceCharacters = new LinkedHashSet<ShoppingCartItemCharacter>();
 	private Set<ShoppingCartItemProductCharacter> productCharacters = new LinkedHashSet<ShoppingCartItemProductCharacter>();
-	public AddShoppingCartItemCommand() {
-	}
+
 	public String getOfferId() {
 		return offerId;
 	}
@@ -33,16 +35,16 @@ public class AddShoppingCartItemCommand extends ShoppingCartItemCommand {
 		this.price = price;
 	}
 	
-	public void addOfferCharacter(ShoppingCartItemCharacter offerCharacter){
-		this.offerCharacters.add(offerCharacter);
+	public void setOfferInstanceCharacters(Set<ShoppingCartItemCharacter> offerInstanceCharacters){
+		this.offerInstanceCharacters=offerInstanceCharacters;
 	}
 	
-	public Set<ShoppingCartItemCharacter> getOfferCharacters(){
-		return this.offerCharacters;
+	public Set<ShoppingCartItemCharacter> getOfferInstanceCharacters(){
+		return this.offerInstanceCharacters;
 	}
 	
-	public void addProductCharacter(ShoppingCartItemProductCharacter productCharacter){
-		this.productCharacters.add(productCharacter);
+	public void setProductCharacters(Set<ShoppingCartItemProductCharacter> productCharacters){
+		this.productCharacters=productCharacters;
 	}
 	
 	public Set<ShoppingCartItemProductCharacter> getProductCharacters(){

@@ -31,6 +31,15 @@
         <dependent-module archiveName="aibss-query-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-query/aibss-query">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="aibss-shoppingcart-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-shoppingcart-api/aibss-shoppingcart-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aibss-shoppingcart-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-shoppingcart-query-api/aibss-shoppingcart-query-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aibss-product-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-product-api/aibss-product-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/web-ui/target/classes"/>
         <property name="context-root" value="axonbss-web-ui"/>
     </wb-module>

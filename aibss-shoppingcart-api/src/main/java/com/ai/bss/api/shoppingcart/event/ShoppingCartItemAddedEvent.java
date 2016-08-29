@@ -3,24 +3,25 @@ package com.ai.bss.api.shoppingcart.event;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.ai.bss.api.shoppingcart.ShoppingCartItemCharacter;
-import com.ai.bss.api.shoppingcart.ShoppingCartItemProductCharacter;
+import com.ai.bss.api.base.CharacteristicValue;
+import com.ai.bss.api.product.ProductCharacteristicValue;
 
 public class ShoppingCartItemAddedEvent extends ShoppingCartItemEvent{
 	public ShoppingCartItemAddedEvent() {
 		// TODO Auto-generated constructor stub
 	}
-	private String offerId;
+	private String offeringId;
 	private int quantity;
 	private long price;  
-	private Set<ShoppingCartItemCharacter> offerInstanceCharacters = new LinkedHashSet<ShoppingCartItemCharacter>();
-	private Set<ShoppingCartItemProductCharacter> productCharacters = new LinkedHashSet<ShoppingCartItemProductCharacter>();
+	private long offeringUnitPrice;
+	private Set<CharacteristicValue> offerCharacterValues = new LinkedHashSet<CharacteristicValue>();
+	private Set<ProductCharacteristicValue> productCharacterValues = new LinkedHashSet<ProductCharacteristicValue>();
 
-	public String getOfferId() {
-		return offerId;
+	public String getOfferingId() {
+		return offeringId;
 	}
-	public void setOfferId(String offerId) {
-		this.offerId = offerId;
+	public void setOfferingId(String offeringId) {
+		this.offeringId = offeringId;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -35,20 +36,26 @@ public class ShoppingCartItemAddedEvent extends ShoppingCartItemEvent{
 		this.price = price;
 	}
 	
-	public void setOfferInstanceCharacters(Set<ShoppingCartItemCharacter> offerInstanceCharacters){
-		this.offerInstanceCharacters=offerInstanceCharacters;
+	public void setOfferCharacterValues(Set<CharacteristicValue> offerCharacterValues){
+		this.offerCharacterValues=offerCharacterValues;
 	}
 	
-	public Set<ShoppingCartItemCharacter> getOfferInstanceCharacters(){
-		return this.offerInstanceCharacters;
+	public Set<CharacteristicValue> getOfferCharacterValues(){
+		return this.offerCharacterValues;
 	}
 	
-	public void setProductCharacters(Set<ShoppingCartItemProductCharacter> productCharacters){
-		this.productCharacters=productCharacters;
+	public void setProductCharacterValues(Set<ProductCharacteristicValue> productCharacterValues){
+		this.productCharacterValues=productCharacterValues;
 	}
 	
-	public Set<ShoppingCartItemProductCharacter> getProductCharacters(){
-		return this.productCharacters;
+	public Set<ProductCharacteristicValue> getProductCharacterValues(){
+		return this.productCharacterValues;
+	}
+	public long getOfferingUnitPrice() {
+		return offeringUnitPrice;
+	}
+	public void setOfferingUnitPrice(long offeringUnitPrice) {
+		this.offeringUnitPrice = offeringUnitPrice;
 	}
 
 }

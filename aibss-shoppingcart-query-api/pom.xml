@@ -17,6 +17,11 @@
 		</dependency>
 		<dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>aibss-product-query-api</artifactId>
             <version>${project.version}</version>
         </dependency>

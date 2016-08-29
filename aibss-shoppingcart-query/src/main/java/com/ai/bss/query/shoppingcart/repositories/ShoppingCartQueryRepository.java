@@ -16,14 +16,12 @@
 
 package com.ai.bss.query.shoppingcart.repositories;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import com.ai.bss.query.api.shoppingcart.ShoppingCartEntry;
 
 public interface ShoppingCartQueryRepository extends CrudRepository<ShoppingCartEntry, String> {
 	// MongoRepository
-	public List<ShoppingCartEntry> findByType(String type);
+	public ShoppingCartEntry findByCustomerId(String customerId);
 	
 }

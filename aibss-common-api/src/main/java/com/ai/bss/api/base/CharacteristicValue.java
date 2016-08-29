@@ -1,8 +1,9 @@
 package com.ai.bss.api.base;
 
 public class CharacteristicValue{
-	private Characteristic characteristic;
-	private CharacteristicSpecValue valueSpec;	
+	private String characteristicSpecId;
+	private String characteristicSpecName;
+	private String valueSpecId;	
 	private String value;
 
 	public String getValue() {
@@ -13,21 +14,27 @@ public class CharacteristicValue{
 		this.value = value;
 	}
 
-	
-	public Characteristic getCharacteristic() {
-		return this.characteristic;
+	public String getValueSpecId() {
+		return valueSpecId;
 	}
 
-	
-	public void setCharacteristic(Characteristic characteristic) {
-		this.characteristic=characteristic;
+	public void setValueSpecId(String valueSpecId) {
+		this.valueSpecId = valueSpecId;
 	}
 
-	public CharacteristicSpecValue getValueSpec() {
-		return valueSpec;
+	public String getCharacteristicSpecId() {
+		return characteristicSpecId;
 	}
 
-	public void setValueSpecId(CharacteristicSpecValue valueSpec) {
-		this.valueSpec = valueSpec;
+	public void setCharacteristicSpecId(String characteristicSpecId) {
+		this.characteristicSpecId = characteristicSpecId;
+	}
+
+	public String getCharacteristicSpecName() {
+		return characteristicSpecName;
+	}
+
+	public void setCharacteristicSpecName(String characteristicSpecName) {
+		this.characteristicSpecName = characteristicSpecName;
 	}
 }

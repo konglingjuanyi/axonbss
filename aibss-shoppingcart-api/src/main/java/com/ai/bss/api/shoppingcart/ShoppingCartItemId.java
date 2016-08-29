@@ -29,9 +29,9 @@ public class ShoppingCartItemId  implements Serializable{
 	        if (this == o) return true;
 	        if (o == null || getClass() != o.getClass()) return false;
 
-	        ShoppingCartItemId shoppingCartItemId = (ShoppingCartItemId) o;
+	        ShoppingCartItemId id = (ShoppingCartItemId) o;
 
-	        return identifier.equals(shoppingCartItemId.identifier);
+	        return identifier.equals(id.identifier);
 
 	    }
 

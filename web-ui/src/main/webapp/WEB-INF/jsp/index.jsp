@@ -71,6 +71,8 @@
 
         <p><a class="btn primary" href="${ctx}/party">View all parties &raquo;</a></p>
         <p><a class="btn primary" href="${ctx}/customer">View all customers &raquo;</a></p>
+        <p><a class="btn primary" href="${ctx}/shoppingcart/offerDetail/10001/91000">iPhone 6S &raquo;</a></p>
+        <p><a class="btn primary" href="${ctx}/shoppingcart/10001">ShoppingCart &raquo;</a></p>
     </div>
 </div>
 

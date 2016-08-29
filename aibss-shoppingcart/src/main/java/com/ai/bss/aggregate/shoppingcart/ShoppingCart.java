@@ -8,13 +8,13 @@ import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 
 import com.ai.bss.api.base.CharacteristicValue;
+import com.ai.bss.api.product.ProductCharacteristicValue;
 import com.ai.bss.api.shoppingcart.ShoppingCartId;
-import com.ai.bss.api.shoppingcart.ShoppingCartItemCharacter;
 import com.ai.bss.api.shoppingcart.ShoppingCartItemId;
-import com.ai.bss.api.shoppingcart.ShoppingCartItemProductCharacter;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartCreatedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartDeletedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemAddedEvent;
+import com.ai.bss.api.shoppingcart.event.ShoppingCartItemDeletedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemProductCharacterModifiedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemQuantityDecreasedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemQuantityIncreasedEvent;
@@ -26,6 +26,9 @@ public class ShoppingCart extends AbstractAnnotatedAggregateRoot {
 	private String customerId;
 	private Set<ShoppingCartItem> shoppingCartItems=new LinkedHashSet<ShoppingCartItem>();
 	
+	public ShoppingCart(){
+		
+	}
 	public ShoppingCart(String customerId,ShoppingCartId shoppingCartId){
 		ShoppingCartCreatedEvent event=new ShoppingCartCreatedEvent();
 		event.setCustomerId(customerId);
@@ -40,19 +43,19 @@ public class ShoppingCart extends AbstractAnnotatedAggregateRoot {
 	}
 	
 	public void addShoppingCartItem(ShoppingCartItemId shoppingCartItemId,
-			String offerId,//tobe changed to OfferId Object
+			String offeringId,//tobe changed to OfferId Object
 			int quantity,
 			long price,
-			Set<ShoppingCartItemCharacter> offerCharacteristics,
-			Set<ShoppingCartItemProductCharacter> productCharacteristics
+			Set<CharacteristicValue> offerCharacteristics,
+			Set<ProductCharacteristicValue> productCharacteristics
 			){
-		ShoppingCartItem item=new ShoppingCartItem(shoppingCartItemId,offerId,quantity,price,offerCharacteristics,productCharacteristics);
+		ShoppingCartItem item=new ShoppingCartItem(shoppingCartItemId,offeringId,quantity,price,offerCharacteristics,productCharacteristics);
 		this.shoppingCartItems.add(item);
 		ShoppingCartItemAddedEvent event=new ShoppingCartItemAddedEvent();
 		event.setShoppingCartId(shoppingCartId);
 		event.setShoppingCartItemId(shoppingCartItemId);
-		event.setOfferInstanceCharacters(item.getOfferCharacteristics());
-		event.setProductCharacters(item.getProductCharacteristics());
+		event.setOfferCharacterValues(item.getOfferCharacteristicValues());
+		event.setProductCharacterValues(item.getProductCharacteristicValues());
 		apply(event);
 	}
 	
@@ -80,18 +83,22 @@ public class ShoppingCart extends AbstractAnnotatedAggregateRoot {
 		apply(event);
 	}
 	
-	public void modifyItemProductCharacter(ShoppingCartItemId shoppingCartItemId,CharacteristicValue produtcCharacterValue){
+	public void modifyItemProductCharacter(ShoppingCartItemId shoppingCartItemId,
+			String productSpecId,
+			String productCharacterSpecId,
+			String characterValueSpecId,
+			String value
+			){
 		ShoppingCartItem item=new ShoppingCartItem(shoppingCartItemId);
-		item.modifyProductCharacter(produtcCharacterValue);
-		ShoppingCartItemProductCharacter productCharacter = (ShoppingCartItemProductCharacter)produtcCharacterValue.getCharacteristic();
+		item.modifyProductCharacter(productSpecId,productCharacterSpecId,characterValueSpecId,value);
 		this.shoppingCartItems.add(item);
 		ShoppingCartItemProductCharacterModifiedEvent event=new ShoppingCartItemProductCharacterModifiedEvent();
 		event.setShoppingCartId(shoppingCartId);
 		event.setShoppingCartItemId(shoppingCartItemId);
-		event.setProductSpecId(productCharacter.getProductSpecId());
-		event.setProductCharacterSpecId(productCharacter.getCharSpec().getId());
-		event.setCharacterValueSpecId(produtcCharacterValue.getValueSpec().getId());
-		event.setValue(produtcCharacterValue.getValue());
+		event.setProductSpecId(productSpecId);
+		event.setProductCharacterSpecId(productCharacterSpecId);
+		event.setCharacterValueSpecId(characterValueSpecId);
+		event.setValue(value);
 		apply(event);
 	}
 	
@@ -99,6 +106,13 @@ public class ShoppingCart extends AbstractAnnotatedAggregateRoot {
 	public void deleteShoppingCart(ShoppingCartId shoppingCartId){
 		ShoppingCartDeletedEvent event=new ShoppingCartDeletedEvent();
 		event.setShoppingCartId(shoppingCartId);
+		apply(event);
+	}
+	
+	public void deleteShoppingCartItem(ShoppingCartItemId shoppingCartItemId){
+		ShoppingCartItemDeletedEvent event=new ShoppingCartItemDeletedEvent();
+		event.setShoppingCartId(shoppingCartId);
+		event.setShoppingCartItemId(shoppingCartItemId);
 		apply(event);
 	}
 	

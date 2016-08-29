@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -20,20 +18,18 @@ import com.ai.bss.api.base.TimePeriod;
 public abstract class AbstractOfferInstance {
 
 	private String customerId;
-	private String productOfferingId;
-	
+	private String productOfferingId;	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractOfferInstanceProductRel> includedProducts=new LinkedHashSet<AbstractOfferInstanceProductRel>();
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractPricePlanInstance> prices=new LinkedHashSet<AbstractPricePlanInstance>();
-	
+	private Set<AbstractPricePlanInstance> appliedCharges=new LinkedHashSet<AbstractPricePlanInstance>();
+		
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractOfferInstanceCharacter> characterInstances=new LinkedHashSet<AbstractOfferInstanceCharacter>();
+	private Set<OfferInstanceCharacterValueEntry> characterValues=new LinkedHashSet<OfferInstanceCharacterValueEntry>();
 
 		
 	public String getId() {
@@ -67,14 +63,12 @@ public abstract class AbstractOfferInstance {
 		this.productOfferingId=productOfferingId;
 	}
 	
-	public  Set<AbstractOfferInstanceCharacter> getOfferInstanceCharacters(){
-		Set<AbstractOfferInstanceCharacter> characterInstances=new LinkedHashSet<AbstractOfferInstanceCharacter>();
-		characterInstances.addAll(characterInstances);
-		return characterInstances;
+	public  Set<OfferInstanceCharacterValueEntry> getCharacterValues(){
+		return characterValues;
 	}
-	public void addOfferInstanceCharacter(AbstractOfferInstanceCharacter character){
-		if(null!=character){
-			this.characterInstances.add((OfferInstanceCharacterEntry)character);
+	public void addCharacterValue(OfferInstanceCharacterValueEntry characterValue){
+		if(null!=characterValue){
+			this.characterValues.add(characterValue);
 		}
 	}	
 	public Set<AbstractOfferInstanceProductRel> getProducts() {
@@ -111,18 +105,16 @@ public abstract class AbstractOfferInstance {
 		}
 	}	
 
-	public Set<AbstractPricePlanInstance> getPricePlanInstances() {
-		return prices;
+	public Set<AbstractPricePlanInstance> getAppliedCharges() {
+		return appliedCharges;
 	}
 
-	public void addPricePlanInstance(AbstractPricePlanInstance pricePlanInstance) {
-		if (null!=pricePlanInstance){
-			prices.add(pricePlanInstance);
-			if (null==pricePlanInstance.getOfferInstance()){
-				pricePlanInstance.setOfferInstance(this);
+	public void addAppliedCharge(AbstractPricePlanInstance appliedCharge) {
+		if (null!=appliedCharge){
+			appliedCharges.add(appliedCharge);
+			if (null==appliedCharge.getOfferInstance()){
+				appliedCharge.setOfferInstance(this);
 			}
 		}
-
 	}
-
 }

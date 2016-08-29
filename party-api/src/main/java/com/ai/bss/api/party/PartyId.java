@@ -29,9 +29,9 @@ public class PartyId  implements Serializable{
 	        if (this == o) return true;
 	        if (o == null || getClass() != o.getClass()) return false;
 
-	        PartyId partyId = (PartyId) o;
+	        PartyId id = (PartyId) o;
 
-	        return identifier.equals(partyId.identifier);
+	        return identifier.equals(id.identifier);
 
 	    }
 

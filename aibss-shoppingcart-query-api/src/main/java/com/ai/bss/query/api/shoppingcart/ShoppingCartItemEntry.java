@@ -6,17 +6,23 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 @Entity
 public class ShoppingCartItemEntry {
 	@Id
 	private String Id;
-	private String offerId;//offerId
 	private int quantity;
 	private long price; 
+
 	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     @JoinColumn(name="SHOPPING_CART_ID")
 	private ShoppingCartEntry shoppingCart;
+	
+	@OneToOne
+	private ShoppingCartOfferInstanceEntry offerInstance;
+		
 	public ShoppingCartItemEntry() {
 	}
 	public String getId() {
@@ -25,12 +31,7 @@ public class ShoppingCartItemEntry {
 	public void setId(String id) {
 		Id = id;
 	}
-	public String getOfferId() {
-		return this.offerId;
-	}
-	public void setOfferId(String offerId) {
-		this.offerId = offerId;
-	}
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -49,5 +50,10 @@ public class ShoppingCartItemEntry {
 	public void setShoppingCart(ShoppingCartEntry shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
-
+	public ShoppingCartOfferInstanceEntry getOfferInstance() {
+		return offerInstance;
+	}
+	public void setOfferInstance(ShoppingCartOfferInstanceEntry offerInstance) {
+		this.offerInstance = offerInstance;
+	}
 }

@@ -21,5 +21,4 @@ import org.springframework.data.repository.CrudRepository;
 import com.ai.bss.query.api.shoppingcart.ShoppingCartItemEntry;
 
 public interface ShoppingCartItemQueryRepository extends CrudRepository<ShoppingCartItemEntry, String> {
-	
 }

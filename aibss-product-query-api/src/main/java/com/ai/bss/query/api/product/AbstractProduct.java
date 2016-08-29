@@ -31,15 +31,15 @@ public abstract class AbstractProduct{
 	private Set<AbstractProductPriceRel> assignedPrices=new LinkedHashSet<AbstractProductPriceRel>();
 	
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractProductCharacter> characterInstances=new LinkedHashSet<AbstractProductCharacter>();
+	private Set<ProductCharacterValueEntry> characterValues=new LinkedHashSet<ProductCharacterValueEntry>();
 	
-	public  Set<AbstractProductCharacter> getProductCharacters(){
-		return this.characterInstances;
+	public  Set<ProductCharacterValueEntry> getCharacterValues(){
+		return this.characterValues;
 	}
 	
-	public void addProductCharacter(AbstractProductCharacter character){
-		if(null!=character){
-			this.characterInstances.add(character);
+	public void addCharacterValue(ProductCharacterValueEntry characterValue){
+		if(null!=characterValue){
+			this.characterValues.add(characterValue);
 		}
 	}
 	

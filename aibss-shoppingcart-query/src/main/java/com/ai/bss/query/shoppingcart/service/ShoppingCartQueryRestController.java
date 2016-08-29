@@ -42,7 +42,12 @@ public class ShoppingCartQueryRestController{
     }
 
     @RequestMapping(value = "/{shoppingCartId}", method = RequestMethod.GET)
-    public ShoppingCartEntry details(@PathVariable String shoppingCartId) {
+    public ShoppingCartEntry findByKey(@PathVariable String shoppingCartId) {
     	return shoppingCartRepository.findOne(shoppingCartId);
+    }
+    
+    @RequestMapping(value = "/customerId/{customerId}", method = RequestMethod.GET)
+    public ShoppingCartEntry findByCustomerId(@PathVariable String customerId) {
+    	return shoppingCartRepository.findByCustomerId(customerId);
     }
 }

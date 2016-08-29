@@ -56,15 +56,15 @@ public abstract class AbstractPricePlanInstance{
 	private Set<AbstractProductPriceRel> assignedTo=new LinkedHashSet<AbstractProductPriceRel>();
 	
 	@OneToMany(mappedBy="pricePlanInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractPricePlanInstanceCharacter> characterInstances=new LinkedHashSet<AbstractPricePlanInstanceCharacter>();
+	private Set<PricePlanInstanceCharacterValueEntry> characterValues=new LinkedHashSet<PricePlanInstanceCharacterValueEntry>();
 
-	public  Set<AbstractPricePlanInstanceCharacter> getPricePlanInstanceCharacters(){
-		return this.characterInstances;
+	public  Set<PricePlanInstanceCharacterValueEntry> getCharacterValues(){
+		return this.characterValues;
 	}
 	
-	public void addPricePlanInstanceCharacter(AbstractPricePlanInstanceCharacter character){
-		if(null!=character){
-			this.characterInstances.add(character);
+	public void addCharacterValue(PricePlanInstanceCharacterValueEntry characterValue){
+		if(null!=characterValue){
+			this.characterValues.add(characterValue);
 		}
 	}
 	

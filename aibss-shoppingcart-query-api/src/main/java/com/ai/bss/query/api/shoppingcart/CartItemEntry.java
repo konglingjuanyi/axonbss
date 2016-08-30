@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class ShoppingCartItemEntry {
+public class CartItemEntry {
 	@Id
 	private String Id;
 	private int quantity;
@@ -21,9 +21,9 @@ public class ShoppingCartItemEntry {
 	private ShoppingCartEntry shoppingCart;
 	
 	@OneToOne
-	private ShoppingCartOfferInstanceEntry offerInstance;
+	private CartItemOfferEntry offerInstance;
 		
-	public ShoppingCartItemEntry() {
+	public CartItemEntry() {
 	}
 	public String getId() {
 		return Id;
@@ -50,10 +50,10 @@ public class ShoppingCartItemEntry {
 	public void setShoppingCart(ShoppingCartEntry shoppingCart) {
 		this.shoppingCart = shoppingCart;
 	}
-	public ShoppingCartOfferInstanceEntry getOfferInstance() {
+	public CartItemOfferEntry getOfferInstance() {
 		return offerInstance;
 	}
-	public void setOfferInstance(ShoppingCartOfferInstanceEntry offerInstance) {
+	public void setOfferInstance(CartItemOfferEntry offerInstance) {
 		this.offerInstance = offerInstance;
 	}
 }

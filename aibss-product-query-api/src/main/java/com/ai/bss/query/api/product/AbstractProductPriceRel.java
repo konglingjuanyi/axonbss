@@ -22,7 +22,7 @@ public abstract class AbstractProductPriceRel{
 	@ManyToOne
 	private AbstractProduct product;
 	@ManyToOne
-	private AbstractPricePlanInstance price;
+	private AbstractPrice price;
 	
 	@Embedded
 	private TimePeriod validPeriod;
@@ -40,12 +40,12 @@ public abstract class AbstractProductPriceRel{
 	}
 
 	
-	public AbstractPricePlanInstance getPricePlanInstance() {
+	public AbstractPrice getPricePlanInstance() {
 		return this.price;
 	}
 
 	
-	public void setPricePlanInstance(AbstractPricePlanInstance price) {
+	public void setPricePlanInstance(AbstractPrice price) {
 		this.price=price;
 	}
 	

@@ -18,7 +18,7 @@ package com.ai.bss.query.shoppingcart.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.ai.bss.query.api.shoppingcart.ShoppingCartItemEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemEntry;
 
-public interface ShoppingCartItemQueryRepository extends CrudRepository<ShoppingCartItemEntry, String> {
+public interface ShoppingCartItemQueryRepository extends CrudRepository<CartItemEntry, String> {
 }

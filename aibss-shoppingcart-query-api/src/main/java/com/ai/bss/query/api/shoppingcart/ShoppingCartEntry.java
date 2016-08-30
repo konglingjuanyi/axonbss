@@ -13,7 +13,7 @@ public class ShoppingCartEntry {
 	private String Id;
 	private String customerId;
 	 @OneToMany(fetch=FetchType.LAZY,mappedBy="shoppingCart")
-	private Set<ShoppingCartItemEntry> items; 
+	private Set<CartItemEntry> items; 
 	
 	public ShoppingCartEntry(){
 		 
@@ -35,13 +35,13 @@ public class ShoppingCartEntry {
 	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
-	public Set<ShoppingCartItemEntry> getItems() {
+	public Set<CartItemEntry> getItems() {
 		return items;
 	}
-	public void addItem(ShoppingCartItemEntry item){
+	public void addItem(CartItemEntry item){
 		if (null!=item){
 			if (null==items){
-				items=new LinkedHashSet<ShoppingCartItemEntry>();
+				items=new LinkedHashSet<CartItemEntry>();
 			}
 			items.add(item);
 		}

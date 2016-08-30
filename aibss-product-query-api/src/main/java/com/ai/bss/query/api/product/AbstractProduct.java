@@ -25,24 +25,24 @@ public abstract class AbstractProduct{
 	private Set<AbstractProductSuspendReason> suspenfReasons=new LinkedHashSet<AbstractProductSuspendReason>();
 	
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractOfferInstanceProductRel> participantOfferInstances=new LinkedHashSet<AbstractOfferInstanceProductRel>();
+	private Set<AbstractOfferProductRel> participantOfferInstances=new LinkedHashSet<AbstractOfferProductRel>();
 	
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractProductPriceRel> assignedPrices=new LinkedHashSet<AbstractProductPriceRel>();
 	
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<ProductCharacterValueEntry> characterValues=new LinkedHashSet<ProductCharacterValueEntry>();
+	private Set<AbstractProductCharacterValue> characterValues=new LinkedHashSet<AbstractProductCharacterValue>();
 	
-	public  Set<ProductCharacterValueEntry> getCharacterValues(){
+	public  Set<AbstractProductCharacterValue> getCharacterValues(){
 		return this.characterValues;
 	}
 	
-	public void addCharacterValue(ProductCharacterValueEntry characterValue){
+	public void addCharacterValue(AbstractProductCharacterValue characterValue){
 		if(null!=characterValue){
 			this.characterValues.add(characterValue);
 		}
 	}
-	
+		
 	public Set<AbstractProductSuspendReason> getSuspendReasons() {
 		return suspenfReasons;
 	}
@@ -63,7 +63,7 @@ public abstract class AbstractProduct{
 		}
 	}
 		
-	public Set<AbstractOfferInstanceProductRel> getParticipantOfferInstances() {
+	public Set<AbstractOfferProductRel> getParticipantOfferInstances() {
 		return participantOfferInstances;
 	}
 

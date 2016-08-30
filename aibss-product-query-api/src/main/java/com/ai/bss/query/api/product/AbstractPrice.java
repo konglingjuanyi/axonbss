@@ -19,7 +19,7 @@ import com.ai.bss.api.base.TimePeriod;
 
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractPricePlanInstance{
+public abstract class AbstractPrice{
 	public enum PriceState {
 		INITIATED(0),
 		CREATED(1),
@@ -50,30 +50,30 @@ public abstract class AbstractPricePlanInstance{
 	private String id;	
 	
 	@ManyToOne
-	private AbstractOfferInstance offerInstance;
+	private AbstractOffer offerInstance;
 	
 	@OneToMany(mappedBy="price",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractProductPriceRel> assignedTo=new LinkedHashSet<AbstractProductPriceRel>();
 	
 	@OneToMany(mappedBy="pricePlanInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<PricePlanInstanceCharacterValueEntry> characterValues=new LinkedHashSet<PricePlanInstanceCharacterValueEntry>();
+	private Set<AbstractPriceCharacterValue> characterValues=new LinkedHashSet<AbstractPriceCharacterValue>();
 
-	public  Set<PricePlanInstanceCharacterValueEntry> getCharacterValues(){
+	public  Set<AbstractPriceCharacterValue> getCharacterValues(){
 		return this.characterValues;
 	}
 	
-	public void addCharacterValue(PricePlanInstanceCharacterValueEntry characterValue){
+	public void addCharacterValue(AbstractPriceCharacterValue characterValue){
 		if(null!=characterValue){
 			this.characterValues.add(characterValue);
 		}
 	}
 	
-	public AbstractOfferInstance getOfferInstance() {
+	public AbstractOffer getOfferInstance() {
 		return offerInstance;
 	}
 
 	
-	public void setOfferInstance(AbstractOfferInstance offerInstance) {
+	public void setOfferInstance(AbstractOffer offerInstance) {
 		this.offerInstance=offerInstance;
 	}
 
@@ -124,7 +124,7 @@ public abstract class AbstractPricePlanInstance{
 		this.id = id;
 	}	
 
-	public AbstractPricePlanInstance() {
+	public AbstractPrice() {
 	}
 
 	
@@ -154,12 +154,12 @@ public abstract class AbstractPricePlanInstance{
 
 	
 	public void unPaid() {
-		this.payState=AbstractPricePlanInstance.PriceState.SUBMITTED.getValue();
+		this.payState=AbstractPrice.PriceState.SUBMITTED.getValue();
 	}
 
 	
 	public void paid() {
-		this.payState=AbstractPricePlanInstance.PriceState.PAID.getValue();
+		this.payState=AbstractPrice.PriceState.PAID.getValue();
 	}
 
 	

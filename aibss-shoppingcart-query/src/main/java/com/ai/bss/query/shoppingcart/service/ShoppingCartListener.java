@@ -38,13 +38,15 @@ import com.ai.bss.api.shoppingcart.event.ShoppingCartItemProductCharacterModifie
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemQuantityDecreasedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemQuantityIncreasedEvent;
 import com.ai.bss.mutitanent.TenantContext;
-import com.ai.bss.query.api.product.OfferInstanceCharacterValueEntry;
-import com.ai.bss.query.api.product.ProductCharacterValueEntry;
+import com.ai.bss.query.api.product.AbstractOfferCharacterValue;
+import com.ai.bss.query.api.product.AbstractProductCharacterValue;
 import com.ai.bss.query.api.shoppingcart.ShoppingCartEntry;
-import com.ai.bss.query.api.shoppingcart.ShoppingCartItemEntry;
-import com.ai.bss.query.api.shoppingcart.ShoppingCartOfferInstanceEntry;
-import com.ai.bss.query.api.shoppingcart.ShoppingCartOfferInstanceProductRelEntry;
-import com.ai.bss.query.api.shoppingcart.ShoppingCartProductEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemOfferCharacterValueEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemOfferEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemOfferProductRelEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemProductCharacterValueEntry;
+import com.ai.bss.query.api.shoppingcart.CartItemProductEntry;
 import com.ai.bss.query.shoppingcart.repositories.ShoppingCartItemQueryRepository;
 import com.ai.bss.query.shoppingcart.repositories.ShoppingCartQueryRepository;
 
@@ -67,8 +69,8 @@ public class ShoppingCartListener {
     	ShoppingCartEntry shoppingCartEntry = shoppingCartRepository.findOne(event.getShoppingCartId().toString());
         if (null!=shoppingCartEntry){
         	TenantContext.setCurrentTenant(event.getTenantId());
-            ShoppingCartItemEntry shoppingCartItemEntry=new ShoppingCartItemEntry();
-            ShoppingCartOfferInstanceEntry offerInstance = new ShoppingCartOfferInstanceEntry();
+            CartItemEntry shoppingCartItemEntry=new CartItemEntry();
+            CartItemOfferEntry offerInstance = new CartItemOfferEntry();
             OfferInstanceId offerInstanceId=new OfferInstanceId();
             offerInstance.setId(offerInstanceId.toString());
             shoppingCartItemEntry.setOfferInstance(offerInstance);
@@ -77,7 +79,7 @@ public class ShoppingCartListener {
             Set<CharacteristicValue>  offerCharValues=event.getOfferCharacterValues();
             if (null!=offerCharValues&&offerCharValues.size()>0){
             	for (CharacteristicValue offerCharValue : offerCharValues) {
-            		OfferInstanceCharacterValueEntry offerCharValueEntry=new OfferInstanceCharacterValueEntry();
+            		CartItemOfferCharacterValueEntry offerCharValueEntry=new CartItemOfferCharacterValueEntry();
             		offerCharValueEntry.setCharacteristicSpecId(offerCharValue.getCharacteristicSpecId());
             		offerCharValueEntry.setValueSpecId(offerCharValue.getValueSpecId());
             		offerCharValueEntry.setValue(offerCharValue.getValue());           		
@@ -86,13 +88,13 @@ public class ShoppingCartListener {
             }
             Set<ProductCharacteristicValue>  productCharValues=event.getProductCharacterValues();
             if (null!=productCharValues&&productCharValues.size()>0){
-            	Map<String, ShoppingCartProductEntry> ProductEntryMap =new HashMap<>();
+            	Map<String, CartItemProductEntry> ProductEntryMap =new HashMap<>();
             	for (ProductCharacteristicValue productCharValue : productCharValues) {
             		String productSpecId=productCharValue.getCharacteristicSpecId();
             		if(null!=productSpecId){
-            			ShoppingCartProductEntry shoppingCartProduct=ProductEntryMap.get(productSpecId);
+            			CartItemProductEntry shoppingCartProduct=ProductEntryMap.get(productSpecId);
             			if (null==shoppingCartProduct){
-            				shoppingCartProduct=new ShoppingCartProductEntry();
+            				shoppingCartProduct=new CartItemProductEntry();
             				ProductId productId=new ProductId();
             				shoppingCartProduct.setId(productId.toString());
             				shoppingCartProduct.setProductSpecificationId(productCharValue.getProductSpecId());
@@ -102,7 +104,7 @@ public class ShoppingCartListener {
             				offerInstance.addProduct(shoppingCartProduct, validPeriod);
             				ProductEntryMap.put(productSpecId, shoppingCartProduct);            				
             			}
-            			ProductCharacterValueEntry productCharValueEntry=new ProductCharacterValueEntry();
+            			CartItemProductCharacterValueEntry productCharValueEntry=new CartItemProductCharacterValueEntry();
                 		productCharValueEntry.setCharacteristicSpecId(productSpecId);
                 		productCharValueEntry.setValueSpecId(productCharValue.getValueSpecId());
                 		productCharValueEntry.setValue(productCharValue.getValue());           		
@@ -120,7 +122,7 @@ public class ShoppingCartListener {
     
     @EventHandler
     public void handleShoppingCartItemDeletedEvent(ShoppingCartItemDeletedEvent event) {
-    	ShoppingCartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
+    	CartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
     	if (null!=shoppingCartItemEntry){
     		TenantContext.setCurrentTenant(event.getTenantId());
     		shoppingCartItemRepository.delete(shoppingCartItemEntry);
@@ -129,7 +131,7 @@ public class ShoppingCartListener {
     
     @EventHandler
     public void handleShoppingCartItemQuantityIncreasedEvent(ShoppingCartItemQuantityIncreasedEvent event) {
-    	ShoppingCartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
+    	CartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
     	if (null!=shoppingCartItemEntry){
     		TenantContext.setCurrentTenant(event.getTenantId());
     		shoppingCartItemEntry.setQuantity(event.getNewQuantity());
@@ -140,7 +142,7 @@ public class ShoppingCartListener {
     
     @EventHandler
     public void handleShoppingCartItemQuantityDecreasedEvent(ShoppingCartItemQuantityDecreasedEvent event) {
-    	ShoppingCartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
+    	CartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
     	if (null!=shoppingCartItemEntry){
     		TenantContext.setCurrentTenant(event.getTenantId());
     		shoppingCartItemEntry.setQuantity(event.getNewQuantity());
@@ -151,13 +153,13 @@ public class ShoppingCartListener {
     
     @EventHandler
     public void handleShoppingCartItemProductCharacterModifiedEvent(ShoppingCartItemProductCharacterModifiedEvent event) {
-    	ShoppingCartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
+    	CartItemEntry shoppingCartItemEntry = shoppingCartItemRepository.findOne(event.getShoppingCartItemId().toString());
     	if (null!=shoppingCartItemEntry){
-    		Set<ShoppingCartOfferInstanceProductRelEntry> products=shoppingCartItemEntry.getOfferInstance().getRelProducts();
+    		Set<CartItemOfferProductRelEntry> products=shoppingCartItemEntry.getOfferInstance().getRelProducts();
     		if (null!=products&&!products.isEmpty()){
-    			for (ShoppingCartOfferInstanceProductRelEntry productRel : products) {
-    				Set<ProductCharacterValueEntry> productChars=productRel.getProduct().getCharacterValues();
-    	    		for (ProductCharacterValueEntry productCharacterValue : productChars) {
+    			for (CartItemOfferProductRelEntry productRel : products) {
+    				Set<AbstractProductCharacterValue> productChars=productRel.getProduct().getCharacterValues();
+    	    		for (AbstractProductCharacterValue productCharacterValue : productChars) {
     					if (productCharacterValue.getCharacteristicSpecId().equalsIgnoreCase(event.getProductCharacterSpecId())
     							&& productRel.getProduct().getProductSpecificationId().equalsIgnoreCase(event.getProductSpecId())
     							&& productCharacterValue.getValueSpecId().equalsIgnoreCase(event.getCharacterValueSpecId())){

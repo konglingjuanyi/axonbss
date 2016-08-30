@@ -14,10 +14,12 @@ import com.ai.bss.api.base.TimePeriod;
 
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractOfferInstanceProductRel{
+public abstract class AbstractOfferProductRel{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
+	
+	private String role;
 	
 	private String relType;//CREATE,REFRENCE
 	
@@ -26,7 +28,7 @@ public abstract class AbstractOfferInstanceProductRel{
 	
 	@ManyToOne
 	@JoinColumn(name="OFFER_INSTANCE_ID")
-	private AbstractOfferInstance offerInstance;
+	private AbstractOffer offerInstance;
 	
 	@ManyToOne
 	@JoinColumn(name="PRODUCT_ID")
@@ -41,15 +43,15 @@ public abstract class AbstractOfferInstanceProductRel{
 		this.product = product;
 	}
 	
-	public AbstractOfferInstance getOfferInstance() {
+	public AbstractOffer getOfferInstance() {
 		return offerInstance;
 	}
 
-	public void setOfferInstance(AbstractOfferInstance offerInstance) {
+	public void setOfferInstance(AbstractOffer offerInstance) {
 		this.offerInstance = offerInstance;
 	}
 
-	public AbstractOfferInstanceProductRel() {
+	public AbstractOfferProductRel() {
 	}
 
 	public String getId() {
@@ -76,6 +78,14 @@ public abstract class AbstractOfferInstanceProductRel{
 	
 	public void setValidPeriod(TimePeriod validPeriod) {
 		this.validPeriod=validPeriod;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

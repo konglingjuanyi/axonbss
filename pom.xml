@@ -49,6 +49,8 @@
   	<module>aibss-shoppingcart</module>
   	<module>aibss-shoppingcart-query</module>
   	<module>aibss-product-api</module>
+  	<module>aibss-customerorder-query-api</module>
+  	<module>aibss-common-bizinteraction-query-api</module>
   </modules>
 
     <dependencies>

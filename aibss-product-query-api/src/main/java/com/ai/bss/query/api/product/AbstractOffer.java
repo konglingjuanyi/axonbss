@@ -15,7 +15,7 @@ import com.ai.bss.api.base.TimePeriod;
 
 @MappedSuperclass
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractOfferInstance {
+public abstract class AbstractOffer {
 
 	private String customerId;
 	private String productOfferingId;	
@@ -23,13 +23,13 @@ public abstract class AbstractOfferInstance {
 	private String id;
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractOfferInstanceProductRel> includedProducts=new LinkedHashSet<AbstractOfferInstanceProductRel>();
+	private Set<AbstractOfferProductRel> includedProducts=new LinkedHashSet<AbstractOfferProductRel>();
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<AbstractPricePlanInstance> appliedCharges=new LinkedHashSet<AbstractPricePlanInstance>();
+	private Set<AbstractPrice> appliedCharges=new LinkedHashSet<AbstractPrice>();
 		
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private Set<OfferInstanceCharacterValueEntry> characterValues=new LinkedHashSet<OfferInstanceCharacterValueEntry>();
+	private Set<AbstractOfferCharacterValue> characterValues=new LinkedHashSet<AbstractOfferCharacterValue>();
 
 		
 	public String getId() {
@@ -41,7 +41,7 @@ public abstract class AbstractOfferInstance {
 	}
 
 
-	public AbstractOfferInstance() {
+	public AbstractOffer() {
 	}
 	
 	public String getCustomerId() {
@@ -63,23 +63,23 @@ public abstract class AbstractOfferInstance {
 		this.productOfferingId=productOfferingId;
 	}
 	
-	public  Set<OfferInstanceCharacterValueEntry> getCharacterValues(){
+	public  Set<AbstractOfferCharacterValue> getCharacterValues(){
 		return characterValues;
 	}
-	public void addCharacterValue(OfferInstanceCharacterValueEntry characterValue){
+	public void addCharacterValue(AbstractOfferCharacterValue characterValue){
 		if(null!=characterValue){
 			this.characterValues.add(characterValue);
 		}
 	}	
-	public Set<AbstractOfferInstanceProductRel> getProducts() {
+	public Set<AbstractOfferProductRel> getProducts() {
 		return includedProducts;
 	}
 	
-	protected abstract AbstractOfferInstanceProductRel newOfferInstanceProductRel();
-	
+	protected abstract AbstractOfferProductRel newOfferInstanceProductRel();
+		
 	public void addProduct(AbstractProduct product,TimePeriod validPeriod) {
 		if (null!=product){
-			AbstractOfferInstanceProductRel offerInstanceProductRel=newOfferInstanceProductRel();
+			AbstractOfferProductRel offerInstanceProductRel=newOfferInstanceProductRel();
 			offerInstanceProductRel.setOfferInstance(this);
 			offerInstanceProductRel.setProduct(product);
 			offerInstanceProductRel.setValidPeriod(validPeriod);
@@ -93,7 +93,7 @@ public abstract class AbstractOfferInstance {
 	}
 	public void removeProduct(AbstractProduct product) {
 		if (null!=product){
-			AbstractOfferInstanceProductRel offerInstanceProductRel=newOfferInstanceProductRel();
+			AbstractOfferProductRel offerInstanceProductRel=newOfferInstanceProductRel();
 			offerInstanceProductRel.setOfferInstance(this);
 			offerInstanceProductRel.setProduct(product);
 			if(includedProducts.contains(offerInstanceProductRel)){
@@ -105,11 +105,11 @@ public abstract class AbstractOfferInstance {
 		}
 	}	
 
-	public Set<AbstractPricePlanInstance> getAppliedCharges() {
+	public Set<AbstractPrice> getAppliedCharges() {
 		return appliedCharges;
 	}
 
-	public void addAppliedCharge(AbstractPricePlanInstance appliedCharge) {
+	public void addAppliedCharge(AbstractPrice appliedCharge) {
 		if (null!=appliedCharge){
 			appliedCharges.add(appliedCharge);
 			if (null==appliedCharge.getOfferInstance()){

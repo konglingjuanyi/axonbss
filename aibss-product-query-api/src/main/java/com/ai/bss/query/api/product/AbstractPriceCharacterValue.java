@@ -1,20 +1,23 @@
 package com.ai.bss.query.api.product;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 
 import com.ai.bss.api.base.CharacteristicValue;
 
-@Entity
-public class PricePlanInstanceCharacterValueEntry extends CharacteristicValue{
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public abstract class AbstractPriceCharacterValue extends CharacteristicValue{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	@ManyToOne
-	private AbstractPricePlanInstance price;
+	private AbstractPrice price;
 
 	public String getId() {
 		return id;
@@ -24,11 +27,11 @@ public class PricePlanInstanceCharacterValueEntry extends CharacteristicValue{
 		this.id = id;
 	}
 
-	public AbstractPricePlanInstance getPrice() {
+	public AbstractPrice getPrice() {
 		return price;
 	}
 
-	public void setPrice(AbstractPricePlanInstance price) {
+	public void setPrice(AbstractPrice price) {
 		this.price = price;
 	}
 }

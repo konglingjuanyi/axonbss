@@ -37,6 +37,9 @@
         <dependent-module archiveName="aibss-shoppingcart-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-shoppingcart-query-api/aibss-shoppingcart-query-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="aibss-product-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-product-query-api/aibss-product-query-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="aibss-product-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-product-api/aibss-product-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>

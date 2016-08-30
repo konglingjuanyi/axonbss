@@ -26,7 +26,10 @@ import org.springframework.stereotype.Component;
 
 import com.ai.bss.api.base.CharacteristicValue;
 import com.ai.bss.api.base.TimePeriod;
+import com.ai.bss.api.product.OfferInstanceId;
 import com.ai.bss.api.product.ProductCharacteristicValue;
+import com.ai.bss.api.product.ProductId;
+import com.ai.bss.api.shoppingcart.ShoppingCartId;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartCreatedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartDeletedEvent;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartItemAddedEvent;
@@ -66,6 +69,8 @@ public class ShoppingCartListener {
         	TenantContext.setCurrentTenant(event.getTenantId());
             ShoppingCartItemEntry shoppingCartItemEntry=new ShoppingCartItemEntry();
             ShoppingCartOfferInstanceEntry offerInstance = new ShoppingCartOfferInstanceEntry();
+            OfferInstanceId offerInstanceId=new OfferInstanceId();
+            offerInstance.setId(offerInstanceId.toString());
             shoppingCartItemEntry.setOfferInstance(offerInstance);
             offerInstance.setProductOfferingId(event.getOfferingId());
             offerInstance.setUnitPrice(event.getOfferingUnitPrice());
@@ -88,6 +93,8 @@ public class ShoppingCartListener {
             			ShoppingCartProductEntry shoppingCartProduct=ProductEntryMap.get(productSpecId);
             			if (null==shoppingCartProduct){
             				shoppingCartProduct=new ShoppingCartProductEntry();
+            				ProductId productId=new ProductId();
+            				shoppingCartProduct.setId(productId.toString());
             				shoppingCartProduct.setProductSpecificationId(productCharValue.getProductSpecId());
             				TimePeriod validPeriod=new TimePeriod();
             				validPeriod.setBeginTime(validPeriod.getCurrenttTime());
@@ -100,12 +107,9 @@ public class ShoppingCartListener {
                 		productCharValueEntry.setValueSpecId(productCharValue.getValueSpecId());
                 		productCharValueEntry.setValue(productCharValue.getValue());           		
                 		shoppingCartProduct.addCharacterValue(productCharValueEntry);
-            		}
-            		
-            		
+            		}            		
 				}
-            }
-            
+            }            
             shoppingCartItemEntry.setId(event.getShoppingCartItemId().toString());
             shoppingCartItemEntry.setQuantity(event.getQuantity());
             shoppingCartItemEntry.setPrice(event.getPrice());

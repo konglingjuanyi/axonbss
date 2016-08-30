@@ -1,6 +1,8 @@
 package com.ai.bss.query.api.product;
 
 import javax.persistence.Embedded;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -14,6 +16,7 @@ import com.ai.bss.api.base.TimePeriod;
 public abstract class AbstractProductPriceRel{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;	
 	
 	@ManyToOne

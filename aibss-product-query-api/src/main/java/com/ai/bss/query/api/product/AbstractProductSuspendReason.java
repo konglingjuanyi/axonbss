@@ -1,5 +1,7 @@
 package com.ai.bss.query.api.product;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -11,6 +13,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class AbstractProductSuspendReason{
 	private String suspendCode;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
 	@ManyToOne

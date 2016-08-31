@@ -1,6 +1,9 @@
 package com.ai.bss.query.api.customerorder;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -8,6 +11,8 @@ import javax.persistence.OneToOne;
 
 import com.ai.bss.query.api.bizinteraction.BizInteractionItem;
 @Entity
+@DiscriminatorValue("CUSTOMER.ORDER.ITEM")
+@Access(AccessType.FIELD) 
 public class OrderItem extends BizInteractionItem  {
 	public enum OrderItemState {
 		INITIATED(0),

@@ -51,6 +51,9 @@
   	<module>aibss-product-api</module>
   	<module>aibss-customerorder-query-api</module>
   	<module>aibss-common-bizinteraction-query-api</module>
+  	<module>aibss-customerorder-query</module>
+  	<module>aibss-customerorder-api</module>
+  	<module>aibss-customerorder</module>
   </modules>
 
     <dependencies>

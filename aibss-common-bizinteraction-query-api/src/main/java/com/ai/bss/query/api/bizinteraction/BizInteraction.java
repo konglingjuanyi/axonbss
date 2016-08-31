@@ -7,12 +7,23 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="BIZ_SPEC_ID",discriminatorType=DiscriminatorType.STRING)
+@Table(name="BIZ_INTERACTION")
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
 @Access(AccessType.FIELD) 
 public class BizInteraction {
 	@Id
@@ -46,10 +57,6 @@ public class BizInteraction {
 			this.characterValues.add(characterValue);
 		}
 	}
-	
-	public BizInteraction(String biSpecId) {
-		this.biSpecId=biSpecId;
-	}	
 
 	protected int getState() {
 		return this.state;

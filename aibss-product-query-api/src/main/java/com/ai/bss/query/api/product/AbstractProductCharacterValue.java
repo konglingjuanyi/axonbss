@@ -17,6 +17,8 @@ public abstract class AbstractProductCharacterValue extends CharacteristicValue 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
+	private String offerInstanceId;
+	
 	@ManyToOne
 	private AbstractProduct product;
 
@@ -34,6 +36,14 @@ public abstract class AbstractProductCharacterValue extends CharacteristicValue 
 
 	public void setProduct(AbstractProduct product) {
 		this.product = product;
+	}
+
+	public String getOfferInstanceId() {
+		return offerInstanceId;
+	}
+
+	public void setOfferInstanceId(String offerInstanceId) {
+		this.offerInstanceId = offerInstanceId;
 	}
 	
 }

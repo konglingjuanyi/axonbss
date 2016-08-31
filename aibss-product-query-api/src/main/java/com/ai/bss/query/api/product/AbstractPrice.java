@@ -87,7 +87,7 @@ public abstract class AbstractPrice{
 	public void assignTo(AbstractProduct product,TimePeriod validPeriod) {
 		if(null!=product){
 			AbstractProductPriceRel productPriceRel = newProductPriceRel();
-			productPriceRel.setPricePlanInstance(this);
+			productPriceRel.setPrice(this);
 			productPriceRel.setProduct(product);
 			productPriceRel.setValidPeriod(validPeriod);
 			if(!assignedTo.contains(productPriceRel)){
@@ -104,7 +104,7 @@ public abstract class AbstractPrice{
 	public void unAssignTo(AbstractProduct product) {
 		if(null!=product){
 			AbstractProductPriceRel productPriceRel= newProductPriceRel();
-			productPriceRel.setPricePlanInstance(this);
+			productPriceRel.setPrice(this);
 			productPriceRel.setProduct(product);
 			if(assignedTo.contains(productPriceRel)){
 				assignedTo.remove(productPriceRel);

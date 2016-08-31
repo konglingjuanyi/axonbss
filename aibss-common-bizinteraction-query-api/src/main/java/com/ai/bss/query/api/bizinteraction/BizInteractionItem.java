@@ -5,16 +5,27 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
+@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="BIZ_ITEM_SPEC_ID",discriminatorType=DiscriminatorType.STRING)
+@Table(name="BIZ_INTERACTION_ITEM")
+@JsonTypeInfo(use=JsonTypeInfo.Id.CLASS, include=JsonTypeInfo.As.PROPERTY, property="@class")
 public class BizInteractionItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +37,7 @@ public class BizInteractionItem {
 	@Column(name="BII_STATE")
 	private int state;
 	
-	private int action;	
+	private String commandName;	
 	
 	@ManyToOne
 	@JoinColumn(name="BIZ_INTERACTION_ID")
@@ -92,12 +103,12 @@ public class BizInteractionItem {
 		this.id = id;
 	}
 
-	public int getAction() {
-		return action;
+	public String getCommandName() {
+		return commandName;
 	}
 
 
-	public void setAction(int action) {
-		this.action = action;
+	public void setCommandName(String commandName) {
+		this.commandName = commandName;
 	}
 }

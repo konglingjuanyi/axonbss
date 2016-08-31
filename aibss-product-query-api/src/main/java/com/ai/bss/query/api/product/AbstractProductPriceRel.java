@@ -19,6 +19,8 @@ public abstract class AbstractProductPriceRel{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;	
 	
+	private String offerPricingTargetSpecId; 
+	
 	@ManyToOne
 	private AbstractProduct product;
 	@ManyToOne
@@ -40,12 +42,12 @@ public abstract class AbstractProductPriceRel{
 	}
 
 	
-	public AbstractPrice getPricePlanInstance() {
+	public AbstractPrice getPrice() {
 		return this.price;
 	}
 
 	
-	public void setPricePlanInstance(AbstractPrice price) {
+	public void setPrice(AbstractPrice price) {
 		this.price=price;
 	}
 	
@@ -64,6 +66,14 @@ public abstract class AbstractProductPriceRel{
 	
 	public void setValidPeriod(TimePeriod validPeriod) {
 		this.validPeriod=validPeriod;
+	}
+
+	public String getOfferPricingTargetSpecId() {
+		return offerPricingTargetSpecId;
+	}
+
+	public void setOfferPricingTargetSpecId(String offerPricingTargetSpecId) {
+		this.offerPricingTargetSpecId = offerPricingTargetSpecId;
 	}
 
 }

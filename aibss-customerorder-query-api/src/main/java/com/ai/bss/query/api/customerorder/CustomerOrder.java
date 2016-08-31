@@ -5,13 +5,14 @@ import java.util.Set;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import com.ai.bss.query.api.bizinteraction.BizInteraction;
 import com.ai.bss.query.api.bizinteraction.BizInteractionItem;
 
 @Entity
-//@DiscriminatorValue("1000")
+@DiscriminatorValue("CUSTOMER.ORDER")
 @Access(AccessType.FIELD) 
 public class CustomerOrder extends BizInteraction {	
 	public enum OrderAction {
@@ -49,11 +50,6 @@ public class CustomerOrder extends BizInteraction {
 	        return value; 
 	    } 
 	}	
-	
-	public CustomerOrder() {
-		super("BIZ_CUSTOMER_ORDER");
-	}
-
 	
 	public long getCustomerOrderId() {
 		return super.getId();

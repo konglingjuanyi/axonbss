@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
 import com.ai.bss.query.api.product.AbstractOffer;
 import com.ai.bss.query.api.product.AbstractOfferProductRel;
@@ -21,6 +22,30 @@ public class OrderItemOfferEntry extends AbstractOffer {
 	private Set<AbstractPrice> oneTimeFees=new LinkedHashSet<AbstractPrice>();
 
 	private long totalOneTimeFee; 
+	
+	@Version
+    private long version;
+	
+	private long asisVersion;
+	
+	//updated after the offer is archived
+	private long tobeVersion;
+	
+	public long getAsisVersion() {
+		return asisVersion;
+	}
+
+	public void setAsisVersion(long asisVersion) {
+		this.asisVersion = asisVersion;
+	}
+
+	public long getTobeVersion() {
+		return tobeVersion;
+	}
+
+	public void setTobeVersion(long tobeVersion) {
+		this.tobeVersion = tobeVersion;
+	}
 	
 	public OrderItemOfferEntry() {
 		// TODO Auto-generated constructor stub
@@ -68,5 +93,13 @@ public class OrderItemOfferEntry extends AbstractOffer {
 
 	public void setOrderItem(OrderItem orderItem) {
 		this.orderItem = orderItem;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

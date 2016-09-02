@@ -4,7 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.ai.bss.api.base.CharacteristicValue;
-import com.ai.bss.api.product.ProductCharacteristicValue;
+import com.ai.bss.api.product.dto.ProductCharacteristicValue;
 
 public class ShoppingCartItemAddedEvent extends ShoppingCartItemEvent{
 	public ShoppingCartItemAddedEvent() {

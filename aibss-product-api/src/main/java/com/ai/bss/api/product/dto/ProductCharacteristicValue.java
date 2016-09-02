@@ -1,4 +1,4 @@
-package com.ai.bss.api.product;
+package com.ai.bss.api.product.dto;
 
 import com.ai.bss.api.base.CharacteristicValue;
 

@@ -1,6 +1,6 @@
 package com.ai.bss.api.shoppingcart.command;
 
-public class IncreaseShoppingCartItemQuantityCommand extends ShoppingCartItemCommand {
+public class IncreaseShoppingCartItemQuantityCommand extends AbstractShoppingCartItemCommand {
 	private int newQuantity;
 	private long price;
 	public IncreaseShoppingCartItemQuantityCommand() {

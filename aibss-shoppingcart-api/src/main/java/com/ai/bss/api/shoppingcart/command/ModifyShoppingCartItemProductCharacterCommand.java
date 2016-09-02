@@ -1,6 +1,6 @@
 package com.ai.bss.api.shoppingcart.command;
 
-public class ModifyShoppingCartItemProductCharacterCommand extends ShoppingCartItemCommand {
+public class ModifyShoppingCartItemProductCharacterCommand extends AbstractShoppingCartItemCommand {
 	private String productSpecId;
 	private String productCharacterSpecId;
 	private String characterValueSpecId;

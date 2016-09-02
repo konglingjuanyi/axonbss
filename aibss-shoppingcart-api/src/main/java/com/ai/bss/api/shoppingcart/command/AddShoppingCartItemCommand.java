@@ -4,9 +4,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.ai.bss.api.base.CharacteristicValue;
-import com.ai.bss.api.product.ProductCharacteristicValue;
+import com.ai.bss.api.product.dto.ProductCharacteristicValue;
 
-public class AddShoppingCartItemCommand extends ShoppingCartItemCommand {
+public class AddShoppingCartItemCommand extends AbstractShoppingCartItemCommand {
 	private String offeringId;
 	private int quantity;
 	private long price;  

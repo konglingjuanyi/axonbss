@@ -13,7 +13,7 @@ import com.ai.bss.query.api.bizinteraction.BizInteractionItem;
 @Entity
 @DiscriminatorValue("CUSTOMER.ORDER.ITEM")
 @Access(AccessType.FIELD) 
-public class OrderItem extends BizInteractionItem  {
+public class OrderItemEntry extends BizInteractionItem  {
 	public enum OrderItemState {
 		INITIATED(0),
 		CREATED(1),
@@ -37,16 +37,16 @@ public class OrderItem extends BizInteractionItem  {
 	@JoinColumn(name="RELAT_ENTITY_ID")
 	private OrderItemOfferEntry  toBeOfferInstance;
 		
-	public OrderItem(CustomerOrder customerOrder) {
+	public OrderItemEntry(CustomerOrderEntry customerOrder) {
 		super(customerOrder);
 		customerOrder.addItem(this);
 	}	
 
-	public CustomerOrder getCustomerOrder() {
-		return (CustomerOrder)super.getBizInteraction();
+	public CustomerOrderEntry getCustomerOrder() {
+		return (CustomerOrderEntry)super.getBizInteraction();
 	}
 	
-	public void setCustomerOrder(CustomerOrder customerOrder) {
+	public void setCustomerOrder(CustomerOrderEntry customerOrder) {
 		super.setBizInteraction(customerOrder);	
 	}
 

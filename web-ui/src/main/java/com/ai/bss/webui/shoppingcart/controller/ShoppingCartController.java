@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ai.bss.api.base.CharacteristicValue;
-import com.ai.bss.api.product.ProductCharacteristicValue;
+import com.ai.bss.api.product.dto.ProductCharacteristicValue;
 import com.ai.bss.api.shoppingcart.ShoppingCartId;
 import com.ai.bss.api.shoppingcart.ShoppingCartItemId;
 import com.ai.bss.api.shoppingcart.command.AddShoppingCartItemCommand;

@@ -8,7 +8,7 @@ import org.axonframework.eventsourcing.annotation.AbstractAnnotatedAggregateRoot
 import org.axonframework.eventsourcing.annotation.AggregateIdentifier;
 
 import com.ai.bss.api.base.CharacteristicValue;
-import com.ai.bss.api.product.ProductCharacteristicValue;
+import com.ai.bss.api.product.dto.ProductCharacteristicValue;
 import com.ai.bss.api.shoppingcart.ShoppingCartId;
 import com.ai.bss.api.shoppingcart.ShoppingCartItemId;
 import com.ai.bss.api.shoppingcart.event.ShoppingCartCreatedEvent;

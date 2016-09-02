@@ -16,7 +16,7 @@ import com.ai.bss.query.api.product.AbstractPrice;
 @Entity
 public class OrderItemOfferEntry extends AbstractOffer {
 	@OneToOne
-	private OrderItem orderItem;
+	private OrderItemEntry orderItem;
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractPrice> oneTimeFees=new LinkedHashSet<AbstractPrice>();
@@ -87,11 +87,11 @@ public class OrderItemOfferEntry extends AbstractOffer {
 		return products;
 	}
 
-	public OrderItem getOrderItem() {
+	public OrderItemEntry getOrderItem() {
 		return orderItem;
 	}
 
-	public void setOrderItem(OrderItem orderItem) {
+	public void setOrderItem(OrderItemEntry orderItem) {
 		this.orderItem = orderItem;
 	}
 

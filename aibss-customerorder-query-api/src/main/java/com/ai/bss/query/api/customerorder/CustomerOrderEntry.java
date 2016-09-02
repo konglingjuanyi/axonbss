@@ -14,7 +14,7 @@ import com.ai.bss.query.api.bizinteraction.BizInteractionItem;
 @Entity
 @DiscriminatorValue("CUSTOMER.ORDER")
 @Access(AccessType.FIELD) 
-public class CustomerOrder extends BizInteraction {	
+public class CustomerOrderEntry extends BizInteraction {	
 	public enum OrderAction {
 		NEW(1),
 		UPDATE(2),
@@ -61,12 +61,12 @@ public class CustomerOrder extends BizInteraction {
 	}
 
 	
-	public Set<OrderItem> getOrderItems() {
-		Set<OrderItem> OrderItems=new LinkedHashSet<OrderItem>();
+	public Set<OrderItemEntry> getOrderItems() {
+		Set<OrderItemEntry> OrderItems=new LinkedHashSet<OrderItemEntry>();
 		Set<BizInteractionItem> items=super.getItems();
 		if (items!=null&&items.size()>0) {
 			for (BizInteractionItem businessInteractionItem : items) {
-				OrderItems.add((OrderItem)businessInteractionItem);
+				OrderItems.add((OrderItemEntry)businessInteractionItem);
 
 			}
 		}
@@ -74,7 +74,7 @@ public class CustomerOrder extends BizInteraction {
 	}
 
 	
-	public void addOrderItem(OrderItem orderItem) {
+	public void addOrderItem(OrderItemEntry orderItem) {
 		if (null!=orderItem){
 			super.addItem(orderItem);
 		}

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import com.ai.bss.aggregate.party.Department;
 import com.ai.bss.aggregate.party.Individual;
 import com.ai.bss.aggregate.party.Legal;
-import com.ai.bss.aggregate.party.Party;
 import com.ai.bss.commandhandler.party.DepartmentCommandHandler;
 import com.ai.bss.commandhandler.party.IndividualCommandHandler;
 import com.ai.bss.commandhandler.party.LegalOrganizationCommandHandler;

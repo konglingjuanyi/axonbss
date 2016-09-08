@@ -1,11 +1,14 @@
-package com.ai.bss.api.customerorder.command;
+package com.ai.bss.api.customerorder.dto;
 
 import com.ai.bss.api.product.dto.BuyOffer;
 
-public class StartBuyOrderItemCommand  extends AbstractOrderItemCommand {
+public class BuyOrderItem {
+
+	public BuyOrderItem() {
+		
+	}
 	private BuyOffer offer;
 	private int quantity;
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -21,4 +24,5 @@ public class StartBuyOrderItemCommand  extends AbstractOrderItemCommand {
 	public void setOffer(BuyOffer offer) {
 		this.offer = offer;
 	}
+
 }

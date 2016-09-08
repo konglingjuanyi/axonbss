@@ -1,8 +1,11 @@
-package com.ai.bss.api.customerorder.command;
+package com.ai.bss.api.customerorder.dto;
 
 import com.ai.bss.api.product.dto.RentOffer;
 
-public class StartRentOrderItemCommand  extends AbstractOrderItemCommand {
+public class RentOrderItem {
+
+	public RentOrderItem() {
+	}
 	private RentOffer offer;
 	private int quantity;
 

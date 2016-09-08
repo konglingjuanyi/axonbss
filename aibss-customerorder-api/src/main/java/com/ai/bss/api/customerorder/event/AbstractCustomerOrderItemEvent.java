@@ -1,13 +1,13 @@
-package com.ai.bss.api.customerorder.command;
+package com.ai.bss.api.customerorder.event;
 
-import com.ai.bss.api.base.BaseCommand;
+import com.ai.bss.api.base.BaseEvent;
 import com.ai.bss.api.customerorder.CustomerOrderId;
 import com.ai.bss.api.customerorder.CustomerOrderItemId;
 
-public class AbstractOrderItemCommand extends BaseCommand {
+public abstract class AbstractCustomerOrderItemEvent extends BaseEvent {
 	private CustomerOrderId customerOrderId;
 	private CustomerOrderItemId customerOrderItemId;
-	public AbstractOrderItemCommand() {
+	public AbstractCustomerOrderItemEvent() {
 		// TODO Auto-generated constructor stub
 	}
 	public CustomerOrderId getCustomerOrderId() {

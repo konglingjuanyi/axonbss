@@ -1,8 +1,8 @@
 package com.ai.bss.api.customerorder.command;
 
-public class PublishOrderCommand  extends AbstractOrderCommand{
+public class FinishOrderCommand  extends AbstractOrderCommand{
 
-	public PublishOrderCommand() {
+	public FinishOrderCommand() {
 		// TODO Auto-generated constructor stub
 	}
 

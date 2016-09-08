@@ -1,16 +1,16 @@
-package com.ai.bss.api.customerorder.command;
+package com.ai.bss.api.customerorder.event;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import com.ai.bss.api.base.BaseCommand;
+import com.ai.bss.api.base.BaseEvent;
 import com.ai.bss.api.base.CharacteristicValue;
 import com.ai.bss.api.customerorder.CustomerOrderId;
 
-public abstract class AbstractOrderCommand extends BaseCommand {
+public abstract class AbstractCustomerOrderEvent extends BaseEvent {
 	private CustomerOrderId customerOrderId;
 	private Set<CharacteristicValue> characterValues = new LinkedHashSet<CharacteristicValue>();
-	public AbstractOrderCommand() {
+	public AbstractCustomerOrderEvent() {
 		// TODO Auto-generated constructor stub
 	}
 	public CustomerOrderId getCustomerOrderId() {

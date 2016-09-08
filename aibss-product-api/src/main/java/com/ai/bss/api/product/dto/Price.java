@@ -11,8 +11,8 @@ public class Price {
 	}
 	
 	private String priceSpecificationId;
-	private long priceAfterDiscount;
-	private long discount;
+	private String subjectsCode;
+	private long unitPrice;//discount=SpecificationPrice-unitPrice
 	private Set<CharacteristicValue> characterValues = new LinkedHashSet<CharacteristicValue>();
 	private Set<Product> products = new LinkedHashSet<Product>();
 	public String getPriceSpecificationId() {
@@ -27,18 +27,6 @@ public class Price {
 	public void setCharacterValues(Set<CharacteristicValue> characterValues) {
 		this.characterValues = characterValues;
 	}
-	public long getPriceAfterDiscount() {
-		return priceAfterDiscount;
-	}
-	public void setPriceAfterDiscount(long price) {
-		this.priceAfterDiscount = price;
-	}
-	public long getDiscount() {
-		return discount;
-	}
-	public void setDiscount(long discount) {
-		this.discount = discount;
-	}
 	public Set<Product> getProducts() {
 		return products;
 	}
@@ -51,6 +39,18 @@ public class Price {
 		if (!this.products.contains(product)){
 			this.products.add(product);
 		}
+	}
+	public long getUnitPrice() {
+		return unitPrice;
+	}
+	public void setUnitPrice(long unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+	public String getSubjectsCode() {
+		return subjectsCode;
+	}
+	public void setSubjectsCode(String subjectsCode) {
+		this.subjectsCode = subjectsCode;
 	}
 
 }

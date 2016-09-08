@@ -1,8 +1,8 @@
 package com.ai.bss.api.customerorder.command;
 
-public class CancelOrderCommand  extends AbstractOrderCommand{
+public class RefundOrderCommand  extends AbstractOrderCommand{
 
-	public CancelOrderCommand() {
+	public RefundOrderCommand() {
 		// TODO Auto-generated constructor stub
 	}
 

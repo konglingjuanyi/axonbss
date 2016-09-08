@@ -28,6 +28,7 @@ import org.axonframework.eventstore.mongo.MongoEventStore;
 import org.axonframework.eventstore.mongo.MongoTemplate;
 import org.axonframework.saga.repository.jdbc.HsqlSagaSqlSchema;
 import org.axonframework.saga.repository.jdbc.SagaSqlSchema;
+import org.axonframework.saga.repository.mongo.MongoSagaRepository;
 import org.axonframework.saga.spring.SpringResourceInjector;
 import org.axonframework.serializer.json.JacksonSerializer;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -209,6 +210,20 @@ public class AxonConfiguration {
     	SagaSqlSchema sagaSqlSchema=new HsqlSagaSqlSchema();
     	return sagaSqlSchema;
     }
+    @Bean
+    org.axonframework.saga.repository.mongo.DefaultMongoTemplate mongoSagaTemplate() throws Exception{
+    	org.axonframework.saga.repository.mongo.DefaultMongoTemplate mongoSagaTemplate=new org.axonframework.saga.repository.mongo.DefaultMongoTemplate(
+    			mongo(),"aibss","snapshotevents",null,null);
+    	return mongoSagaTemplate;
+    }
+    
+    @Bean
+    MongoSagaRepository sagaRepository() throws Exception{
+    	MongoSagaRepository sagaRepository=new MongoSagaRepository(mongoSagaTemplate());
+    	sagaRepository.setResourceInjector(springResourceInjector());
+    	return sagaRepository;
+    }
+ 
 
     @Bean
     SpringResourceInjector springResourceInjector(){

@@ -1,6 +1,7 @@
 package com.ai.bss.query.api.product;
 
 import javax.persistence.Embedded;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,15 +9,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 
 import com.ai.bss.api.base.TimePeriod;
 
-@MappedSuperclass
+@Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractOfferProductRel{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private String id;
 	
 	private String role;

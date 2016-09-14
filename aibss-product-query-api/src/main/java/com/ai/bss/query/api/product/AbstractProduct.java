@@ -4,14 +4,14 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
-@MappedSuperclass
+@Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractProduct{
 	private String customerId;

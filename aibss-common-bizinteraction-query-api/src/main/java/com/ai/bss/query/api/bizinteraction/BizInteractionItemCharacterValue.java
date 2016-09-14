@@ -14,17 +14,7 @@ import com.ai.bss.api.base.CharacteristicValue;
 @Entity
 @Table(name="BII_CHARACTER_VALUE")
 public class BizInteractionItemCharacterValue extends CharacteristicValue{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}	
+	
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="BIZ_INTERACTION_ITEM_CHAR_ID")
 	private BizInteractionItem bizInteractionItem;

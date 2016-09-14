@@ -1,13 +1,10 @@
 package com.ai.bss.query.api.customerorder;
 
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 import com.ai.bss.query.api.product.AbstractOfferProductRel;
 @Entity
 public class OrderItemOfferProductRelEntry extends AbstractOfferProductRel {
-	@Version
-    private long version;
 	
 	private long asisVersion;
 	

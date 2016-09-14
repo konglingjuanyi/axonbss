@@ -5,4 +5,6 @@
  customer-query:8081
  shoppingcart-query:8086
  shoppingcart:8085
+ customerOrder:8083
+ customerOrder-query:8084
  

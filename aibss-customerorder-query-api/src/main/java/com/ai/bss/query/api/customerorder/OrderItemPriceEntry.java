@@ -1,7 +1,6 @@
 package com.ai.bss.query.api.customerorder;
 
 import javax.persistence.Entity;
-import javax.persistence.Version;
 
 import com.ai.bss.query.api.product.AbstractPrice;
 import com.ai.bss.query.api.product.AbstractProductPriceRel;
@@ -13,8 +12,6 @@ public class OrderItemPriceEntry extends AbstractPrice{
 	protected AbstractProductPriceRel newProductPriceRel() {
 		return new OrderItemProductPriceRelEntry();
 	}
-	@Version
-    private long version;
 	
 	private long asisVersion;
 	

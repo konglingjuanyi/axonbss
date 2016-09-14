@@ -43,7 +43,7 @@ public class BizInteractionItem {
 	@JoinColumn(name="BIZ_INTERACTION_ID")
 	private BizInteraction bizInteraction;
 	
-	@OneToMany(mappedBy="BizInteractionItem",cascade=CascadeType.ALL,fetch=FetchType.LAZY)	
+	@OneToMany(mappedBy="bizInteractionItem",cascade=CascadeType.ALL,fetch=FetchType.LAZY)	
 	private Set<BizInteractionItemCharacterValue> characterValues=new LinkedHashSet<BizInteractionItemCharacterValue>();
 	
 	public  Set<BizInteractionItemCharacterValue> getCharacteristicValues(){

@@ -1,7 +1,5 @@
 package com.ai.bss.commandhandler.customerorder;
 
-import java.util.Set;
-
 import org.axonframework.commandhandling.annotation.CommandHandler;
 import org.axonframework.repository.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class CustomerOrderCommandHandler {
     public void handleStartBuyOrder(StartBuyOrderCommand command) {
     	TenantContext.setCurrentTenant(command.getTenantId());
     	CustomerOrderId identifier = command.getCustomerOrderId();
-    	CustomerOrder customerOrder = new CustomerOrder(identifier,command.getCharacterValues());   	
+    	CustomerOrder customerOrder = new CustomerOrder(identifier,command.getOffers(),command.getCharacterValues());   	
         repository.add(customerOrder);
     }
     

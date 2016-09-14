@@ -45,10 +45,11 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	public CustomerOrder(){
 		
 	}
-	public CustomerOrder(CustomerOrderId customerOrderId,Set<CharacteristicValue> characterValues){		
+	public CustomerOrder(CustomerOrderId customerOrderId,Set<BuyOffer> offers,Set<CharacteristicValue> characterValues){		
 		OrderInitializedEvent event= new OrderInitializedEvent();
 		event.setCustomerOrderId(customerOrderId);
 		event.setCharacterValues(characterValues);
+		event.setOffers(offers);
 		apply(event);
 	}
 	

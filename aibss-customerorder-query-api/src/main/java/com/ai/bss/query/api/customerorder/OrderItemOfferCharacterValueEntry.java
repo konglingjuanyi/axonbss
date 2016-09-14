@@ -8,8 +8,6 @@ import com.ai.bss.query.api.product.AbstractOfferCharacterValue;
 @Entity
 public class OrderItemOfferCharacterValueEntry extends AbstractOfferCharacterValue{
 	public OrderItemOfferCharacterValueEntry(){}
-	@Version
-    private long version;
 	
 	private long asisVersion;
 	

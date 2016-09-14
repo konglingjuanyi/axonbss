@@ -21,10 +21,7 @@ public class OrderItemOfferEntry extends AbstractOffer {
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractPrice> oneTimeFees=new LinkedHashSet<AbstractPrice>();
 
-	private long totalOneTimeFee; 
-	
-	@Version
-    private long version;
+	private long totalOneTimeFee; 	
 	
 	private long asisVersion;
 	
@@ -93,13 +90,5 @@ public class OrderItemOfferEntry extends AbstractOffer {
 
 	public void setOrderItem(OrderItemEntry orderItem) {
 		this.orderItem = orderItem;
-	}
-
-	public long getVersion() {
-		return version;
-	}
-
-	public void setVersion(long version) {
-		this.version = version;
 	}
 }

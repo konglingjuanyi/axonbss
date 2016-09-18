@@ -1,17 +1,17 @@
 package com.ai.bss.api.policy.dto;
 
-public abstract class AbstractCondition {
-	private String conditionId;
+public class AbstractValue {
+	private String valueId;
 	private String name;
 	private String code;
-	public AbstractCondition() {
-		// TODO Auto-generated constructor stub
+	public AbstractValue() {
+		
 	}
-	public String getConditionId() {
-		return conditionId;
+	public String getValueId() {
+		return valueId;
 	}
-	public void setConditionId(String conditionId) {
-		this.conditionId = conditionId;
+	public void setValueId(String valueId) {
+		this.valueId = valueId;
 	}
 	public String getName() {
 		return name;

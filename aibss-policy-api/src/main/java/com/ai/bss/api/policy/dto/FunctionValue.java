@@ -3,10 +3,10 @@ package com.ai.bss.api.policy.dto;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class FunctionValuePan extends AbstractPan {
+public class FunctionValue extends AbstractValue {
 	private String functionId;
 	private Set<FunctionValuePanParamter> parameterValues= new LinkedHashSet<>();
-	public FunctionValuePan() {
+	public FunctionValue() {
 		
 	}
 	public String getFunctionId() {

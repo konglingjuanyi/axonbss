@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.ai.bss.query.characteristicSpec.CharacteristicSpecEntry;
+import com.ai.bss.api.base.CharacteristicSpec;
 
 @Entity
 @Table(name="PL_VARIABLE")
@@ -22,7 +22,7 @@ public class PolicyVariableEntry{
 	private String code;
 	private String type;
 	@OneToOne
-	private CharacteristicSpecEntry characteristicSpec;
+	private CharacteristicSpec characteristicSpec;
 	private String initialInputValue;
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private PolicyValueEntry value;
@@ -64,12 +64,12 @@ public class PolicyVariableEntry{
 	}
 
 	
-	public CharacteristicSpecEntry getEnumCharacteristic() {
+	public CharacteristicSpec getEnumCharacteristic() {
 		return this.characteristicSpec;
 	}
 
 	
-	public void setEnumCharacteristic(CharacteristicSpecEntry characteristicSpec) {
+	public void setEnumCharacteristic(CharacteristicSpec characteristicSpec) {
 		this.characteristicSpec=characteristicSpec;
 	}
 

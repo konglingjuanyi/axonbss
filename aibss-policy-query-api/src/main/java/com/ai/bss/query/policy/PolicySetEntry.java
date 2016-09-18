@@ -39,6 +39,10 @@ public abstract class PolicySetEntry{
 	@OneToMany(mappedBy="policyset",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private Set<PolicyValueEntry> polivyValues = new LinkedHashSet<PolicyValueEntry>();
 	
+	@OneToMany(mappedBy="policyRule",fetch=FetchType.LAZY,targetEntity=PolicyRuleParameterEntry.class)
+	private Set<PolicyRuleInputParameterEntry> inputParameters=new LinkedHashSet<PolicyRuleInputParameterEntry>();
+
+	
 	@ManyToOne
 	private PolicySetEntry parentPolicySet;
 	
@@ -65,9 +69,15 @@ public abstract class PolicySetEntry{
 		this.code=code;
 	}
 
+	protected void addInputParameter(PolicyRuleInputParameterEntry param) {
+		if(null!=param){
+			inputParameters.add(param);
+		}
+	}
 	
-	
-	abstract public Set<PolicyRuleInputParameterEntry> getInputParameters();
+	public Set<PolicyRuleInputParameterEntry> getInputParameters() {
+		return this.inputParameters;
+	}	
 
 	
 	public PolicySetOutputParameterEntry getOutputParameter() {

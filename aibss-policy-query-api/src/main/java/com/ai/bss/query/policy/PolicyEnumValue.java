@@ -7,27 +7,26 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import com.ai.bss.query.characteristicSpec.CharacteristicSpecValueEntry;
-
+import com.ai.bss.api.base.CharacteristicSpecValue;
 
 @Entity
 @DiscriminatorValue("ENUM")
 public class PolicyEnumValue extends PolicyValueEntry {
 	@Transient //TODO
-	private Set<CharacteristicSpecValueEntry> enumValues=new LinkedHashSet<CharacteristicSpecValueEntry>();
+	private Set<CharacteristicSpecValue> enumValues=new LinkedHashSet<CharacteristicSpecValue>();
 	@Transient //TODO
-	private CharacteristicSpecValueEntry enumValue;
+	private CharacteristicSpecValue enumValue;
 	public PolicyEnumValue( PolicySetEntry policyset) {
 		super(policyset);
 	}
 
 	
-	public Set<CharacteristicSpecValueEntry> getEnumValues() {
+	public Set<CharacteristicSpecValue> getEnumValues() {
 		return this.enumValues;
 	}
 
 	
-	public void addEnumValue(CharacteristicSpecValueEntry value) {
+	public void addEnumValue(CharacteristicSpecValue value) {
 		if(null!=value){
 			enumValues.add(value);
 		}
@@ -35,12 +34,12 @@ public class PolicyEnumValue extends PolicyValueEntry {
 	}
 
 	
-	public CharacteristicSpecValueEntry getEnumValue() {
+	public CharacteristicSpecValue getEnumValue() {
 		return this.enumValue;
 	}
 
 	
-	public void setEnumValue(CharacteristicSpecValueEntry enumValue) {
+	public void setEnumValue(CharacteristicSpecValue enumValue) {
 		this.enumValue=enumValue;
 	}
 
@@ -50,7 +49,7 @@ public class PolicyEnumValue extends PolicyValueEntry {
 		
 		if (this.getEnumValues().size()>0){
 			sb.append("(");
-			for (CharacteristicSpecValueEntry specValue : this.getEnumValues()) {
+			for (CharacteristicSpecValue specValue : this.getEnumValues()) {
 				sb.append(specValue.getValue()).append(",");
 			}
 			sb.delete(sb.length()-1,sb.length()-1);

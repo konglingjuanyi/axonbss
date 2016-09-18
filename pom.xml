@@ -54,6 +54,8 @@
   	<module>aibss-customerorder-query</module>
   	<module>aibss-customerorder-api</module>
   	<module>aibss-customerorder</module>
+  	<module>aibss-policy-api</module>
+  	<module>aibss-policy-query-api</module>
   </modules>
 
     <dependencies>

@@ -10,8 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.TestRestTemplate;
-import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
@@ -39,6 +37,11 @@ public class WebTest {
 	@Before
 	public void setUp() throws Exception {
 		this.base = new URL("http://customerorder-service/customerorder/startBuyOrderCommand");
+		initialBuyRule();
+	}
+	
+	private void initialBuyRule(){
+		
 	}
 
 	@Test
@@ -68,7 +71,7 @@ public class WebTest {
 		iPhone5S.setProductSpecificationId("20001");
 		iPhone5Soffer.addProduct(iPhone5S);
 		command.setOffers(offers);		
-		restTemplate.postForEntity(base.toString(), command,StartBuyOrderCommand.class);
+		command=restTemplate.postForEntity(base.toString(), command,StartBuyOrderCommand.class).getBody();
 	}
 
 }

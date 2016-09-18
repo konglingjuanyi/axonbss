@@ -12,8 +12,7 @@ import javax.persistence.OneToMany;
 public class PolicyGroup extends PolicySetEntry{
 	@OneToMany(mappedBy="parentPolicySet",fetch=FetchType.LAZY)
 	private Set<PolicySetEntry> policySets=new LinkedHashSet<PolicySetEntry>();
-	@OneToMany(mappedBy="policyRule",fetch=FetchType.LAZY,targetEntity=PolicyRuleParameterEntry.class)
-	private Set<PolicyRuleInputParameterEntry> inputParameters=new LinkedHashSet<PolicyRuleInputParameterEntry>();
+	
 	public PolicyGroup() {
 	}
 
@@ -42,18 +41,7 @@ public class PolicyGroup extends PolicySetEntry{
 			}			
 		}
 		return bf.toString();
-	}
-
-	
-	public Set<PolicyRuleInputParameterEntry> getInputParameters() {
-		Set<PolicySetEntry> children=this.getPolicySets();
-		for (PolicySetEntry PolicySet : children) {
-			this.inputParameters.addAll(PolicySet.getInputParameters());
-		}
-		return this.inputParameters;
-	}
-
-	
+	}	
 	
 	public Map<String,PolicyVariableEntry> getVariableMap(){
 		Map<String , PolicyVariableEntry>  map=new HashMap<String, PolicyVariableEntry>();

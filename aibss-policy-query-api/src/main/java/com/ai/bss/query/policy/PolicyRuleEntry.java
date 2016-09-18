@@ -2,14 +2,11 @@ package com.ai.bss.query.policy;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 @Entity
 public class PolicyRuleEntry extends PolicySetEntry{
@@ -17,9 +14,7 @@ public class PolicyRuleEntry extends PolicySetEntry{
 	private PolicyConditionEntry condition;
 	@OneToOne(cascade=CascadeType.ALL)
 	private PolicyActionEntry action;
-	@OneToMany(mappedBy="policyRule",fetch=FetchType.LAZY,cascade=CascadeType.ALL,targetEntity=PolicyRuleParameterEntry.class)
-	private Set<PolicyRuleInputParameterEntry> inputParameters=new LinkedHashSet<PolicyRuleInputParameterEntry>();
-
+	
 	public PolicyRuleEntry() {
 	}
 
@@ -58,15 +53,9 @@ public class PolicyRuleEntry extends PolicySetEntry{
 	
 	public void addInputParameter(PolicyRuleInputParameterEntry param) {
 		if(null!=param){
-			inputParameters.add(param);
+			super.addInputParameter(param);
 		}
 	}	
-
-
-	
-	public Set<PolicyRuleInputParameterEntry> getInputParameters() {
-		return this.inputParameters;
-	}
 	
 	
 	public Map<String,PolicyVariableEntry> getVariableMap(){

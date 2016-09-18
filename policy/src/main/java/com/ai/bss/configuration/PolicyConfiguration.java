@@ -19,6 +19,6 @@ public class PolicyConfiguration {
         EventSourcingRepository<Policy> repo = new EventSourcingRepository<Policy>(Policy.class,eventStore);
         repo.setEventBus(eventBus);
         return repo;
-    }
+    }	
 
 }

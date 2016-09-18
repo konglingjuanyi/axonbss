@@ -12,5 +12,15 @@
             <artifactId>aibss-query</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-policy-query-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-policy-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
    </dependencies>
 </project>

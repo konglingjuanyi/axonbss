@@ -1,5 +1,6 @@
 package com.ai.bss.webui.customerorder.controller;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -16,6 +17,8 @@ import com.ai.bss.api.base.CharacteristicValue;
 import com.ai.bss.api.customerorder.CustomerOrderId;
 import com.ai.bss.api.customerorder.command.StartBuyOrderCommand;
 import com.ai.bss.api.product.dto.BuyOffer;
+import com.ai.bss.api.product.dto.Price;
+import com.ai.bss.api.product.dto.Product;
 import com.ai.bss.api.product.dto.ProductCharacteristicValue;
 import com.ai.bss.api.shoppingcart.ShoppingCartId;
 import com.ai.bss.api.shoppingcart.ShoppingCartItemId;
@@ -49,31 +52,26 @@ public class CustomerOrderController extends BaseController{
 	}
 		
 	@RequestMapping(value = "/offerDetail/{customerId}/{offerId}", method = RequestMethod.GET)
-    public String buy(@PathVariable String customerId,@PathVariable String offerId,Model model) {
+    public String buyNow(@PathVariable String customerId,@PathVariable String offerId,Model model) {
 		BuyOffer offerDetail=new BuyOffer();
 		offerDetail.setProductOfferingId(offerId);
 		//offerDetail.setName("iphone 6S");
 		//TODO to be removed, test only
-//		ProductCharacteristicValue productCharacterValue = new ProductCharacteristicValue();
-//		productCharacterValue.setCharacteristicSpecId("1001");
-//		productCharacterValue.setCharacteristicSpecName("Color");
-//		productCharacterValue.setValueSpecId("10002");
-//		productCharacterValue.setValue("Gold");
-//		offerDetail.addProductCharacterValue(productCharacterValue);
-//		offerDetail.setPrice(1000);
-//		//TODO query offer detail from upc		
-//		ShoppingCartItem cartItem = new ShoppingCartItem();
-//		cartItem.setOfferDetail(offerDetail);
-//		cartItem.setShoppingCartId(customerId);
-//		cartItem.setQuantity(1);
-//		long price=offerDetail.getPrice()*cartItem.getQuantity();
-//		cartItem.setPrice(price);
-//        model.addAttribute("cartItem", cartItem);
-        return "customerorder/newOrder";
+		BuyOffer iPhone7offer = new BuyOffer();
+		iPhone7offer.setProductOfferingId("1011");
+		Price oneTimeFee = new Price();
+		oneTimeFee.setPriceSpecificationId("30001");
+		oneTimeFee.setUnitPrice(10000);		
+		iPhone7offer.addOneTimeFee(oneTimeFee);
+		Product iPhone7=new Product();
+		iPhone7.setProductSpecificationId("20001");
+		iPhone7offer.addProduct(iPhone7);
+        model.addAttribute("offer", iPhone7offer);
+        return "customerorder/buyNow";
     }
 	
 	@RequestMapping(value = "/buy", method = RequestMethod.POST)
-    public String addToCart(@PathVariable String customerId,@ModelAttribute("newCustomerOrder") @Valid NewCustomerOrder newCustomerOrder, BindingResult bindingResult, Model model) {
+    public String buy(@PathVariable String customerId,@ModelAttribute("newCustomerOrder") @Valid NewCustomerOrder newCustomerOrder, BindingResult bindingResult, Model model) {
     	if (!bindingResult.hasErrors()) {
     		CustomerOrderId customerOrderId=new CustomerOrderId();
     		StartBuyOrderCommand command =new StartBuyOrderCommand();
@@ -86,7 +84,7 @@ public class CustomerOrderController extends BaseController{
     			command=client.postForObject("http://customerorder-service/customerorder/startBuyOrderCommand",command,StartBuyOrderCommand.class);
 			} catch (Exception e) {
 				bindingResult.rejectValue("offerId",
-                        "error.addToCart.failed",
+                        "error.buy.failed",
                         e.getCause().getMessage());
 			}
     	}

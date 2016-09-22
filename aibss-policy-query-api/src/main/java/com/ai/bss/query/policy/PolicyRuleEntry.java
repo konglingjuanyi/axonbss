@@ -85,12 +85,6 @@ public class PolicyRuleEntry extends PolicySetEntry{
 				}	
 			}
 		}
-		for (PolicyRuleInputParameterEntry param : this.getInputParameters()) {
-			String varCode=param.getVariable().getCode();
-			if (map.containsKey(varCode)){
-				map.remove(varCode);
-			}
-		}
 		return map;
 	}
 

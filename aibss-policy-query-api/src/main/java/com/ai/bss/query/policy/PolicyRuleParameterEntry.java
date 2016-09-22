@@ -19,8 +19,9 @@ public class PolicyRuleParameterEntry{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	private PolicyVariableEntry variable;
+	private String type;
+	private String code;
+	private String name;
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="POLICY_RULE_ID")
 	private PolicyRuleEntry policyRule;
@@ -28,13 +29,13 @@ public class PolicyRuleParameterEntry{
 	public PolicyRuleParameterEntry() {
 	}
 	
-	public PolicyVariableEntry getVariable() {
-		return this.variable;
+	public String getType() {
+		return this.type;
 	}
 
 	
-	public void setVariable(PolicyVariableEntry variable) {
-		this.variable=variable;
+	public void setType(String type) {
+		this.type=type;
 	}
 
 	
@@ -52,6 +53,22 @@ public class PolicyRuleParameterEntry{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

@@ -1,19 +1,25 @@
 package com.ai.bss.api.policy.dto;
 
-public class AbstractValue {
-	private String valueId;
+public class Parameter {
+	private String parameterId;
 	private String type;
+	private AbstractPan paremeterValue;
 	private String name;
 	private String code;
-	private boolean isGlobal;
-	public AbstractValue() {
+	public Parameter() {
 		
 	}
-	public String getValueId() {
-		return valueId;
+	public String getParameterId() {
+		return parameterId;
 	}
-	public void setValueId(String valueId) {
-		this.valueId = valueId;
+	public void setParameterId(String parameterId) {
+		this.parameterId = parameterId;
+	}
+	public AbstractPan getValue() {
+		return paremeterValue;
+	}
+	public void setValue(AbstractPan value) {
+		this.paremeterValue = value;
 	}
 	public String getName() {
 		return name;
@@ -27,17 +33,10 @@ public class AbstractValue {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public boolean isGlobal() {
-		return isGlobal;
-	}
-	public void setGlobal(boolean isGlobal) {
-		this.isGlobal = isGlobal;
-	}
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
 	}
-
 }

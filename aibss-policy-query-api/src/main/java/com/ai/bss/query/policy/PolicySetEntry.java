@@ -8,8 +8,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -23,8 +21,7 @@ import javax.persistence.Table;
 @Table(name="PL_POLICY_SET")
 public abstract class PolicySetEntry{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;	
+	private String id;	
 	private String name;
 	private String code;
 	@OneToOne
@@ -32,13 +29,7 @@ public abstract class PolicySetEntry{
 	@OneToOne(cascade=CascadeType.ALL)
 	private PolicyActionEntry elseAction;
 	boolean isEnableElseAction=true;
-	
-	@OneToMany(mappedBy="policyset",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private Set<PolicyVariableEntry> policyVariables=new LinkedHashSet<PolicyVariableEntry>();
-	
-	@OneToMany(mappedBy="policyset",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
-	private Set<PolicyValueEntry> polivyValues = new LinkedHashSet<PolicyValueEntry>();
-	
+		
 	@OneToMany(mappedBy="policyRule",fetch=FetchType.LAZY,targetEntity=PolicyRuleParameterEntry.class)
 	private Set<PolicyRuleInputParameterEntry> inputParameters=new LinkedHashSet<PolicyRuleInputParameterEntry>();
 
@@ -115,10 +106,8 @@ public abstract class PolicySetEntry{
 			String code = entry.getKey();
 			PolicyVariableEntry variable = entry.getValue();
 			sb.append("        ").append(variable.getVariableType()).append(" ").append(code);
-			if(null!=variable.getInitialValue()){
-				sb.append(" = ").append(variable.getInitialValue().toBodyString());
-			}else if (null!=variable.getInitialInputValue()){
-				sb.append(" = ").append(variable.getInitialInputValue());
+			if(null!=variable.getValue()){
+				sb.append(" = ").append(variable.getValue().toBodyString());
 			}
 			sb.append(";\n");
 		}
@@ -133,8 +122,8 @@ public abstract class PolicySetEntry{
 		String returnVar="";
 		String returnVarType="";
 		if(null!=this.getOutputParameter()){
-			returnVar=this.getOutputParameter().getVariable().getCode();
-			returnVarType=(String)this.getOutputParameter().getVariable().getVariableType();
+			returnVar=this.getOutputParameter().getCode();
+			returnVarType=(String)this.getOutputParameter().getType();
 		}
 		StringBuffer classBody=new StringBuffer();
 		String className="aPolicy"+this.getCode();
@@ -152,11 +141,11 @@ public abstract class PolicySetEntry{
 		methodDeclare.append("        ").append("boolean matched=false;\n");
 		for (PolicyRuleInputParameterEntry param : this.getInputParameters()) {
 			methodDeclare.append("        ")
-			.append(param.getVariable().getVariableType()).append(" ")
-			.append(param.getVariable().getCode())			
+			.append(param.getType()).append(" ")
+			.append(param.getCode())			
 			.append(" = ")
-			.append("(").append(param.getVariable().getVariableType()).append(")")
-			.append("context.get(\"").append(param.getVariable().getCode()).append("\")")
+			.append("(").append(param.getType()).append(")")
+			.append("context.get(\"").append(param.getCode()).append("\")")
 			.append(";\n");
 		}
 		StringBuffer method= new StringBuffer();
@@ -189,12 +178,12 @@ public abstract class PolicySetEntry{
 	}
 
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -206,16 +195,6 @@ public abstract class PolicySetEntry{
 
 	public void setParentPolicySet(PolicySetEntry parentPolicySet) {
 		this.parentPolicySet = parentPolicySet;
-	}
-
-
-	public Set<PolicyVariableEntry> getPolicyVariables() {
-		return policyVariables;
-	}
-
-
-	public Set<PolicyValueEntry> getPolivyValues() {
-		return polivyValues;
 	}
 
 }

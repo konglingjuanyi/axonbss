@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class PolicyOperatorMethodInvokeEntry extends PolicyActionOperatorEntry{
 
 	public PolicyOperatorMethodInvokeEntry() {
+		super.setCode("=");
 	}
 	@Override
 	public String toBodyString(String a,String b) {

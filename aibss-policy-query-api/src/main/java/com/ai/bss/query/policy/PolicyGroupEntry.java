@@ -9,11 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 @Entity
-public class PolicyGroup extends PolicySetEntry{
+public class PolicyGroupEntry extends PolicySetEntry{
 	@OneToMany(mappedBy="parentPolicySet",fetch=FetchType.LAZY)
 	private Set<PolicySetEntry> policySets=new LinkedHashSet<PolicySetEntry>();
 	
-	public PolicyGroup() {
+	public PolicyGroupEntry() {
 	}
 
 	

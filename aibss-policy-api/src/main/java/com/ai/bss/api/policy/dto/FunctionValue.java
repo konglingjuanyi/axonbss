@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class FunctionValue extends AbstractValue {
 	private String functionId;
-	private Set<FunctionValuePanParamter> parameterValues= new LinkedHashSet<>();
+	private Set<Parameter> parameterValues= new LinkedHashSet<>();
 	public FunctionValue() {
 		
 	}
@@ -15,11 +15,11 @@ public class FunctionValue extends AbstractValue {
 	public void setFunctionId(String functionId) {
 		this.functionId = functionId;
 	}
-	public Set<FunctionValuePanParamter> getParameterValues() {
+	public Set<Parameter> getParameterValues() {
 		return parameterValues;
 	}
 	
-	public void addParameterValue(FunctionValuePanParamter value){
+	public void addParameterValue(Parameter value){
 		if (!parameterValues.contains(value)){
 			parameterValues.add(value);
 		}

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class PolicyOperatorStringEqualsEntry extends PolicyConditionOperatorEntry{
 
 	public PolicyOperatorStringEqualsEntry() {
+		super.setCode("equalsIgnoreCase");
 	}
 	
 	

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 public class PolicyOperatorNotEntry extends PolicyConditionOperatorEntry{
 
 	public PolicyOperatorNotEntry() {
+		super.setCode("!");
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 package com.ai.bss.api.policy.dto;
 
 public class VariablePan extends AbstractPan {
-	private String policyVariableId;
+	private Variable  variable;
 	public VariablePan() {
 		
 	}
-	public String getPolicyVariableId() {
-		return policyVariableId;
+	public Variable getVariable() {
+		return variable;
 	}
-	public void setPolicyVariableId(String policyVariableId) {
-		this.policyVariableId = policyVariableId;
+	public void setVariable(Variable variable) {
+		this.variable = variable;
 	}
 
 

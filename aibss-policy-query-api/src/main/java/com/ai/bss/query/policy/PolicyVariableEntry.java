@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.ai.bss.api.base.CharacteristicSpec;
-
 @Entity
 @Table(name="PL_VARIABLE")
 public class PolicyVariableEntry{
@@ -21,9 +19,7 @@ public class PolicyVariableEntry{
 	private String name;
 	private String code;
 	private String type;
-	@OneToOne
-	private CharacteristicSpec characteristicSpec;
-	private String initialInputValue;
+
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private PolicyValueEntry value;
 	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
@@ -64,38 +60,17 @@ public class PolicyVariableEntry{
 	}
 
 	
-	public CharacteristicSpec getEnumCharacteristic() {
-		return this.characteristicSpec;
-	}
-
-	
-	public void setEnumCharacteristic(CharacteristicSpec characteristicSpec) {
-		this.characteristicSpec=characteristicSpec;
-	}
-
-	
 	public String toBodyString(){
 		return this.getCode();
 	}
 
 	
-	public String getInitialInputValue() {
-		return this.initialInputValue;
-	}
-
-	
-	public void setInitialInputValue(String inputValue) {
-		this.initialInputValue=inputValue;
-	}
-
-	
-	public PolicyValueEntry getInitialValue() {
-		// TODO Auto-generated method stub
+	public PolicyValueEntry getValue() {
 		return this.value;
 	}
 
 	
-	public void setInitialValue(PolicyValueEntry value) {
+	public void setValue(PolicyValueEntry value) {
 		this.value=value;
 	}
 

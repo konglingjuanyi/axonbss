@@ -10,18 +10,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="PL_COMPOSITE_CONDITION_OPTION")
-public class PolicyCompositeConditionOption {
+public class PolicyCompositeConditionOptionEntry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@JoinColumn(name="PARENT_CONDITION_ID")
 	@OneToOne
-	private PolicyCompositeCondition parent;
+	private PolicyCompositeConditionEntry parent;
 	@OneToOne
 	@JoinColumn(name="CHILD_CONDITION_ID")
 	private PolicyConditionEntry child;
 	
-	public PolicyCompositeConditionOption() {
+	public PolicyCompositeConditionOptionEntry() {
 	}
 
 	
@@ -35,12 +35,12 @@ public class PolicyCompositeConditionOption {
 	}
 
 	
-	public PolicyCompositeCondition getParentCondition() {
+	public PolicyCompositeConditionEntry getParentCondition() {
 		return this.parent;
 	}
 
 	
-	public void setParentCondition(PolicyCompositeCondition parent) {
+	public void setParentCondition(PolicyCompositeConditionEntry parent) {
 		this.parent=parent;
 	}
 

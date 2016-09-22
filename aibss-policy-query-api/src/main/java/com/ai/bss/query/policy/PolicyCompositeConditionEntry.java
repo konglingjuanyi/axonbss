@@ -9,20 +9,20 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("COMPOSITE")
-public class PolicyCompositeCondition extends PolicyConditionEntry{
+public class PolicyCompositeConditionEntry extends PolicyConditionEntry{
 	@OneToMany(mappedBy="parent",fetch=FetchType.LAZY)
-	private Set<PolicyCompositeConditionOption> children=new HashSet<PolicyCompositeConditionOption>();
+	private Set<PolicyCompositeConditionOptionEntry> children=new HashSet<PolicyCompositeConditionOptionEntry>();
 	private boolean isOr;
-	public PolicyCompositeCondition(PolicySetEntry policyset) {
+	public PolicyCompositeConditionEntry(PolicySetEntry policyset) {
 		super(policyset);
 	}
 	
-	public Set<PolicyCompositeConditionOption> getChildren() {
+	public Set<PolicyCompositeConditionOptionEntry> getChildren() {
 		return this.children;
 	}
 
 	
-	public void addChild(PolicyCompositeConditionOption child) {
+	public void addChild(PolicyCompositeConditionOptionEntry child) {
 		if(child!=null){
 			this.children.add(child);
 			child.setParentCondition(this);
@@ -33,9 +33,9 @@ public class PolicyCompositeCondition extends PolicyConditionEntry{
 	
 	public String toBodyString() {
 		StringBuffer sb=new StringBuffer();
-		Set<PolicyCompositeConditionOption> children=this.getChildren();
+		Set<PolicyCompositeConditionOptionEntry> children=this.getChildren();
 		if(children.size()>0){
-			for (PolicyCompositeConditionOption PolicyCompositeConditionOption : children) {
+			for (PolicyCompositeConditionOptionEntry PolicyCompositeConditionOption : children) {
 				sb.append("(");
 				sb.append(PolicyCompositeConditionOption.getChildCondition().toBodyString());
 				sb.append(")");
@@ -60,7 +60,7 @@ public class PolicyCompositeCondition extends PolicyConditionEntry{
 	
 	public Set<PolicyVariableEntry> getVariables() {
 		Set<PolicyVariableEntry> variables=new HashSet<PolicyVariableEntry>();
-		for (PolicyCompositeConditionOption PolicyCompositeConditionOption : children) {
+		for (PolicyCompositeConditionOptionEntry PolicyCompositeConditionOption : children) {
 			variables.addAll(PolicyCompositeConditionOption.getChildCondition().getVariables());
 		}
 		return variables;

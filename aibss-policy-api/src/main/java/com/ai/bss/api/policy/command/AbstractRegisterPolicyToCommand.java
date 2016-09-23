@@ -1,18 +1,16 @@
 package com.ai.bss.api.policy.command;
 
-import com.ai.bss.api.base.BaseCommand;
-
-public abstract class AbstractRegisterPolicyToCommand extends BaseCommand {
-	private BaseCommand command;
+public abstract class AbstractRegisterPolicyToCommand extends AbstractPolicyCommand {
+	private String commandName;
 	private String commandPropertyValue;
 	public AbstractRegisterPolicyToCommand() {
 		
 	}
-	public BaseCommand getCommand() {
-		return command;
+	public String getCommandName() {
+		return commandName;
 	}
-	public void setCommand(BaseCommand command) {
-		this.command = command;
+	public void setCommandName(String command) {
+		this.commandName = command;
 	}
 	public String getCommandPropertyValue() {
 		return commandPropertyValue;

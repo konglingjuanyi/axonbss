@@ -20,10 +20,10 @@ import org.axonframework.eventhandling.annotation.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ai.bss.api.policy.dto.AbstractPolicy;
 import com.ai.bss.api.policy.dto.AtomicPolicy;
 import com.ai.bss.api.policy.dto.CompositePolicy;
-import com.ai.bss.api.policy.event.AtomicPolicyCreated;
-import com.ai.bss.api.policy.event.CompositePolicyCreated;
+import com.ai.bss.api.policy.event.PolicyCreatedEvent;
 import com.ai.bss.mutitanent.TenantContext;
 import com.ai.bss.query.policy.PolicyGroupEntry;
 import com.ai.bss.query.policy.PolicyRuleEntry;
@@ -35,23 +35,19 @@ public class PolicyListener {
     private PolicyQueryRepository PolicyQueryRepository;
 
 	@EventHandler
-	public void onAtomicPolicyCreated(AtomicPolicyCreated event){
-		PolicyRuleEntry policyEntry = new PolicyRuleEntry();
-		policyEntry.setId(event.getPolicyId().toString());
-		AtomicPolicy policyDTO=event.getPolicy();
-		PolicyEntryHelper.createAtomicPolicy(policyEntry, policyDTO);
-        TenantContext.setCurrentTenant(event.getTenantId());
-        PolicyQueryRepository.save(policyEntry);
-	}
-	
-	@EventHandler
-	public void onCompositePolicyCreated(CompositePolicyCreated event){
-		PolicyGroupEntry compositePolicyEntry=new PolicyGroupEntry();
-		CompositePolicy compositePolicy = event.getPolicy();
-		PolicyEntryHelper.createCompositePolicy(compositePolicyEntry, compositePolicy);
-        TenantContext.setCurrentTenant(event.getTenantId());
-        PolicyQueryRepository.save(compositePolicyEntry);
-	}
-	
-        
+	public void onPolicyCreated(PolicyCreatedEvent event){
+		TenantContext.setCurrentTenant(event.getTenantId());
+		AbstractPolicy policyDTO=event.getPolicy();
+		if (policyDTO instanceof AtomicPolicy){
+			PolicyRuleEntry policyEntry = new PolicyRuleEntry();
+			policyEntry.setId(event.getPolicyId().toString());
+			PolicyEntryHelper.createAtomicPolicy(policyEntry, (AtomicPolicy)policyDTO);
+			PolicyQueryRepository.save(policyEntry);
+		}else{
+			PolicyGroupEntry compositePolicyEntry=new PolicyGroupEntry();
+			compositePolicyEntry.setId(event.getPolicyId().toString());
+			PolicyEntryHelper.createCompositePolicy(compositePolicyEntry, (CompositePolicy)policyDTO);
+			PolicyQueryRepository.save(compositePolicyEntry);
+		}		        
+	}       
 }

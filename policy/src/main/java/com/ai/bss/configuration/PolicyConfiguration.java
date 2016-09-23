@@ -6,7 +6,7 @@ import org.axonframework.eventstore.EventStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.ai.bss.aggregate.policy.AbstractPolicy;
+import com.ai.bss.aggregate.policy.Policy;
 @Configuration
 public class PolicyConfiguration {
 	@Autowired
@@ -15,8 +15,8 @@ public class PolicyConfiguration {
 	private EventStore eventStore;
 
 	@Bean
-    EventSourcingRepository<AbstractPolicy> policyRepository() {
-        EventSourcingRepository<AbstractPolicy> repo = new EventSourcingRepository<AbstractPolicy>(AbstractPolicy.class,eventStore);
+    EventSourcingRepository<Policy> policyRepository() {
+        EventSourcingRepository<Policy> repo = new EventSourcingRepository<Policy>(Policy.class,eventStore);
         repo.setEventBus(eventBus);
         return repo;
     }	

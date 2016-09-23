@@ -1,10 +1,13 @@
- party-query:8087
- party:8089
- web-ui:8080
- customer:8082
- customer-query:8081
- shoppingcart-query:8086
- shoppingcart:8085
- customerOrder:8083
- customerOrder-query:8084
+party-query:8087
+party:8089
+web-ui:8080
+customer:8082
+customer-query:8081
+shoppingcart-query:8086
+shoppingcart:8085
+customerOrder:8083
+customerOrder-query:8084
+policy:8091
+policy-query:8092
+ 
  

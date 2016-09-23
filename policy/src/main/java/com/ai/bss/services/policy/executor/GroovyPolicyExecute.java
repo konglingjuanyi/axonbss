@@ -22,12 +22,12 @@ public class GroovyPolicyExecute extends PolicyExecutor {
 	}
 
 	@Override
-	public void execute(CommandMessage<?> commandMessage, PolicySetEntry policySet,Map<String, Object> context) throws Exception{
+	public Object execute(CommandMessage<?> commandMessage, PolicySetEntry policySet,Map<String, Object> context) throws Exception{
 		ClassLoader parent =ClassLoader.getSystemClassLoader();
 		GroovyClassLoader loader =new GroovyClassLoader(parent);
 		Class<?> clazz = loader.parseClass(policySet.toPolicyString());
 		GroovyObject clazzObj =(GroovyObject)clazz.newInstance();
-		clazzObj.invokeMethod("executePolicy",context);
+		return clazzObj.invokeMethod("executePolicy",context);
 	}
 
 	@Override

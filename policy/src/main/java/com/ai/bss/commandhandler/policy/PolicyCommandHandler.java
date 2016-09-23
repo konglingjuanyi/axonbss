@@ -8,7 +8,9 @@ import com.ai.bss.aggregate.policy.Policy;
 import com.ai.bss.api.policy.PolicyId;
 import com.ai.bss.api.policy.command.CreateAtomicPolicyCommand;
 import com.ai.bss.api.policy.command.CreateCompositePolicyCommand;
+import com.ai.bss.api.policy.command.RegisterExistPolicyToCommand;
 import com.ai.bss.api.policy.command.RegisterNewAtomicPolicyToCommand;
+import com.ai.bss.api.policy.command.RegisterNewCompositePolicyToCommand;
 import com.ai.bss.mutitanent.TenantContext;
 
 public class PolicyCommandHandler {
@@ -35,7 +37,23 @@ public class PolicyCommandHandler {
     }
     
     @CommandHandler
-    public void registerToCommand(RegisterNewAtomicPolicyToCommand command){
+    public void registerAtomicToCommand(RegisterNewAtomicPolicyToCommand command){
+    	TenantContext.setCurrentTenant(command.getTenantId());
+    	Policy policy = repository.load(command.getPolicyId());
+    	policy.registerToCommand(command.getCommandName(), command.getCommandPropertyValue());
+    	 repository.add(policy);
+    }
+    
+    @CommandHandler
+    public void registerCompositeToCommand(RegisterNewCompositePolicyToCommand command){
+    	TenantContext.setCurrentTenant(command.getTenantId());
+    	Policy policy = repository.load(command.getPolicyId());
+    	policy.registerToCommand(command.getCommandName(), command.getCommandPropertyValue());
+    	 repository.add(policy);
+    }
+    
+    @CommandHandler
+    public void registerExistToCommand(RegisterExistPolicyToCommand command){
     	TenantContext.setCurrentTenant(command.getTenantId());
     	Policy policy = repository.load(command.getPolicyId());
     	policy.registerToCommand(command.getCommandName(), command.getCommandPropertyValue());

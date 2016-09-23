@@ -46,7 +46,7 @@ public abstract class PolicyExecutor implements IPolicyExecutor {
 		return commandMessage;
 	}
 	
-	public abstract void execute(CommandMessage<?> commandMessage, PolicySetEntry policy,Map<String, Object> context) throws Exception;
+	public abstract Object execute(CommandMessage<?> commandMessage, PolicySetEntry policy,Map<String, Object> context) throws Exception;
 
 	public abstract CommandPolicyQueryRepository getCommandPolicyQueryRepository();
 

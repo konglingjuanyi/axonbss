@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ai.bss.query.policy.PolicySetEntry;
 import com.ai.bss.query.policy.RegisteredCommandEntry;
 import com.ai.bss.query.policy.repositories.CommandPolicyQueryRepository;
+import com.ai.bss.query.policy.repositories.PolicyQueryRepository;
 
 /**
  * @author Lianhua Zhang
@@ -37,7 +39,21 @@ public class PolicyQueryRestController{
 	@Autowired
     private CommandPolicyQueryRepository commandPolicyQueryRepository;
 	
-    @RequestMapping(value = "/{commandName}", method = RequestMethod.GET)
+	@Autowired
+    private PolicyQueryRepository policyQueryRepository;
+	
+	@RequestMapping(value = "/{policyId}", method = RequestMethod.GET)
+    public PolicySetEntry findByPolicyId(@PathVariable String policyId) {
+    	return policyQueryRepository.findOne(policyId);
+    }
+	
+	
+	@RequestMapping(value = "/{commandName}", method = RequestMethod.GET)
+    public List<RegisteredCommandEntry> findByCommand(@PathVariable String commandName) {
+    	return commandPolicyQueryRepository.findByCommandName(commandName);
+    }
+	
+    @RequestMapping(value = "/{commandName}/{propertValue}", method = RequestMethod.GET)
     public List<RegisteredCommandEntry> findByCommand(@PathVariable String commandName,@PathVariable String propertyValue) {
     	return commandPolicyQueryRepository.findByCommandNameAndPropertyValue(commandName,propertyValue);
     }

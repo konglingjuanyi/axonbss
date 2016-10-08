@@ -52,4 +52,10 @@ public class PolicyGroupEntry extends PolicySetEntry{
 		return map;
 	}
 
+
+	@Override
+	public boolean isComposite() {
+		return true;
+	}
+
 }

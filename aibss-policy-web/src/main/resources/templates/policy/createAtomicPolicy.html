@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Policy management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Create Policy</h1>
+ <form action="#" th:action="@{/policy/add}" th:object="${atomicPolicy}" method="POST">
+	<table>
+		<tr>
+			<td>Policy Type</td>
+			<td> <input type="checkbox" name="isComposite" th:checked="${!atomicPolicy.isComposite}" ></td>
+		</tr>
+		<tr>
+			<td>Policy Name</td>
+			<td><input type="text" th:field="${atomicPolicy.name}">policy name</td>
+		</tr>
+		<tr>
+			<td>Policy Code</td>
+			<td><input type="text" th:field="${atomicPolicy.code}">policy code</td>
+		</tr>
+		<tr>		
+			<td>Condition</td>	
+			<td >
+            	<table>
+            		<tr th:each="condition, rowStat : *{atomicPolicy.condition}">
+            			<td>
+            				<table>
+            					<tr>
+            						 <td><input type="checkbox" th:field="${condition.isComposite}" th:checked="${!condition.isComposite}"  name="isComposite">is composite</td> 
+            		    		</tr>
+            		    		<tr>
+            		    			<td><input type="checkbox" th:field="${condition.isOr}" th:checked="${!condition.isOr}"  name="And" th:hidden="${!condition.isComposite}">and</td>  			
+            					</tr>
+            		    		<tr>
+            						<td><input type="text" th:field="${condition.name}">condition name</td>
+            					</tr>
+            					<tr>
+            						<td><input type="checkbox" th:field="${condition.statement.leftpan.type}" th:checked="${condition.statement.leftpan.isOr}" name="left type">left type</td>
+            					</tr>
+            				</table>
+            			</td>            		   
+            		</tr>
+            	</table>
+            	 <button type="submit" name="addCondition">Add Condition</button>
+            </td>
+		</tr>
+		<tr>				
+			<td>Action</td>
+			<td>
+            	<table>
+            		<tr th:each="action, rowStat : *{policy.action}">        			
+            			<td th:text="${action.name}">action name</td>
+            			<td th:text="${action.toBodyString}">action detail</td>
+            		</tr>
+            	</table>
+            </td>
+		</tr>
+	</table>
+    <div class="span14">
+       <p>
+           <a href="createPolicy.html" th:href="@{/policy/createPolicy}">Create Policy </a>
+       </p>
+	</div>
+</form>
+</body>
+</html>

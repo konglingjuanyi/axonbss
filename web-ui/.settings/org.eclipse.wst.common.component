@@ -43,10 +43,16 @@
         <dependent-module archiveName="aibss-customerorder-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customerorder-api/aibss-customerorder-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="aibss-customerorder-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-customerorder-query-api/aibss-customerorder-query-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="aibss-common-bizinteraction-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-common-bizinteraction-query-api/aibss-common-bizinteraction-query-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="aibss-policy-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-policy-api/aibss-policy-api">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aibss-policy-query-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-policy-query-api/aibss-policy-query-api">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="aibss-product-api-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/aibss-product-api/aibss-product-api">

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>Policy management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Policy List</h1>
+	<table>
+		<tr>
+			<td>Policy Type</td>
+			<td>Policy Name</td>
+			<td>Condition</td>				
+			<td>Action</td>
+		</tr>
+		<tr th:each="policy, rowStat : ${policies}">
+			<td th:text="${policy.isComposite}? '+' :''" >+</td>
+            <td th:text="${policy.name}">policy name</td>
+            <td >
+            	<table>
+            		<tr th:each="condition, rowStat : *{policy.condition}">          			
+            			<td th:text="${condition.name}">condition name</td>
+            			<td th:text="${condition.toBodyString}">condition detail</td>
+            		</tr>
+            	</table>
+            </td>
+            <td>
+            	<table>
+            		<tr th:each="action, rowStat : *{policy.action}">        			
+            			<td th:text="${action.name}">action name</td>
+            			<td th:text="${action.toBodyString}">action detail</td>
+            		</tr>
+            	</table>
+            </td>
+		</tr>
+	</table>
+    <div class="span14">
+       <p>
+           <a href="createPolicy.html" th:href="@{/policy/createPolicy}">Create Policy </a>
+       </p>
+	</div>
+</body>
+</html>

@@ -6,7 +6,7 @@ import java.util.Set;
 public class CompositePolicy extends AbstractPolicy{ 
 	private Set<AbstractPolicy> childPolicies = new LinkedHashSet<>();
 	public CompositePolicy() {
-		
+		super.setComposite(true);
 	}
 	public Set<AbstractPolicy> getChildPolicies() {
 		return childPolicies;

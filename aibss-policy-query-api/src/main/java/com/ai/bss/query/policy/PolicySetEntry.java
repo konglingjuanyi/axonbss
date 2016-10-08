@@ -196,5 +196,7 @@ public abstract class PolicySetEntry{
 	public void setParentPolicySet(PolicySetEntry parentPolicySet) {
 		this.parentPolicySet = parentPolicySet;
 	}
+	
+	public abstract boolean isComposite();
 
 }

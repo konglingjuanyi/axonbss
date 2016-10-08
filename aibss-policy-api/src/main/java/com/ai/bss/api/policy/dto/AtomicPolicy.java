@@ -4,7 +4,7 @@ public class AtomicPolicy extends AbstractPolicy{
 	private AbstractCondition condition;
 	private AbstractAction action;
 	public AtomicPolicy() {
-		// TODO Auto-generated constructor stub
+		super.setComposite(false);
 	}
 	public AbstractCondition getCondition() {
 		return condition;

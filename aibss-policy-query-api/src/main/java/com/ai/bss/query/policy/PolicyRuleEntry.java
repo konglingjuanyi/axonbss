@@ -88,4 +88,10 @@ public class PolicyRuleEntry extends PolicySetEntry{
 		return map;
 	}
 
+
+	@Override
+	public boolean isComposite() {
+		return false;
+	}
+
 }

@@ -25,5 +25,9 @@ public class AtomicAction extends AbstractAction{
 	public void setRight(AbstractPan right) {
 		this.right = right;
 	}
+	@Override
+	public boolean isComposite() {
+		return false;
+	}
 
 }

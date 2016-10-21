@@ -10,7 +10,6 @@ public abstract class AbstractPolicy {
 	private AbstractAction elseAction;
 	private Set<Parameter> inputParameteres= new LinkedHashSet<>();
 	private Parameter outputParameter;
-	private boolean isComposite;
 	public AbstractPolicy() {
 		
 	}
@@ -52,11 +51,5 @@ public abstract class AbstractPolicy {
 			inputParameteres.add(parameter);
 		}
 	}
-	public boolean isComposite() {
-		return isComposite;
-	}
-	protected void setComposite(boolean isComposite) {
-		this.isComposite = isComposite;
-	}
-
+	public abstract boolean isComposite();
 }

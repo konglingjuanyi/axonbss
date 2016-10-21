@@ -5,7 +5,7 @@ import com.ai.bss.api.base.CharacteristicSpecValue;
 public class EnumValue extends AbstractValue {
 	private CharacteristicSpecValue enumValue;
 	public EnumValue() {
-		
+		super("Enum");
 	}
 	public CharacteristicSpecValue getEnumValue() {
 		return enumValue;

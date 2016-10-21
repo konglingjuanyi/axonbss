@@ -5,6 +5,10 @@ public class AtomicCondition extends AbstractCondition{
 		
 	}
 	
+	public AtomicCondition( AbstractPolicy policy){
+		super(policy);
+	}
+	
 	private AbstractPan left;
 	private String operator;
 	private AbstractPan right;
@@ -26,6 +30,10 @@ public class AtomicCondition extends AbstractCondition{
 	}
 	public void setRight(AbstractPan right) {
 		this.right = right;
+	}
+	@Override
+	public boolean isComposite() {
+		return false;
 	}
 
 }

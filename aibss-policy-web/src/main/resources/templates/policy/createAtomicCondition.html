@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div id="divAtomicCondition" th:fragment="newAtomicCondition(condition)">
+		<table>
+    		<tr>
+				<td><input type="text" th:field="${condition.name}" /></td>
+				<td><input type="text" th:field="${condition.code}" /></td>
+			</tr>
+			<tr>
+				<button type="button" id="addVariableLeftPan"  text="add Variable LeftPan">Add variable left</button>
+				<button type="button" name="addValueLeftPan"  text="add Value LeftPan">Add value left</button>
+			</tr>
+			<div id="divConditionLeft"></div>
+		</table>
+	</div> 
+	<div id="divConditionLeft" th:fragment="newConditionLeft(condition)">
+		<tr th:if="${null!=condition.left}" >
+			<td th:if="${#String.equalsIgnoreCase('Variable',condition.left.type)}">
+				<input type="text" th:field="${condition.left.variable.name}" />
+				<input type="text" th:field="${condition.left.variable.code}" />
+				<input type="text" th:field="${condition.left.variable.Type}"/>
+			</td>
+			<td th:if="${condition.left.equalsIgnoreCase('Value')}">
+				<!-- radio to select value type,on click to create new value-->
+				<input type="text" th:field="${condition.left.value.name}"/>
+				<input type="text" th:field="${condition.left.value.code}"/>				
+				<input type="text" th:if="${condition.left.value instanceof com.ai.bss.api.policy.dto.ConstValue" th:field="${condition.statement.leftpan.value.Type}" />
+			</td>
+		</tr>
+	</div>         	
+</body>
+</html>

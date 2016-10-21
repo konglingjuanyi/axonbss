@@ -6,7 +6,11 @@ import java.util.Set;
 public class CompositeCondition extends AbstractCondition{
 	private boolean isAnd;
 	private Set<AbstractCondition> childConditions = new LinkedHashSet<>();
-	public CompositeCondition() {
+	
+	public CompositeCondition( ) {}
+	
+	public CompositeCondition( AbstractPolicy policy) {
+		super(policy);
 	}
 	public boolean isAnd() {
 		return isAnd;
@@ -21,6 +25,10 @@ public class CompositeCondition extends AbstractCondition{
 		if (!childConditions.contains(childCondition)){
 			childConditions.add(childCondition);
 		}
+	}
+	@Override
+	public boolean isComposite() {
+		return true;
 	}
 
 }

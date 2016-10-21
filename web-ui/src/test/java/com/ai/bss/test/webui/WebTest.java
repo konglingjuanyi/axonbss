@@ -58,7 +58,7 @@ public class WebTest {
 		AtomicPolicy policy=new AtomicPolicy();
 		policy.setPolicyId(policyId.toString());
 		policy.setCode("CustomerLevelMustMoreThan1");
-		AtomicCondition condition = new AtomicCondition();
+		AtomicCondition condition = new AtomicCondition(policy);
 		condition.setCode("CustomerLevelMoreThan1");
 		condition.setName("Customer Level More Than1");
 		VariablePan left =new VariablePan();
@@ -71,7 +71,7 @@ public class WebTest {
 		ConstValue value= new ConstValue();
 		value.setCode("1");
 		value.setCode("one");
-		value.setType("int");
+		value.setDataType("int");
 		value.setValue("1");
 		right.setValue(value);
 		condition.setLeft(left);
@@ -89,7 +89,7 @@ public class WebTest {
 		ConstValue actionValue= new ConstValue();
 		actionValue.setCode("true");
 		actionValue.setCode("true");
-		actionValue.setType("boolean");
+		actionValue.setDataType("boolean");
 		actionValue.setValue("true");
 		actionRight.setValue(actionValue);
 		action.setLeft(actionLeft);

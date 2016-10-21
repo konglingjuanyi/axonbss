@@ -7,7 +7,7 @@ public class FunctionValue extends AbstractValue {
 	private String functionId;
 	private Set<Parameter> parameterValues= new LinkedHashSet<>();
 	public FunctionValue() {
-		
+		super("Function");
 	}
 	public String getFunctionId() {
 		return functionId;

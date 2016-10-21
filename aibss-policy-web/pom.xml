@@ -7,6 +7,16 @@
   </parent>
   <artifactId>aibss-policy-web</artifactId>
    <dependencies>
+   		<dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-policy-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aibss-policy-query-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -52,4 +62,13 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>	
+
+    <build>    
+        <plugins>
+    		<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+        </plugins>
+    </build>
 </project>

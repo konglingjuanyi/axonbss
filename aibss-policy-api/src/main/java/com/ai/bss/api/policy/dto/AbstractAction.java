@@ -33,4 +33,5 @@ public abstract class AbstractAction {
 		this.code = code;
 	}
 
+	public abstract boolean isComposite();
 }

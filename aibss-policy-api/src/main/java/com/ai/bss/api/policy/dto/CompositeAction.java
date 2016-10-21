@@ -23,5 +23,9 @@ public class CompositeAction extends AbstractAction {
 			childActions.add(action);
 		}
 	}
+	@Override
+	public boolean isComposite() {
+		return true;
+	}
 
 }

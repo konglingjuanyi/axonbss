@@ -6,7 +6,6 @@ public class Variable {
 	private String name;
 	private String code;
 	private String type;
-	private boolean isGlobal;
 	public Variable() {
 		
 	}
@@ -40,11 +39,4 @@ public class Variable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public boolean isGlobal() {
-		return isGlobal;
-	}
-	public void setGlobal(boolean isGlobal) {
-		this.isGlobal = isGlobal;
-	}
-
 }

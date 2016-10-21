@@ -4,7 +4,6 @@ public class AtomicPolicy extends AbstractPolicy{
 	private AbstractCondition condition;
 	private AbstractAction action;
 	public AtomicPolicy() {
-		super.setComposite(false);
 	}
 	public AbstractCondition getCondition() {
 		return condition;
@@ -17,6 +16,10 @@ public class AtomicPolicy extends AbstractPolicy{
 	}
 	public void setAction(AbstractAction action) {
 		this.action = action;
+	}
+	@Override
+	public boolean isComposite() {
+		return false;
 	}
 
 }

@@ -1,11 +1,14 @@
 package com.ai.bss.api.policy.dto;
 
 public abstract class AbstractCondition {
+	private AbstractPolicy policy;
 	private String conditionId;
 	private String name;
 	private String code;
-	public AbstractCondition() {
-		// TODO Auto-generated constructor stub
+	protected AbstractCondition(){}
+	
+	protected AbstractCondition(AbstractPolicy policy) {
+		this.policy=policy;
 	}
 	public String getConditionId() {
 		return conditionId;
@@ -25,5 +28,11 @@ public abstract class AbstractCondition {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
+	public abstract boolean isComposite();
+	public AbstractPolicy getPolicy() {
+		return policy;
+	}
+	public void setPolicy(AbstractPolicy policy) {
+		this.policy = policy;
+	}
 }

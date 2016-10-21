@@ -7,48 +7,22 @@
 <body>
 <h1>Create Policy</h1>
  <form action="#" th:action="@{/policy/addComposite}" th:object="${CompositePolicy}" method="POST">
-	<table>
-		<tr>
-			<td>Policy Name</td>
-			<td><input type="text" th:field="${atomicPolicy.name}"></td>
-		</tr>
-		<tr>	
-			<td>Policy Code</td>
-			<td><input type="text" th:field="${atomicPolicy.code}"></td>
-		</tr>
-		<tr>
-			<td>Children</td>
-			<td><div th:replace="::childPolicyBody(*${childPolicies)">...</div></td>
-		</tr>		
-	</table>
-	
-    <div>
-       <p>
-           <input type="button" value="create">
-       </p>
-	</div>
-	
-	<div th:fragment="childPolicyBody(${childPolicies})">
-		<table>
-		<tr th:each="child rowStat : ${childPolicies}">
-			<td>Policy Name</td>
-			<td th:text="${child.name}">policy name</td>
-			<td>Policy Code</td>
-			<td th:text="${child.code}">policy code</td>
-			<div th:if="${!child.isComposite}">
-				<td>condition</td>
-				<td th:text="${child.condition.statement}">policy condition</td>
-				<td>action</td>
-				<td th:text="${child.action.statement}">policy action</td>
-			</div>
-			<div th:if="${child.isComposite}">
-				<td>
-					<div th:if="${child.isComposite} th:replace="::childPolicyBody(${child.childPolicies)">...</div>
-				</td>
-			</div>
-		</tr>
-	</table>
-	</div>
+	<div th:replace = "::compositePolicyTree(${CompositePolicy})"></div>
+		 <div th:fragment="compositePolicyTree(policy)" th:remove="tag">
+            <ul>
+                <li>
+                	<span th:text="${policy.name}" th:onclick="document.all.item('atomicPolicyArea').href='policy/createAtomicPolicy.html?policy="+"${policy}></span>
+                </li>
+                <div th:if="null!=${policy.childPolicies}">
+	                <li th:each="child : ${policy.childPolicies}" >
+	                    <span th:text="${child.name}" th:onclick=th:onclick="document.all.item('atomicPolicyArea').href='policy/createAtomicPolicy.html?policy="+"${child}>Policy 1</span>
+	                    <div th:with="policy = ${child}"
+	                           th:include=":: compositePolicyTree" th:remove="tag" />
+	                </li>
+	             </div>
+            </ul>
+        </div>	
 </form>
+<iframe id="atomicPolicyArea"></iframe>
 </body>
 </html>

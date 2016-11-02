@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.ai.bss.api.policy.dto.AbstractCondition;
+import com.ai.bss.api.policy.dto.AbstractPan;
 import com.ai.bss.api.policy.dto.AtomicCondition;
 import com.ai.bss.api.policy.dto.AtomicPolicy;
 import com.ai.bss.api.policy.dto.CompositePolicy;
@@ -55,12 +56,6 @@ public class PolicyController {
         return "policy/createAtomicPolicy";
     }
 	
-	@RequestMapping(value = "/createAtomicPolicy",method = RequestMethod.POST)
-    public String saveAtomicPolicy(@ModelAttribute("policy") @Valid AtomicPolicy policy,@ModelAttribute("condition") @Valid AtomicCondition condition) {
-		policy.setCondition(condition);		
-        return "policy/createAtomicPolicy";
-    }
-	
 	@RequestMapping(value = "/createAtomicPolicy/addAtomicCondition")
     public String newAtomicContion(Model model) {
 		AtomicCondition condition=new AtomicCondition();		
@@ -71,16 +66,15 @@ public class PolicyController {
     }
 	
 	@RequestMapping(value = "/createAtomicPolicy/addLeftVariablePan")
-    public String addLeftVariablePan(@RequestBody AtomicCondition condition,final String leftPanType,final String leftValueType,Model model) {
+    public String addLeftVariablePan(Model model) {
 		VariablePan leftPan=new VariablePan();
 		Variable leftVariable=new Variable();
 		leftVariable.setType("String");
 		leftPan.setVariable(leftVariable);
-		condition.setLeft(leftPan);
-		model.addAttribute("condition", condition);
+		model.addAttribute("left", leftPan);
         return "policy/createAtomicCondition::newConditionLeft";
     }
-	
+		
 	@RequestMapping(value = "/createAtomicPolicy/addLeftValuePan")
     public String addLeftValuePan(@RequestBody AtomicCondition condition,final String leftPanType,final String leftValueType,Model model) {
 		ValuePan leftPan=new ValuePan();
@@ -95,15 +89,25 @@ public class PolicyController {
 			FunctionValue leftValue=new FunctionValue();
 			leftPan.setValue(leftValue);
 		}
-		model.addAttribute("condition", condition);
+		model.addAttribute("left", leftPan);
         return "policy/createAtomicCondition::newConditionLeft";
     }
 	
-	@RequestMapping(value = "/createAtomicPolicy",params={"addValueLeftPan"})
-    public String addValueLeftPan(@ModelAttribute("policy") @Valid AtomicPolicy policy) {
-		ValuePan leftPan=new ValuePan();
-		AtomicCondition condition=(AtomicCondition)policy.getCondition();
-		condition.setLeft(leftPan);
+	@RequestMapping(value = "/createAtomicPolicy",method = RequestMethod.POST)
+    public String saveAtomicPolicy(@ModelAttribute("policy") @Valid AtomicPolicy policy,
+    		@ModelAttribute("condition") @Valid AtomicCondition condition,
+    		@ModelAttribute("left") @Valid VariablePan left) {
+		condition.setLeft(left);
+		policy.setCondition(condition);		
+        return "policy/createAtomicPolicy";
+    }
+	
+	@RequestMapping(value = "/createAtomicPolicy",method = RequestMethod.POST)
+    public String saveAtomicPolicy(@ModelAttribute("policy") @Valid AtomicPolicy policy,
+    		@ModelAttribute("condition") @Valid AtomicCondition condition,
+    		@ModelAttribute("left") @Valid ValuePan left) {
+		condition.setLeft(left);
+		policy.setCondition(condition);		
         return "policy/createAtomicPolicy";
     }
 }

@@ -64,13 +64,13 @@
 </div>
 
 <div th:remove="tag" th:fragment="newConditionLeftContent" xmlns:th="http://www.thymeleaf.org">
-	<table th:if="${#strings.equalsIgnoreCase('Variable',condition.left.type)}">
+	<table th:if="${#strings.equalsIgnoreCase('Variable',left.type)}">
 		<tr>
 			<td>
 				<label>Variable Name:</label>
 			</td>
 			<td>
-				<input type="text" th:field="${condition.left.variable.name}" />
+				<input type="text" th:field="${left.variable.name}" />
 			</td>
 		</tr>
 		<tr>
@@ -78,7 +78,7 @@
 				<label>Variable Code:</label>
 			</td>
 			<td>
-				<input type="text" th:field="${condition.left.variable.code}" />
+				<input type="text" th:field="${left.variable.code}" />
 			</td>
 		</tr>
 		<tr>
@@ -86,17 +86,17 @@
 				<label>Variable Data Type:</label>
 			</td>
 			<td>
-				<input type="text" th:field="${condition.left.variable.type}"/>
+				<input type="text" th:field="${left.variable.type}"/>
 			</td>
 		</tr>
 	</table>
-	<table th:if="${#strings.equalsIgnoreCase('Value',condition.left.type)}" >
+	<table th:if="${#strings.equalsIgnoreCase('Value',left.type)}" >
 		<tr>
 			<td>
 				<label>Value Name:</label>
 			</td>
 			<td >
-				<input type="text" th:field="${condition.left.value.name}"/>
+				<input type="text" th:field="${left.value.name}"/>
 			</td>
 		</tr>
 		<tr>
@@ -104,12 +104,12 @@
 				<label>Value Code:</label>
 			</td>
 			<td>
-				<input type="text" th:field="${condition.left.value.code}"/>	
+				<input type="text" th:field="${left.value.code}"/>	
 			</td>
 		</tr>
 		<tr>			
 			<td>			
-				<input type="text" th:if="${value instanceof com.ai.bss.api.dto.ConstValue" th:field="${condition.left.value.type}" />
+				<input type="text" th:if="${value instanceof com.ai.bss.api.dto.ConstValue" th:field="${left.value.type}" />
 			</td>	
 		</tr>
 	</table>

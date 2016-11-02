@@ -58,7 +58,7 @@ public class WebTest {
 		AtomicPolicy policy=new AtomicPolicy();
 		policy.setPolicyId(policyId.toString());
 		policy.setCode("CustomerLevelMustMoreThan1");
-		AtomicCondition condition = new AtomicCondition(policy);
+		AtomicCondition condition = new AtomicCondition();
 		condition.setCode("CustomerLevelMoreThan1");
 		condition.setName("Customer Level More Than1");
 		VariablePan left =new VariablePan();

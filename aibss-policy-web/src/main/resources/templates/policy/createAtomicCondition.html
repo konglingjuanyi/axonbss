@@ -1,33 +1,172 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-	<div id="divAtomicCondition" th:fragment="newAtomicCondition(condition)">
-		<table>
-    		<tr>
-				<td><input type="text" th:field="${condition.name}" /></td>
-				<td><input type="text" th:field="${condition.code}" /></td>
-			</tr>
-			<tr>
-				<button type="button" id="addVariableLeftPan"  text="add Variable LeftPan">Add variable left</button>
-				<button type="button" name="addValueLeftPan"  text="add Value LeftPan">Add value left</button>
-			</tr>
-			<div id="divConditionLeft"></div>
-		</table>
-	</div> 
-	<div id="divConditionLeft" th:fragment="newConditionLeft(condition)">
-		<tr th:if="${null!=condition.left}" >
-			<td th:if="${#String.equalsIgnoreCase('Variable',condition.left.type)}">
-				<input type="text" th:field="${condition.left.variable.name}" />
-				<input type="text" th:field="${condition.left.variable.code}" />
-				<input type="text" th:field="${condition.left.variable.Type}"/>
+<div th:remove="tag" id="divAtomicCondition" th:fragment="newAtomicCondition" xmlns:th="http://www.thymeleaf.org">
+	<script th:inline="javascript">
+		var condition=/*[[${condition}]]*/;
+	 </script>
+	<p>Condition</p>
+	<table>
+   		<tr>
+   			<td>
+				<label>Condition Name:</label>
 			</td>
-			<td th:if="${condition.left.equalsIgnoreCase('Value')}">
-				<!-- radio to select value type,on click to create new value-->
-				<input type="text" th:field="${condition.left.value.name}"/>
-				<input type="text" th:field="${condition.left.value.code}"/>				
-				<input type="text" th:if="${condition.left.value instanceof com.ai.bss.api.policy.dto.ConstValue" th:field="${condition.statement.leftpan.value.Type}" />
+			<td>
+				<input type="text" th:field="${condition.name}" />
 			</td>
 		</tr>
-	</div>         	
-</body>
-</html>
+		<tr>
+			<td>
+				<label>Condition Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.code}" />
+			</td>
+		</tr>
+	</table>
+	<table border="1">
+   		<tr >
+   			<td> Left </td>
+   			<td> Operator </td>
+   			<td> Right</td>
+   		</tr>
+   		<tr>
+   			<td>
+				<input type="radio" id="radioVariableLeftType" value="Variable" name="radioLeftType" />Variable 
+				<input type="radio" value="Value" name="radioLeftType" onclick="document.all.item('divValueLeft').style.display='block';"/>Value 	
+				<div id="divValueLeft" style="display:none;">
+					<input type="radio" id="radioConstantValueLeftType" value="Constant" name="radioLeftValueType"  checked="true" />Constant 
+					<input type="radio" id="radioEnumerationValueLeftType" value="Enumeration" name="radioLeftValueType"/>Enumeration 
+					<input type="radio" id="radioFunctionValueLeftType" value="Function" name="radioLeftValueType"/>Function
+				</div>
+				<div id="divConditionLeft"></div>
+           	</td>
+       		<td>
+       			<div  id="divConditionOperator" >
+				</div> 
+       		</td>
+           	<td>
+				<input type="radio" id="radioVariableRightType" value="Variable" name="radioRightType" />Variable 
+				<input type="radio" value="Value" name="radioRightType" onclick="document.all.item('divValueRight').style.display='block';"/>Value 	
+				<div id="divValueRight" style="display:none;">
+					<input type="radio" id="radioConstantValueRightType" value="Constant" name="radioRightValueType"  checked="true" />Constant 
+					<input type="radio" id="radioEnumerationValueRightType" value="Enumeration" name="radioRightValueType"/>Enumeration 
+					<input type="radio" id="radioFunctionValueRightType" value="Function" name="radioRightValueType"/>Function
+				</div> 
+				<div id="divConditionRight"></div>
+   			</td>
+   		</tr>		
+	</table>
+</div> 
+
+<div th:remove="tag" id="divConditionLeft" th:fragment="newConditionLeft" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="::newConditionLeftContent"></div>
+</div>
+<div th:remove="tag" id="divConditionRight" th:fragment="newConditionRight" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="::newConditionRightContent"></div>
+</div>
+
+<div th:remove="tag" th:fragment="newConditionLeftContent" xmlns:th="http://www.thymeleaf.org">
+	<table th:if="${#strings.equalsIgnoreCase('Variable',condition.left.type)}">
+		<tr>
+			<td>
+				<label>Variable Name:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.left.variable.name}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Variable Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.left.variable.code}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Variable Data Type:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.left.variable.type}"/>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${#strings.equalsIgnoreCase('Value',condition.left.type)}" >
+		<tr>
+			<td>
+				<label>Value Name:</label>
+			</td>
+			<td >
+				<input type="text" th:field="${condition.left.value.name}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Value Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.left.value.code}"/>	
+			</td>
+		</tr>
+		<tr>			
+			<td>			
+				<input type="text" th:if="${value instanceof com.ai.bss.api.dto.ConstValue" th:field="${condition.left.value.type}" />
+			</td>	
+		</tr>
+	</table>
+</div>   
+
+<div th:remove="tag" th:fragment="newConditionRightContent" xmlns:th="http://www.thymeleaf.org">
+	<script th:inline="javascript" >
+		right=/*[[${condition.right}]]*/;
+		//alert(JSON.stringify(right));
+	 </script>
+	<table th:if="${#strings.equalsIgnoreCase('Variable',right.type)}">
+		<tr>
+			<td>
+				<label>Variable Name:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.right.variable.name}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Variable Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.right.variable.code}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Variable Data Type:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.right.variable.type}"/>
+			</td>
+		</tr>
+	</table>
+	<table th:if="${#strings.equalsIgnoreCase('Value',condition.right.type)}" >
+		<tr>
+			<td>
+				<label>Value Name:</label>
+			</td>
+			<td >
+				<input type="text" th:field="${condition.right.value.name}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Value Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${condition.right.value.code}"/>	
+			</td>
+		</tr>
+		<tr>			
+			<td>			
+				<input type="text" th:if="${value instanceof com.ai.bss.api.dto.ConstValue" th:field="${condition.right.value.type}" />
+			</td>	
+		</tr>
+	</table>
+</div>        	

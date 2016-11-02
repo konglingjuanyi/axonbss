@@ -5,10 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 	<script src="/js/policy.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/json2.js"></script> 
 </head>
 <body>
 <h1>Create Policy</h1>
  <form action="#" th:action="@{/policy/createAtomicPolicy}" th:object="${policy}" method="POST">
+	<script th:inline="javascript">
+		var policy = /*[[${policy}]]*/;
+	</script>
 	<table>
 		<tr>
 			<td>Policy Name</td>
@@ -19,29 +23,15 @@
 			<td><input type="text" th:field="*{code}" /></td>
 		</tr>
 	</table>
+	<button th:if="${null==policy.condition}" type="button" id="btnAddAtomicCondition" value="Add Condition">add Atomic Condition</button>
+	<button th:if="${null==policy.action}" type="button" id="btnAddAtomicAction" value="Add Action">Add Action</button>
+	<div id="divAtomicCondition"></div>
+	<p>Action</p>
 	<table>
-		<tr>		
-			<td>Condition</td>	
-			<td >
-            	<table>
-            		<tr th:if="${null==policy.condition}">
-            			<td> <button type="button" id="btnAddAtomicCondition" value="Add Condition">add Atomic Condition</button></td>
-            		</tr>
-            		<tr>
-            			<td> <div id="divAtomicCondition">div to be replaced</div></td>
-            		</tr>
-            	</table>           	
-            </td>
-		</tr>
 		<tr>				
-			<td>Action</td>
 			<td>
             	<table>
-            		<tr><td><button type="submit" name="addAtomicAction" text="Add Action">Add Action</button></td></tr>
-            		<tr th:each="action, rowStat : *{action}">        			
-            			<td th:text="${action.name}">action name</td>
-            			<td th:text="${action.toBodyString}">action detail</td>
-            		</tr>
+            		<tr><td></td></tr>
             	</table>           	
             </td>
 		</tr>

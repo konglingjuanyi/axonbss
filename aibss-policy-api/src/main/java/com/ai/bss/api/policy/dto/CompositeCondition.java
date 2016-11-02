@@ -9,9 +9,6 @@ public class CompositeCondition extends AbstractCondition{
 	
 	public CompositeCondition( ) {}
 	
-	public CompositeCondition( AbstractPolicy policy) {
-		super(policy);
-	}
 	public boolean isAnd() {
 		return isAnd;
 	}
@@ -26,7 +23,7 @@ public class CompositeCondition extends AbstractCondition{
 			childConditions.add(childCondition);
 		}
 	}
-	@Override
+	//@Override
 	public boolean isComposite() {
 		return true;
 	}

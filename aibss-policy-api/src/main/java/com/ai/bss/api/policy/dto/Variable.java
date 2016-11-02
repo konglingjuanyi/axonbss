@@ -2,7 +2,6 @@ package com.ai.bss.api.policy.dto;
 
 public class Variable {
 	private String variableId;
-	private AbstractValue value;
 	private String name;
 	private String code;
 	private String type;
@@ -14,12 +13,6 @@ public class Variable {
 	}
 	public void setVariableId(String variableId) {
 		this.variableId = variableId;
-	}
-	public AbstractValue getValue() {
-		return value;
-	}
-	public void setValue(AbstractValue value) {
-		this.value = value;
 	}
 	public String getName() {
 		return name;

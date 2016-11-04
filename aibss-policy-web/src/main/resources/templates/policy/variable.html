@@ -1,0 +1,28 @@
+<div th:remove="tag" th:fragment="VariableContent(variable)" xmlns:th="http://www.thymeleaf.org">
+	<table>
+		<tr>
+			<td>
+				<label>Variable Name:</label>
+			</td>
+			<td>
+				<input type="text" th:field="*{__${variable}__.name}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Variable Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="*{__${variable}__.code}" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Variable Data Type:</label>
+			</td>
+			<td>
+				<input type="text" th:field="*{__${variable}__.type}"/>
+			</td>
+		</tr>
+	</table>
+</div>

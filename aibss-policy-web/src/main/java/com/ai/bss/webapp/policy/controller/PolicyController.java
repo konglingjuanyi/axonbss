@@ -65,49 +65,53 @@ public class PolicyController {
         return "policy/createAtomicCondition::newAtomicCondition";
     }
 	
-	@RequestMapping(value = "/createAtomicPolicy/addLeftVariablePan")
-    public String addLeftVariablePan(Model model) {
-		VariablePan leftPan=new VariablePan();
+	@RequestMapping(value = "/createAtomicPolicy/addLeftVariable")
+    public String addLeftVariable(Model model) {
 		Variable leftVariable=new Variable();
 		leftVariable.setType("String");
-		leftPan.setVariable(leftVariable);
-		model.addAttribute("left", leftPan);
-        return "policy/createAtomicCondition::newConditionLeft";
+		model.addAttribute("leftVariable", leftVariable);
+		model.addAttribute("onLeftPan",leftVariable);
+        return "policy/createAtomicCondition::newLeftVariable";
     }
-		
-	@RequestMapping(value = "/createAtomicPolicy/addLeftValuePan")
-    public String addLeftValuePan(@RequestBody AtomicCondition condition,final String leftPanType,final String leftValueType,Model model) {
-		ValuePan leftPan=new ValuePan();
-		condition.setLeft(leftPan);
-		if (leftValueType.equalsIgnoreCase("Constant")){
-			ConstValue leftValue=new ConstValue();
-			leftPan.setValue(leftValue);
-		}else if (leftValueType.equalsIgnoreCase("Enumeration")){
-			EnumValue leftValue=new EnumValue();
-			leftPan.setValue(leftValue);
-		}else if (leftValueType.equalsIgnoreCase("Function")){
-			FunctionValue leftValue=new FunctionValue();
-			leftPan.setValue(leftValue);
+	
+	@RequestMapping(value = "/createAtomicPolicy/addLeftConstValue")
+    public String addLeftConstValue(Model model) {
+		ConstValue leftValue=new ConstValue();
+		model.addAttribute("leftConstValue", leftValue);
+		model.addAttribute("onLeftPan",leftValue);
+        return "policy/createAtomicCondition::newLeftConstValue";
+    }
+	
+	@RequestMapping(value = "/createAtomicPolicy/addLeftEnumValue")
+    public String addLeftEnumValue(Model model) {
+		EnumValue leftValue=new EnumValue();
+		model.addAttribute("leftEnumValue", leftValue);		
+		model.addAttribute("onLeftPan",leftValue);
+        return "policy/createAtomicCondition::newLeftEnumValue";
+    }
+	
+	@RequestMapping(value = "/createAtomicPolicy/addLeftFunctionValue")
+    public String addLeftFunctionValue(Model model) {
+		FunctionValue leftValue=new FunctionValue();
+		model.addAttribute("leftFunctionValue", leftValue);	
+		model.addAttribute("onLeftPan",leftValue);
+        return "policy/createAtomicCondition::newLeftFunctionValue";
+    }
+	
+	
+	
+	@RequestMapping(value = "/createAtomicPolicy",method = RequestMethod.POST)
+    public String saveAtomicPolicy(@ModelAttribute("policy") @Valid AtomicPolicy policy,
+    		@ModelAttribute("condition") @Valid AtomicCondition condition,
+    		@ModelAttribute("onLeftPan") @Valid Object onleftPan) {
+		if (onleftPan instanceof Variable){
+			VariablePan left=new VariablePan();
+			left.setVariable((Variable)onleftPan);
+			condition.setLeft(left);
 		}
-		model.addAttribute("left", leftPan);
-        return "policy/createAtomicCondition::newConditionLeft";
-    }
-	
-	@RequestMapping(value = "/createAtomicPolicy",method = RequestMethod.POST)
-    public String saveAtomicPolicy(@ModelAttribute("policy") @Valid AtomicPolicy policy,
-    		@ModelAttribute("condition") @Valid AtomicCondition condition,
-    		@ModelAttribute("left") @Valid VariablePan left) {
-		condition.setLeft(left);
+		
 		policy.setCondition(condition);		
         return "policy/createAtomicPolicy";
     }
 	
-	@RequestMapping(value = "/createAtomicPolicy",method = RequestMethod.POST)
-    public String saveAtomicPolicy(@ModelAttribute("policy") @Valid AtomicPolicy policy,
-    		@ModelAttribute("condition") @Valid AtomicCondition condition,
-    		@ModelAttribute("left") @Valid ValuePan left) {
-		condition.setLeft(left);
-		policy.setCondition(condition);		
-        return "policy/createAtomicPolicy";
-    }
 }

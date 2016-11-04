@@ -18,62 +18,61 @@ $(document).ready(function(){
 	$("#divAtomicCondition").on("click","#radioVariableLeftType",function(){
 		$('#divValueLeft').hide();
 		//var conditionJson=JSON.stringify(condition);
-		var url="/policy/createAtomicPolicy/addLeftVariablePan";
-		url+="?leftPanType=Variable";
+		var url="/policy/createAtomicPolicy/addLeftVariable";
 		$.ajax({type: "POST",
 				url: url,
 				//data: conditionJson,
 				contentType: 'application/json; charset=utf-8',
 				success: function(html){
-					$('#divConditionLeft').html(html);
+					$('#divLeftVariable').html(html);
+					$('#divLeftConstValue').html(null);
+					$('#divLeftEnumValue').html(null);
+					$('#divLeftFunctionValue').html(null);
 				}
 		});
 	});
 	
 	$("#divAtomicCondition").on("click","#radioConstantValueLeftType",function(){		
-		//var conditionJson=JSON.stringify(condition);
-		var url="/policy/createAtomicPolicy/addLeftValuePan";
+		var url="/policy/createAtomicPolicy/addLeftConstValue";
 		var leftType=$("input[name='radioLeftType']:checked").val();	
-		url+="?leftPanType=Value";
-		url+="&leftValueType=Constant";
 		$.ajax({type: "POST",
 				url: url,
-				//data: conditionJson,
 				contentType: "application/json; charset=utf-8",
 				success: function(html){
-					$('#divConditionLeft').html(html);
+					$('#divLeftConstValue').html(html);
+					$('#divLeftVariable').html(null);
+					$('#divLeftEnumValue').html(null);
+					$('#divLeftFunctionValue').html(null);
 				}
 		});
 	});
 	
 	$("#divAtomicCondition").on("click","#radioEnumerationValueLeftType",function(){		
-		//var conditionJson=JSON.stringify(condition);
-		var url="/policy/createAtomicPolicy/addLeftValuePan";
+		var url="/policy/createAtomicPolicy/addLeftEnumValue";
 		var leftType=$("input[name='radioLeftType']:checked").val();	
-		url+="?leftPanType=Value";
-		url+="&leftValueType=Enumeration";
 		$.ajax({type: "POST",
 				url: url,
-				//data: conditionJson,
 				contentType: "application/json; charset=utf-8",
 				success: function(html){
-					$('#divConditionLeft').html(html);
+					$('#divLeftEnumValue').html(html);
+					$('#divLeftVariable').html(null);
+					$('#divLeftConstValue').html(null);
+					$('#divLeftFunctionValue').html(null);
 				}
 		});
 	});
 	
 	$("#divAtomicCondition").on("click","#radioFunctionValueLeftType",function(){		
-		//var conditionJson=JSON.stringify(condition);
-		var url="/policy/createAtomicPolicy/addLeftValuePan";
+		var url="/policy/createAtomicPolicy/addLeftFunctionValue";
 		var leftType=$("input[name='radioLeftType']:checked").val();	
-		url+="?leftPanType=Value";
-		url+="&leftValueType=Function";
 		$.ajax({type: "POST",
 				url: url,
-				//data: conditionJson,
 				contentType: "application/json; charset=utf-8",
 				success: function(html){
-					$('#divConditionLeft').html(html);
+					$('#divLeftFunctionValue').html(html);
+					$('#divLeftVariable').html(null);
+					$('#divLeftConstValue').html(null);
+					$('#divLeftEnumValue').html(null);
 				}
 		});
 	});

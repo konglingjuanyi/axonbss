@@ -1,0 +1,28 @@
+<div th:remove="tag" th:fragment="EnumValueContent(enumValue)" xmlns:th="http://www.thymeleaf.org">
+	<table>
+		<tr>
+			<td>
+				<label>Value Name:</label>
+			</td>
+			<td >
+				<input type="text" th:field="*{__${enumValue}__.name}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Value Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="*{__${enumValue}__.code}"/>	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Enumeration Value:</label>
+			</td>			
+			<td>			
+				<input type="text" th:field="*{__${enumValue}__.enumValue}" />
+			</td>	
+		</tr>
+	</table>
+</div>        	

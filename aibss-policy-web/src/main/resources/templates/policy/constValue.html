@@ -1,0 +1,28 @@
+<div th:remove="tag" th:fragment="ConstValueContent(constValue)" xmlns:th="http://www.thymeleaf.org">
+	<table>
+		<tr>
+			<td>
+				<label>Value Name:</label>
+			</td>
+			<td >
+				<input type="text" th:field="*{__${constValue}__.name}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Value Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="*{__${constValue}__.code}"/>	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Constant Value:</label>
+			</td>			
+			<td>			
+				<input type="text" th:field="*{__${constValue}__.value}" />
+			</td>	
+		</tr>
+	</table>
+</div>        	

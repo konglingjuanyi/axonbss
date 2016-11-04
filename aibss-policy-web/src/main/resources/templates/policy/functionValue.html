@@ -1,0 +1,42 @@
+<div th:remove="tag" th:fragment="FunctionValueContent(functionValue)" xmlns:th="http://www.thymeleaf.org">
+	<table>
+		<tr>
+			<td>
+				<label>Value Name:</label>
+			</td>
+			<td >
+				<input type="text" th:field="*{__${functionValue}__.name}"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Value Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="*{__${functionValue}__.code}"/>	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label>Function:</label>
+			</td>			
+			<td>			
+				<input type="text" th:field="*{__${functionValue}__.functionId}" />
+			</td>	
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<th>Function parameter name</th>
+			<th>Function parameter code</th>
+			<th>Function parameter value</th>
+			<th></th>
+		</tr>
+		<tr th:if="${null!=parameter}" th:each="parameter,count : ${parameters}">
+			<td th:text="${parameter.name}">parameter name</td>
+			<td th:text="${parameter.code}">parameter code</td>
+			<td th:text="${parameter.value}">parameter value</td>
+			<td></td>
+		</tr>
+	</table>
+</div>        	

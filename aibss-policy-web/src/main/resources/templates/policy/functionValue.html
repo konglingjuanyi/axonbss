@@ -22,21 +22,22 @@
 			</td>			
 			<td>			
 				<input type="text" th:field="*{__${functionValue}__.functionId}" />
+			</td>
+			<td>			
+				<button type="button" id="btnSelectFunction" value="Select Function">Select Function</button>				
 			</td>	
 		</tr>
 	</table>
 	<table>
 		<tr>
-			<th>Function parameter name</th>
-			<th>Function parameter code</th>
-			<th>Function parameter value</th>
-			<th></th>
+			<th>Parameter name</th>
+			<th>Parameter code</th>
+			<th>Parameter value</th>
 		</tr>
-		<tr th:if="${null!=parameter}" th:each="parameter,count : ${parameters}">
+		<tr th:if="${null!=parameter}" th:each="parameter,count : *{__${functionValue}__.parameters}">
 			<td th:text="${parameter.name}">parameter name</td>
 			<td th:text="${parameter.code}">parameter code</td>
-			<td th:text="${parameter.value}">parameter value</td>
-			<td></td>
+			<td><input type="text" th:field="${parameter.parameterValue}" /></td>
 		</tr>
 	</table>
 </div>        	

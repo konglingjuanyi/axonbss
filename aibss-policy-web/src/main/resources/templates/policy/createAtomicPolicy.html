@@ -17,25 +17,14 @@
 		<tr>
 			<td>Policy Name</td>
 			<td><input type="text" th:field ="*{name}" /></td>
-		</tr>
-		<tr>
 			<td>Policy Code</td>
 			<td><input type="text" th:field="*{code}" /></td>
 		</tr>
 	</table>
-	<button th:if="${null==policy.condition}" type="button" id="btnAddAtomicCondition" value="Add Condition">add Atomic Condition</button>
+	<button type="button" id="btnAddAtomicCondition" value="Add Condition">add Atomic Condition</button>
 	<div id="divAtomicCondition"></div>
-	<button th:if="${null==policy.action}" type="button" id="btnAddAtomicAction" value="Add Action">Add Action</button>	
-	<p>Action</p>
-	<table>
-		<tr>				
-			<td>
-            	<table>
-            		<tr><td></td></tr>
-            	</table>           	
-            </td>
-		</tr>
-	</table>
+	<button type="button" id="btnAddAtomicAction" value="Add Action">Add Atomic Action</button>	
+	<div id="divAtomicAction"></div>
     <div class="span14">
       <button type="submit" text="save">save</button>
 	</div>

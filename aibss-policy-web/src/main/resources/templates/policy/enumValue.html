@@ -18,10 +18,18 @@
 		</tr>
 		<tr>
 			<td>
-				<label>Enumeration Value:</label>
+				<label>Enumeration Specification:</label>
 			</td>			
 			<td>			
-				<input type="text" th:field="*{__${enumValue}__.enumValue}" />
+				<input type="text" th:field="*{__${enumValue}__.enumSpecCode}" />
+			</td>	
+		</tr>
+		<tr>
+			<td>
+				<label>Enumeration Specification Value:</label>
+			</td>			
+			<td>			
+				<input type="text" th:field="*{__${enumValue}__.enumValueSpecCode}" />
 			</td>	
 		</tr>
 	</table>

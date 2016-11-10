@@ -1,74 +1,112 @@
 <div th:remove="tag" id="divAtomicCondition" th:fragment="newAtomicCondition" xmlns:th="http://www.thymeleaf.org">
 	<script th:inline="javascript">
-		var condition=/*[[${condition}]]*/;
+		policy=/*[[${policy}]]*/;
 	 </script>
-	<p>Condition</p>
 	<table>
    		<tr>
    			<td>
 				<label>Condition Name:</label>
 			</td>
 			<td>
-				<input type="text" th:field="${condition.name}" />
+				<input type="text" th:field="${policy.atomicCondition.name}" />
 			</td>
-		</tr>
-		<tr>
 			<td>
 				<label>Condition Code:</label>
 			</td>
 			<td>
-				<input type="text" th:field="${condition.code}" />
+				<input type="text" th:field="${policy.atomicCondition.code}" />
 			</td>
 		</tr>
 	</table>
 	<table border="1">
    		<tr >
-   			<td> Left </td>
-   			<td> Operator </td>
-   			<td> Right</td>
+   			<td>Condition Left </td>
+   			<td>Condition Operator </td>
+   			<td>Condition Right</td>
    		</tr>
    		<tr>
    			<td>
-				<input type="radio" id="radioVariableLeftType" value="Variable" name="radioLeftType" />Variable 
-				<input type="radio" value="Value" name="radioLeftType" onclick="document.all.item('divValueLeft').style.display='block';document.all.item('divLeftVariable').innerHTML='';"/>Value 	
-				<div id="divValueLeft" style="display:none;">
-					<input type="radio" id="radioConstantValueLeftType" value="Constant" name="radioLeftValueType" />Constant 
-					<input type="radio" id="radioEnumerationValueLeftType" value="Enumeration" name="radioLeftValueType"/>Enumeration 
-					<input type="radio" id="radioFunctionValueLeftType" value="Function" name="radioLeftValueType"/>Function
+				<input type="radio" id="radioConditionLeftVariable" value="Variable" name="radioConditionGroupLeft"/>Variable 
+				<input type="radio" name="radioConditionGroupLeft" onclick="document.all.item('divConditionLeftValue').style.display='block';document.all.item('divConditionLeftVariable').innerHTML='';"/>Value 	
+				<div id="divConditionLeftValue" style="display:none;">
+					<input type="radio" id="radioConditionLeftConstantValue" value="Constant" name="radioConditionGroupLeftValue"/>Constant 
+					<input type="radio" id="radioConditionLeftEnumerationValue" value="Enumeration" name="radioConditionGroupLeftValue"/>Enumeration 
+					<input type="radio" id="radioConditionLeftFunctionValue" value="Function" name="radioConditionGroupLeftValue"/>Function
 				</div>
-				<div id="divLeftVariable"></div>
-				<div id="divLeftConstValue"></div>
-				<div id="divLeftEnumValue"></div>
-				<div id="divLeftFunctionValue"></div>
+				<div id="divConditionLeftVariable"></div>
+				<div id="divConditionLeftConstValue"></div>
+				<div id="divConditionLeftEnumValue"></div>
+				<div id="divConditionLeftFunctionValue"></div>
            	</td>
        		<td>
        			<div  id="divConditionOperator" >
 				</div> 
        		</td>
            	<td>
-				<input type="radio" id="radioVariableRightType" value="Variable" name="radioRightType" />Variable 
-				<input type="radio" value="Value" name="radioRightType" onclick="document.all.item('divValueRight').style.display='block';"/>Value 	
-				<div id="divValueRight" style="display:none;">
-					<input type="radio" id="radioConstantValueRightType" value="Constant" name="radioRightValueType"  checked="true" />Constant 
-					<input type="radio" id="radioEnumerationValueRightType" value="Enumeration" name="radioRightValueType"/>Enumeration 
-					<input type="radio" id="radioFunctionValueRightType" value="Function" name="radioRightValueType"/>Function
-				</div> 
-				<div id="divConditionRight"></div>
+				<input type="radio" id="radioConditionRightVariable" value="Variable"  name="radioConditionGroupRight"/>Variable 
+				<input type="radio" name="radioConditionGroupRight" onclick="document.all.item('divConditionRightValue').style.display='block';document.all.item('divConditionRightVariable').innerHTML='';"/>Value 	
+				<div id="divConditionRightValue" style="display:none;">
+					<input type="radio" id="radioConditionRightConstantValue" value="Constant" name="radioConditionGroupRightValue"/>Constant 
+					<input type="radio" id="radioConditionRightEnumerationValue" value="Enumeration" name="radioConditionGroupRightValue"/>Enumeration 
+					<input type="radio" id="radioConditionRightFunctionValue" value="Function" name="radioConditionGroupRightValue"/>Function
+				</div>
+				<div id="divConditionRightVariable"></div>
+				<div id="divConditionRightConstValue"></div>
+				<div id="divConditionRightEnumValue"></div>
+				<div id="divConditionRightFunctionValue"></div>
    			</td>
    		</tr>		
 	</table>
 </div> 
 
 <!-- left -->
-<div th:remove="tag" id="divLeftVariable" th:fragment="newLeftVariable" xmlns:th="http://www.thymeleaf.org">
-	<div th:replace="policy/variable::VariableContent('leftVariable')"></div>
+<div th:remove="tag" id="divConditionLeftVariable" th:fragment="newConditionLeftVariable" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/variable::VariableContent('policy.atomicCondition.statement.leftVariable')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>	
 </div>
-<div th:remove="tag" id="divLeftConstValue" th:fragment="newLeftConstValue" xmlns:th="http://www.thymeleaf.org">
-	<div th:replace="policy/constValue::ConstValueContent('leftConstValue')"></div>
+<div th:remove="tag" id="divConditionLeftConstValue" th:fragment="newConditionLeftConstValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/constValue::ConstValueContent('policy.atomicCondition.statement.leftConstValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
 </div>
-<div th:remove="tag" id="divLeftEnumValue" th:fragment="newLeftEnumValue" xmlns:th="http://www.thymeleaf.org">
-	<div th:replace="policy/enumValue::EnumValueContent('leftEnumValue')"></div>
+<div th:remove="tag" id="divConditionLeftEnumValue" th:fragment="newConditionLeftEnumValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/enumValue::EnumValueContent('policy.atomicCondition.statement.leftEnumValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
 </div>
-<div th:remove="tag" id="divLeftFunctionValue" th:fragment="newLeftFunctionValue" xmlns:th="http://www.thymeleaf.org">
-	<div th:replace="policy/functionValue::FunctionValueContent('leftFunctionValue')"></div>
+<div th:remove="tag" id="divConditionLeftFunctionValue" th:fragment="newConditionLeftFunctionValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/functionValue::FunctionValueContent('policy.atomicCondition.statement.leftFunctionValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+
+<!-- right-->
+<div th:remove="tag" id="divConditionRightVariable" th:fragment="newConditionRightVariable" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/variable::VariableContent('policy.atomicCondition.statement.rightVariable')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divConditionRightConstValue" th:fragment="newConditionRightConstValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/constValue::ConstValueContent('policy.atomicCondition.statement.rightConstValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divConditionRightEnumValue" th:fragment="newConditionRightEnumValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/enumValue::EnumValueContent('policy.atomicCondition.statement.rightEnumValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divConditionRightFunctionValue" th:fragment="newConditionRightFunctionValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/functionValue::FunctionValueContent('policy.atomicCondition.statement.rightFunctionValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
 </div>

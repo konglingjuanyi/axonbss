@@ -1,0 +1,112 @@
+<div th:remove="tag" id="divAtomicAction" th:fragment="newAtomicAction" xmlns:th="http://www.thymeleaf.org">
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+	<table>
+   		<tr>
+   			<td>
+				<label>Action Name:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${policy.atomicAction.name}" />
+			</td>
+			<td>
+				<label>Action Code:</label>
+			</td>
+			<td>
+				<input type="text" th:field="${policy.atomicAction.code}" />
+			</td>
+		</tr>
+	</table>
+	<table border="1">
+   		<tr >
+   			<td>Action Left </td>
+   			<td>Action Operator </td>
+   			<td>Action Right</td>
+   		</tr>
+   		<tr>
+   			<td>
+				<input type="radio" id="radioActionLeftVariable" value="Variable" name="radioActionGroupLeft"/>Variable 
+				<input type="radio" name="radioActionGroupLeft" onclick="document.all.item('divActionLeftValue').style.display='block';document.all.item('divActionLeftVariable').innerHTML='';"/>Value 	
+				<div id="divActionLeftValue" style="display:none;">
+					<input type="radio" id="radioActionLeftConstantValue" value="Constant" name="radioActionGroupLeftValue"/>Constant 
+					<input type="radio" id="radioActionLeftEnumerationValue" value="Enumeration" name="radioActionGroupLeftValue"/>Enumeration 
+					<input type="radio" id="radioActionLeftFunctionValue" value="Function" name="radioActionGroupLeftValue"/>Function
+				</div>
+				<div id="divActionLeftVariable"></div>
+				<div id="divActionLeftConstValue"></div>
+				<div id="divActionLeftEnumValue"></div>
+				<div id="divActionLeftFunctionValue"></div>
+           	</td>
+       		<td>
+       			<div  id="divActionOperator" >
+				</div> 
+       		</td>
+           	<td>
+				<input type="radio" id="radioActionRightVariable" value="Variable" name="radioActionGroupRight"/>Variable 
+				<input name="radioActionGroupRight" type="radio" onclick="document.all.item('divActionRightValue').style.display='block';document.all.item('divActionRightVariable').innerHTML='';"/>Value 	
+				<div id="divActionRightValue" style="display:none;">
+					<input type="radio" id="radioActionRightConstantValue" value="Constant" name="radioActionGroupRightValue"/>Constant 
+					<input type="radio" id="radioActionRightEnumerationValue" value="Enumeration" name="radioActionGroupRightValue"/>Enumeration 
+					<input type="radio" id="radioActionRightFunctionValue" value="Function" name="radioActionGroupRightValue"/>Function
+				</div>
+				<div id="divActionRightVariable"></div>
+				<div id="divActionRightConstValue"></div>
+				<div id="divActionRightEnumValue"></div>
+				<div id="divActionRightFunctionValue"></div>
+   			</td>
+   		</tr>		
+	</table>
+</div> 
+
+<!-- left -->
+<div th:remove="tag" id="divActionLeftVariable" th:fragment="newActionLeftVariable" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/variable::VariableContent('policy.atomicAction.statement.leftVariable')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>	
+</div>
+<div th:remove="tag" id="divActionLeftConstValue" th:fragment="newActionLeftConstValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/constValue::ConstValueContent('policy.atomicAction.statement.leftConstValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divActionLeftEnumValue" th:fragment="newActionLeftEnumValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/enumValue::EnumValueContent('policy.atomicAction.statement.leftEnumValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divActionLeftFunctionValue" th:fragment="newActionLeftFunctionValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/functionValue::FunctionValueContent('policy.atomicAction.statement.leftFunctionValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+
+<!-- right-->
+<div th:remove="tag" id="divActionRightVariable" th:fragment="newActionRightVariable" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/variable::VariableContent('policy.atomicAction.statement.rightVariable')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divActionRightConstValue" th:fragment="newActionRightConstValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/constValue::ConstValueContent('policy.atomicAction.statement.rightConstValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divActionRightEnumValue" th:fragment="newActionRightEnumValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/enumValue::EnumValueContent('policy.atomicAction.statement.rightEnumValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>
+<div th:remove="tag" id="divActionRightFunctionValue" th:fragment="newActionRightFunctionValue" xmlns:th="http://www.thymeleaf.org">
+	<div th:replace="policy/functionValue::FunctionValueContent('policy.atomicAction.statement.rightFunctionValue')"></div>
+	<script th:inline="javascript">
+		policy=/*[[${policy}]]*/;
+	 </script>
+</div>

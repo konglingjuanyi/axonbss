@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 import com.ai.bss.api.customerorder.event.OrderPaidEvent;
+import com.ai.bss.intergration.ri.helper.ProductSpecificationHelper;
 import com.ai.bss.query.api.customerorder.CustomerOrderEntry;
 import com.ai.bss.query.api.customerorder.OrderItemEntry;
 import com.ai.bss.query.api.customerorder.OrderItemOfferEntry;
 import com.ai.bss.query.api.customerorder.OrderItemOfferProductRelEntry;
 import com.ai.bss.query.api.customerorder.OrderItemProductEntry;
+import com.ai.bss.query.api.productspecification.ProductSpecificationEntry;
 
 public class ActivationListener {
 	@Autowired
@@ -31,7 +33,10 @@ public class ActivationListener {
 				if (!offerProducts.isEmpty()){
 					for (OrderItemOfferProductRelEntry orderItemOfferProductRelEntry : offerProducts) {
 						OrderItemProductEntry orderProduct=(OrderItemProductEntry)orderItemOfferProductRelEntry.getProduct();
-						
+						ProductSpecificationEntry productSpec=client.getForObject("http://productspecification-query-service/productSpecification/productSpecificationId/"+orderProduct.getProductSpecificationId(),ProductSpecificationEntry.class);
+						if (ProductSpecificationHelper.needActivation(productSpec)){
+							//是否要等待物流？配置在哪里？
+						}
 					}
 				}
 			}

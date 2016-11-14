@@ -20,13 +20,13 @@ import com.ai.bss.api.customerorder.event.OrderConfirmedEvent;
 import com.ai.bss.api.customerorder.event.OrderDeliverRequestedEvent;
 import com.ai.bss.api.customerorder.event.OrderDeliveredEvent;
 import com.ai.bss.api.customerorder.event.OrderFinishedEvent;
-import com.ai.bss.api.customerorder.event.OrderGoodsReceivedEvent;
-import com.ai.bss.api.customerorder.event.OrderGoodsReturnedEvent;
+import com.ai.bss.api.customerorder.event.OrderRealObjectReceivedEvent;
+import com.ai.bss.api.customerorder.event.OrderRealObjectReturnedEvent;
 import com.ai.bss.api.customerorder.event.OrderInitializedEvent;
 import com.ai.bss.api.customerorder.event.OrderItemDeliverRequestedEvent;
 import com.ai.bss.api.customerorder.event.OrderItemDeliveredEvent;
-import com.ai.bss.api.customerorder.event.OrderItemGoodsReceivedEvent;
-import com.ai.bss.api.customerorder.event.OrderItemGoodsReturnedEvent;
+import com.ai.bss.api.customerorder.event.OrderItemRealObjectReceivedEvent;
+import com.ai.bss.api.customerorder.event.OrderItemRealObjectReturnedEvent;
 import com.ai.bss.api.customerorder.event.OrderItemReturnGoodsRequestedEvent;
 import com.ai.bss.api.customerorder.event.OrderPaidEvent;
 import com.ai.bss.api.customerorder.event.OrderRefundedEvent;
@@ -158,14 +158,14 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	}
 	
 	public void returnGoodsOrder(){
-		OrderGoodsReturnedEvent event=new OrderGoodsReturnedEvent();
+		OrderRealObjectReturnedEvent event=new OrderRealObjectReturnedEvent();
 		event.setCustomerOrderId(customerOrderId);
 		apply(event);
 	}
 	
 	public void returnItemGoodsOrder(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemGoodsReturnedEvent event=new OrderItemGoodsReturnedEvent();
+			OrderItemRealObjectReturnedEvent event=new OrderItemRealObjectReturnedEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);
@@ -173,14 +173,14 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	}
 	
 	public void receiveGoodsOrder(){
-		OrderGoodsReceivedEvent event=new OrderGoodsReceivedEvent();
+		OrderRealObjectReceivedEvent event=new OrderRealObjectReceivedEvent();
 		event.setCustomerOrderId(customerOrderId);
 		apply(event);
 	}
 	
 	public void receiveItemGoodsOrder(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemGoodsReceivedEvent event=new OrderItemGoodsReceivedEvent();
+			OrderItemRealObjectReceivedEvent event=new OrderItemRealObjectReceivedEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);

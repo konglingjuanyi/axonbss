@@ -26,7 +26,7 @@ import com.ai.bss.api.customerorder.event.OrderCancelRequestedEvent;
 import com.ai.bss.api.customerorder.event.OrderCanceledEvent;
 import com.ai.bss.api.customerorder.event.OrderCompletedEvent;
 import com.ai.bss.api.customerorder.event.OrderDeliveredEvent;
-import com.ai.bss.api.customerorder.event.OrderGoodsReturnedEvent;
+import com.ai.bss.api.customerorder.event.OrderRealObjectReturnedEvent;
 import com.ai.bss.api.customerorder.event.OrderInitializedEvent;
 import com.ai.bss.api.customerorder.event.OrderItemDeliveredEvent;
 import com.ai.bss.api.customerorder.event.OrderPaidEvent;
@@ -135,7 +135,7 @@ public class BuyCustomerOrderSaga extends CustomerOrderSaga {
 	}
 	
 	@SagaEventHandler(associationProperty = "customerOrderId")
-	public void handle(OrderGoodsReturnedEvent event) {
+	public void handle(OrderRealObjectReturnedEvent event) {
 		RefundOrderCommand command=new  RefundOrderCommand();
 		command.setCustomerOrderId(event.getCustomerOrderId());
 		getCommandBus().dispatch(new GenericCommandMessage<RefundOrderCommand>(command));

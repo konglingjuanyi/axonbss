@@ -1,6 +1,6 @@
 package com.ai.bss.api.customerorder.event;
 
-public class OrderItemGoodsReceivedEvent extends AbstractCustomerOrderItemEvent {
+public class OrderRealObjectReturnedEvent extends AbstractCustomerOrderEvent {
 	private String expressNumber;
 
 	public String getExpressNumber() {

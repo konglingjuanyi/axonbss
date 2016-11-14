@@ -6,13 +6,14 @@ import javax.persistence.Entity;
 public class PolicyOperatorNotEntry extends PolicyConditionOperatorEntry{
 
 	public PolicyOperatorNotEntry() {
-		super.setCode("!");
+		super.setOperatorType(operatorType);
+		super.setOperator("!");
 	}
 
 	@Override
 	public String toBodyString(String a,String b) {
 		StringBuffer sb=new StringBuffer();
-		sb.append(this.getCode()).append(a);
+		sb.append(this.getOperator()).append(a);
 		return sb.toString();
 	}
 }

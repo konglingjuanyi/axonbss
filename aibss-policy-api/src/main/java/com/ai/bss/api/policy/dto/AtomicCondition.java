@@ -27,9 +27,4 @@ public class AtomicCondition extends AbstractCondition{
 	public void setRight(AbstractPan right) {
 		this.right = right;
 	}
-	//@Override
-	public boolean isComposite() {
-		return false;
-	}
-
 }

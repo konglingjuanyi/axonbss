@@ -13,7 +13,9 @@ public abstract class PolicyOperatorEntry{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;	
 	private String name;
-	private String code;	
+	private String code;
+	private String operatorType;
+	private String operator;
 	public PolicyOperatorEntry() {
 	}
 	
@@ -45,6 +47,22 @@ public abstract class PolicyOperatorEntry{
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getOperatorType() {
+		return operatorType;
+	}
+
+	public void setOperatorType(String operatorType) {
+		this.operatorType = operatorType;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
 	}
 
 }

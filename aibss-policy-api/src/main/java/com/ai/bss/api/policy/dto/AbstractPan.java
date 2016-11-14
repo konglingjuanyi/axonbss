@@ -1,6 +1,6 @@
 package com.ai.bss.api.policy.dto;
 
-public class AbstractPan {	  
+public abstract class AbstractPan {	  
 	private String type;	
 	public AbstractPan(){
 		

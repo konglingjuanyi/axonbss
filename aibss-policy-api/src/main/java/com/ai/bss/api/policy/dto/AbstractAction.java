@@ -32,6 +32,4 @@ public abstract class AbstractAction {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
-	public abstract boolean isComposite();
 }

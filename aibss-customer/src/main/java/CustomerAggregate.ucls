@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="com.ai.bss.aggregate.party.PartyRole" project="party" 
-    file="/party/src/main/java/com/ai/bss/aggregate/party/PartyRole.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="com.ai.bss.aggregate.party.PartyRole" project="aibss-party" 
+    file="/aibss-party/src/main/java/com/ai/bss/aggregate/party/PartyRole.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="517" y="123"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -20,8 +20,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="com.ai.bss.aggregate.party.Party" project="party" 
-    file="/party/src/main/java/com/ai/bss/aggregate/party/Party.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="com.ai.bss.aggregate.party.Party" project="aibss-party" 
+    file="/aibss-party/src/main/java/com/ai/bss/aggregate/party/Party.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1053" y="131"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -29,8 +29,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.ai.bss.api.party.PartyId" project="party-api" 
-    file="/party-api/src/main/java/com/ai/bss/api/party/PartyId.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="com.ai.bss.api.party.PartyId" project="aibss-party-api" 
+    file="/aibss-party-api/src/main/java/com/ai/bss/api/party/PartyId.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="791" y="122"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -38,8 +38,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="com.ai.bss.aggregate.party.Individual" project="party" 
-    file="/party/src/main/java/com/ai/bss/aggregate/party/Individual.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="com.ai.bss.aggregate.party.Individual" project="aibss-party" 
+    file="/aibss-party/src/main/java/com/ai/bss/aggregate/party/Individual.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="539" y="394"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -47,8 +47,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="com.ai.bss.aggregate.party.Organization" project="party" 
-    file="/party/src/main/java/com/ai/bss/aggregate/party/Organization.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="com.ai.bss.aggregate.party.Organization" project="aibss-party" 
+    file="/aibss-party/src/main/java/com/ai/bss/aggregate/party/Organization.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1052" y="313"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -56,8 +56,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="com.ai.bss.aggregate.party.Legal" project="party" 
-    file="/party/src/main/java/com/ai/bss/aggregate/party/Legal.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="com.ai.bss.aggregate.party.Legal" project="aibss-party" 
+    file="/aibss-party/src/main/java/com/ai/bss/aggregate/party/Legal.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="845" y="518"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -65,8 +65,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.ai.bss.aggregate.party.Department" project="party" 
-    file="/party/src/main/java/com/ai/bss/aggregate/party/Department.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="com.ai.bss.aggregate.party.Department" project="aibss-party" 
+    file="/aibss-party/src/main/java/com/ai/bss/aggregate/party/Department.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1214" y="563"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -76,39 +76,47 @@
   </class>  
   <association id="9">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="10" name="partyId"/>      
-      <multiplicity id="11" minimum="0" maximum="1"/>    
+      <attribute id="10" name="partyId">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <generalization id="12">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="13">    
+    <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <association id="13">    
+  <association id="14">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="14" name="partyId"/>      
-      <multiplicity id="15" minimum="0" maximum="1"/>    
+      <attribute id="15" name="partyId">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="16">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="6"/>  
-  </generalization>  
   <generalization id="17">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="6"/>  
   </generalization>  
   <generalization id="18">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <generalization id="19">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="3"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

@@ -1,6 +1,6 @@
 package com.ai.bss.api.policy.dto;
 
-public class AbstractCondition {
+public abstract class AbstractCondition {
 	private String conditionId;
 	private String name;
 	private String code;

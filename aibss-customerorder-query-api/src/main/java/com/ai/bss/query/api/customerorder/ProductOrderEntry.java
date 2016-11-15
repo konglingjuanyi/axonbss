@@ -4,9 +4,9 @@ import javax.persistence.Entity;
 
 import com.ai.bss.query.api.product.AbstractProduct;
 @Entity
-public class OrderItemProductEntry extends AbstractProduct {
-
-	public OrderItemProductEntry() {
+public class ProductOrderEntry extends AbstractProduct {
+	private String action;
+	public ProductOrderEntry() {
 	}
 	
 	private long asisVersion;
@@ -28,6 +28,14 @@ public class OrderItemProductEntry extends AbstractProduct {
 
 	public void setTobeVersion(long tobeVersion) {
 		this.tobeVersion = tobeVersion;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 
 

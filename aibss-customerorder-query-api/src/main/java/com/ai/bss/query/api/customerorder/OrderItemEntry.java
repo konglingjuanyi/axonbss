@@ -13,29 +13,10 @@ import com.ai.bss.query.api.bizinteraction.BizInteractionItem;
 @Entity
 @DiscriminatorValue("CUSTOMER.ORDER.ITEM")
 @Access(AccessType.FIELD) 
-public class OrderItemEntry extends BizInteractionItem  {
-	public enum OrderItemState {
-		INITIATED(0),
-		CREATED(1),
-		SUBMITTED(2),
-		CHARGE_ASSIGNED(9),
-		COMPLETED(6),
-		CLOSED(7),
-		CANCLED(8);
-		private int value;  
-
-	    private OrderItemState(int value){ 
-	        this.value=value; 
-	    } 
- 
-	    public int getValue(){ 
-	        return value; 
-	    } 
-	}	
-	
+public class OrderItemEntry extends BizInteractionItem  {	
 	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="RELAT_ENTITY_ID")
-	private OrderItemOfferEntry  toBeOfferInstance;
+	private OfferOrderEntry  toBeOfferInstance;
 		
 	public OrderItemEntry(CustomerOrderEntry customerOrder) {
 		super(customerOrder);
@@ -50,11 +31,11 @@ public class OrderItemEntry extends BizInteractionItem  {
 		super.setBizInteraction(customerOrder);	
 	}
 
-	public OrderItemOfferEntry getItemOffer() {
+	public OfferOrderEntry getItemOffer() {
 		return toBeOfferInstance;
 	}
 
-	public void setItemOffer(OrderItemOfferEntry toBeOfferInstance) {
+	public void setItemOffer(OfferOrderEntry toBeOfferInstance) {
 		this.toBeOfferInstance = toBeOfferInstance;
 	}
 

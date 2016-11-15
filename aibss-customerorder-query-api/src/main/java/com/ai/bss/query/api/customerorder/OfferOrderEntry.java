@@ -14,13 +14,15 @@ import com.ai.bss.query.api.product.AbstractOffer;
 import com.ai.bss.query.api.product.AbstractOfferProductRel;
 import com.ai.bss.query.api.product.AbstractPrice;
 @Entity
-public class OrderItemOfferEntry extends AbstractOffer {
+public class OfferOrderEntry extends AbstractOffer {
 	@OneToOne
 	private OrderItemEntry orderItem;
 	
 	@OneToMany(mappedBy="offerInstance",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractPrice> oneTimeFees=new LinkedHashSet<AbstractPrice>();
 
+	private String action;
+	
 	private long totalOneTimeFee; 	
 	
 	private long asisVersion;
@@ -44,13 +46,13 @@ public class OrderItemOfferEntry extends AbstractOffer {
 		this.tobeVersion = tobeVersion;
 	}
 	
-	public OrderItemOfferEntry() {
+	public OfferOrderEntry() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected AbstractOfferProductRel newOfferInstanceProductRel() {
-		return new OrderItemOfferProductRelEntry();
+		return new OfferOrderProductRelEntry();
 	}
 	
 	
@@ -75,11 +77,11 @@ public class OrderItemOfferEntry extends AbstractOffer {
 		this.totalOneTimeFee = unitPrice;
 	}
 	
-	public Set<OrderItemOfferProductRelEntry> getRelProducts() {
-		Set<OrderItemOfferProductRelEntry> products=new LinkedHashSet<>();
+	public Set<OfferOrderProductRelEntry> getRelProducts() {
+		Set<OfferOrderProductRelEntry> products=new LinkedHashSet<>();
 		Set<AbstractOfferProductRel> parentProducts=super.getProducts();
 		for (AbstractOfferProductRel productRel : parentProducts) {
-			products.add((OrderItemOfferProductRelEntry)productRel);
+			products.add((OfferOrderProductRelEntry)productRel);
 		}
 		return products;
 	}
@@ -90,5 +92,13 @@ public class OrderItemOfferEntry extends AbstractOffer {
 
 	public void setOrderItem(OrderItemEntry orderItem) {
 		this.orderItem = orderItem;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 }

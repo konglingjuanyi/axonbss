@@ -2,10 +2,9 @@ package com.ai.bss.query.api.customerorder;
 
 import javax.persistence.Entity;
 
-import com.ai.bss.query.api.product.AbstractPriceCharacterValue;
+import com.ai.bss.query.api.product.AbstractOfferProductRel;
 @Entity
-public class OrderItemPriceCharacterValueEntry extends AbstractPriceCharacterValue{
-	public OrderItemPriceCharacterValueEntry(){}
+public class OfferOrderProductRelEntry extends AbstractOfferProductRel {
 	
 	private long asisVersion;
 	
@@ -26,5 +25,8 @@ public class OrderItemPriceCharacterValueEntry extends AbstractPriceCharacterVal
 
 	public void setTobeVersion(long tobeVersion) {
 		this.tobeVersion = tobeVersion;
+	}
+	public OfferOrderProductRelEntry() {
+		
 	}
 }

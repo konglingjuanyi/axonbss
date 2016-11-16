@@ -12,9 +12,14 @@ public class UpdateProductAttrCommand extends AbstractActivateProductCommand {
 		return ProductOrderCharacterValues;
 	}
 	
-	public void addProductOrderCharacterValues(ProductOrderCharacterValueEntry productCharValue){
+	public void addProductOrderCharacterValue(ProductOrderCharacterValueEntry productCharValue){
 		if (!ProductOrderCharacterValues.contains(productCharValue)){
 			ProductOrderCharacterValues.add(productCharValue);
 		}
 	}
+
+	public void setProductOrderCharacterValues(Set<ProductOrderCharacterValueEntry> productOrderCharacterValues) {
+		ProductOrderCharacterValues = productOrderCharacterValues;
+	}
+	
 }

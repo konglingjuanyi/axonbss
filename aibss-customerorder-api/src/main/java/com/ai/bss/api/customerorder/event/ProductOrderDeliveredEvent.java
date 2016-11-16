@@ -1,7 +1,7 @@
 package com.ai.bss.api.customerorder.event;
 import java.sql.Timestamp;
 
-public class OrderItemDeliveredEvent extends AbstractCustomerOrderItemEvent {
+public class ProductOrderDeliveredEvent extends AbstractCustomerOrderItemEvent {
 	private Timestamp deliveredTime;
 	private String receiverSign;
 	private String expressNumber;

@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractProductSuspendReason{
 	private String suspendCode;
+	
+	private String action;
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private String id;
@@ -45,5 +47,15 @@ public abstract class AbstractProductSuspendReason{
 	
 	public void setSuspendCode(String suspendCode) {
 		this.suspendCode=suspendCode;
+	}
+
+
+	public String getAction() {
+		return action;
+	}
+
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 }

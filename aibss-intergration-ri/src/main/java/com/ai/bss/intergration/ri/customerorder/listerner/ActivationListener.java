@@ -39,8 +39,10 @@ public class ActivationListener {
 				Set<OfferOrderProductRelEntry> offerProducts=offerOrder.getRelProducts();
 				if (!offerProducts.isEmpty()){
 					for (OfferOrderProductRelEntry orderItemOfferProductRel : offerProducts) {						
-						if (productOrderUtil.needActivation(orderItemOfferProductRel)){
-							AbstractActivateProductCommand command= productOrderUtil.getActivateCommand(orderItemOfferProductRel);
+						if (productOrderUtil.needDelivery(orderItemOfferProductRel)){
+							
+						}else if (productOrderUtil.needActivation(orderItemOfferProductRel)){
+							AbstractActivateProductCommand command= productOrderUtil.getActivateCommand(orderItemEntry,orderItemOfferProductRel);
 							if (null!=command){
 								FutureCallback callback = new FutureCallback();
 								commandBus.dispatch(new GenericCommandMessage<AbstractActivateProductCommand>(command),callback);

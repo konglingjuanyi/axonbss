@@ -23,14 +23,14 @@ import com.ai.bss.api.customerorder.event.OrderFinishedEvent;
 import com.ai.bss.api.customerorder.event.OrderRealObjectReceivedEvent;
 import com.ai.bss.api.customerorder.event.OrderRealObjectReturnedEvent;
 import com.ai.bss.api.customerorder.event.OrderInitializedEvent;
-import com.ai.bss.api.customerorder.event.OrderItemDeliverRequestedEvent;
-import com.ai.bss.api.customerorder.event.OrderItemDeliveredEvent;
-import com.ai.bss.api.customerorder.event.OrderItemRealObjectReceivedEvent;
-import com.ai.bss.api.customerorder.event.OrderItemRealObjectReturnedEvent;
-import com.ai.bss.api.customerorder.event.OrderItemReturnGoodsRequestedEvent;
+import com.ai.bss.api.customerorder.event.ProductOrderDeliverRequestedEvent;
+import com.ai.bss.api.customerorder.event.ProductOrderDeliveredEvent;
+import com.ai.bss.api.customerorder.event.ProductOrderRealObjectReceivedEvent;
+import com.ai.bss.api.customerorder.event.ProductOrderRealObjectReturnedEvent;
+import com.ai.bss.api.customerorder.event.ProductOrderReturnRealObjectRequestedEvent;
 import com.ai.bss.api.customerorder.event.OrderPaidEvent;
 import com.ai.bss.api.customerorder.event.OrderRefundedEvent;
-import com.ai.bss.api.customerorder.event.OrderReturnGoodsRequestedEvent;
+import com.ai.bss.api.customerorder.event.OrderReturnRealObjectRequestedEvent;
 import com.ai.bss.api.product.dto.BuyOffer;
 
 public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
@@ -90,7 +90,7 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	
 	public void requestDeliveryOrderItem(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemDeliverRequestedEvent event=new OrderItemDeliverRequestedEvent();
+			ProductOrderDeliverRequestedEvent event=new ProductOrderDeliverRequestedEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);
@@ -105,7 +105,7 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	
 	public void finishDeliveryOrderItem(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemDeliveredEvent event=new OrderItemDeliveredEvent();
+			ProductOrderDeliveredEvent event=new ProductOrderDeliveredEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);
@@ -143,14 +143,14 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	}
 	
 	public void requestReturnGoodsOrder(){
-		OrderReturnGoodsRequestedEvent event=new OrderReturnGoodsRequestedEvent();
+		OrderReturnRealObjectRequestedEvent event=new OrderReturnRealObjectRequestedEvent();
 		event.setCustomerOrderId(customerOrderId);
 		apply(event);
 	}
 	
 	public void requestReturnItemGoodsOrder(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemReturnGoodsRequestedEvent event=new OrderItemReturnGoodsRequestedEvent();
+			ProductOrderReturnRealObjectRequestedEvent event=new ProductOrderReturnRealObjectRequestedEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);
@@ -165,7 +165,7 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	
 	public void returnItemGoodsOrder(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemRealObjectReturnedEvent event=new OrderItemRealObjectReturnedEvent();
+			ProductOrderRealObjectReturnedEvent event=new ProductOrderRealObjectReturnedEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);
@@ -180,7 +180,7 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 	
 	public void receiveItemGoodsOrder(String[] itemIds){
 		for (String orderItemId : itemIds) {
-			OrderItemRealObjectReceivedEvent event=new OrderItemRealObjectReceivedEvent();
+			ProductOrderRealObjectReceivedEvent event=new ProductOrderRealObjectReceivedEvent();
 			event.setCustomerOrderId(customerOrderId);
 			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
 			apply(event);

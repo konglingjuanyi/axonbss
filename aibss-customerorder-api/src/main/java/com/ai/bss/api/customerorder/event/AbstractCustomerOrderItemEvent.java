@@ -7,8 +7,8 @@ import com.ai.bss.api.customerorder.CustomerOrderItemId;
 public abstract class AbstractCustomerOrderItemEvent extends BaseEvent {
 	private CustomerOrderId customerOrderId;
 	private CustomerOrderItemId customerOrderItemId;
+	private String OfferOrderId;
 	private String offerInstanceId;
-	private String productId;
 	public AbstractCustomerOrderItemEvent() {
 		// TODO Auto-generated constructor stub
 	}
@@ -30,11 +30,10 @@ public abstract class AbstractCustomerOrderItemEvent extends BaseEvent {
 	public void setOfferInstanceId(String offerInstanceId) {
 		this.offerInstanceId = offerInstanceId;
 	}
-	public String getProductId() {
-		return productId;
+	public String getOfferOrderId() {
+		return OfferOrderId;
 	}
-	public void setProductId(String productId) {
-		this.productId = productId;
+	public void setOfferOrderId(String offerOrderId) {
+		OfferOrderId = offerOrderId;
 	}
-
 }

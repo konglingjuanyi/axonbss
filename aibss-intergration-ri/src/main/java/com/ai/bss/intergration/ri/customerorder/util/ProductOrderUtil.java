@@ -3,6 +3,9 @@ package com.ai.bss.intergration.ri.customerorder.util;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.commandhandling.GenericCommandMessage;
+import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +16,8 @@ import com.ai.bss.api.activation.command.DeactivateProductCommand;
 import com.ai.bss.api.activation.command.ResumeProductCommand;
 import com.ai.bss.api.activation.command.SuspendProductCommand;
 import com.ai.bss.api.activation.command.UpdateProductAttrCommand;
+import com.ai.bss.api.delivery.command.AbstractDeliveryProductCommand;
+import com.ai.bss.api.delivery.command.DeliveryProductCommand;
 import com.ai.bss.query.api.customerorder.OrderItemActionEnum;
 import com.ai.bss.query.api.customerorder.OrderItemEntry;
 import com.ai.bss.query.api.customerorder.OfferOrderProductRelEntry;
@@ -27,33 +32,59 @@ import com.ai.bss.query.api.customerorder.ProductOrderCharacterValueEntry;
 public class ProductOrderUtil implements IProductOrderUtil{
 	@Autowired
 	public RestTemplate client;
+	@Autowired
+	private CommandBus commandBus;
+	
 	public ProductOrderUtil() {
 		
 	}
+	
+	public FutureCallback activateProductOrder(OrderItemEntry orderItem,ProductOrderEntry orderProduct, String productSpecCode) throws Exception{
+		FutureCallback callback = new FutureCallback();
+		if (!needDelivery(orderProduct,productSpecCode) && needActivation(orderProduct,productSpecCode)){
+			AbstractActivateProductCommand command= getActivateCommand(orderItem,orderProduct);
+			if (null!=command){				
+				commandBus.dispatch(new GenericCommandMessage<AbstractActivateProductCommand>(command),callback);
+			}
+		}
+		return callback;
+	}
 
-	public boolean needActivation(OfferOrderProductRelEntry orderItemOfferProductRel) throws Exception{
+	public boolean needActivation(ProductOrderEntry orderProduct, String productSpecCode) throws Exception{
 		boolean retValue=false;
-		ProductOrderEntry orderProduct=(ProductOrderEntry)orderItemOfferProductRel.getProduct();
-		ProductSpecificationEntry productSpec=client.getForObject("http://productspecification-query-service/productSpecification/productSpecificationId/"+orderProduct.getProductSpecificationId(),ProductSpecificationEntry.class);
-		if (productSpec.getType().equalsIgnoreCase(ProductSpecificationTypeEnum.NetWork.name())){
-			if (orderProduct.getState().equalsIgnoreCase(ProductOrderStateEnum.AwaitingDelivery.name())){
+		if (productSpecCode.equalsIgnoreCase(ProductSpecificationTypeEnum.NetWork.name())){
+			if (orderProduct.getState().equalsIgnoreCase(ProductOrderStateEnum.Activating.name())){
 				retValue=false;
 			}else{
 				//check dependency
 				Set<ProductOrderEntry> activationDependOns=orderProduct.getActivationDependOns();
 				if(!activationDependOns.isEmpty()){
-					retValue=false;
-				}else{
 					retValue=true;
+					// if any depend on product is not active, this product should wait for.
+					for (ProductOrderEntry activationDependOn : activationDependOns) {
+						if (!activationDependOn.getState().equalsIgnoreCase(ProductOrderStateEnum.Activated.name())){
+							retValue=false;
+							break;
+						}						
+					}					
+				}else{
+					Set<ProductOrderEntry> activationDependOnDeliveries=orderProduct.getActivationDependOnDeliveries();
+					retValue=true;
+					// if any depend on product is not delivery, this product should wait for.
+					for (ProductOrderEntry activationDependOn : activationDependOnDeliveries) {
+						if (!activationDependOn.getState().equalsIgnoreCase(ProductOrderStateEnum.Delivered.name())){
+							retValue=false;
+							break;
+						}						
+					}
 				}
 			}			
 		}
 		return retValue;
 	}
 	
-	public AbstractActivateProductCommand getActivateCommand(OrderItemEntry orderItem,OfferOrderProductRelEntry orderItemOfferProductRel) throws Exception{
+	public AbstractActivateProductCommand getActivateCommand(OrderItemEntry orderItem,ProductOrderEntry orderProduct) throws Exception{
 		AbstractActivateProductCommand command=null;
-		ProductOrderEntry orderProduct=(ProductOrderEntry)orderItemOfferProductRel.getProduct();		
 		if(orderProduct.getAction().equalsIgnoreCase(OrderItemActionEnum.Create.name())){
 			command=new ActivateProductCommand();
 		}else if (orderProduct.getAction().equalsIgnoreCase(OrderItemActionEnum.Delete.name())){
@@ -100,13 +131,23 @@ public class ProductOrderUtil implements IProductOrderUtil{
 		return command;
 	}
 	
-	public boolean needDelivery(OfferOrderProductRelEntry orderItemOfferProductRel) throws Exception{
+	public boolean needDelivery(ProductOrderEntry orderProduct,String productSpecCode) throws Exception{
 		boolean retValue=false;
-		ProductOrderEntry orderProduct=(ProductOrderEntry)orderItemOfferProductRel.getProduct();
-		ProductSpecificationEntry productSpec=client.getForObject("http://productspecification-query-service/productSpecification/productSpecificationId/"+orderProduct.getProductSpecificationId(),ProductSpecificationEntry.class);
-		if (productSpec.getType().equalsIgnoreCase(ProductSpecificationTypeEnum.RealObject.name())){
+		if (productSpecCode.equalsIgnoreCase(ProductSpecificationTypeEnum.RealObject.name())
+				&& !orderProduct.getState().equalsIgnoreCase(ProductOrderStateEnum.Delivered.name())){
 			retValue=true;
 		}
 		return retValue;
+	}
+	
+	public FutureCallback deliveryProductOrder(OrderItemEntry orderItem,ProductOrderEntry orderProduct,String productSpecCode) throws Exception{
+		FutureCallback callback = new FutureCallback();
+		if (needDelivery(orderProduct,productSpecCode)){
+			AbstractDeliveryProductCommand command= new DeliveryProductCommand();
+			if (null!=command){				
+				commandBus.dispatch(new GenericCommandMessage<AbstractDeliveryProductCommand>(command),callback);
+			}
+		}
+		return callback;
 	}
 }

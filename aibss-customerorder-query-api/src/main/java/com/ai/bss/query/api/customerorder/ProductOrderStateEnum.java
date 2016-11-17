@@ -5,8 +5,10 @@ public enum ProductOrderStateEnum {
 	Running,
 	Suspended,
 	Aborted,
-	AwaitingAbort,
-	AwaitingDelivery,
-	AwaitingActivation,
-	Completed;
+	Aborting,
+	Delivering,
+	Activating,
+	Activated,
+	Delivered,
+	Returned;
 }

@@ -1,17 +1,17 @@
-package com.ai.bss.api.activation.command;
+package com.ai.bss.api.delivery.command;
 
 import java.sql.Timestamp;
 
 import com.ai.bss.api.base.BaseCommand;
 
-public abstract class AbstractActivateProductCommand extends BaseCommand {
+public abstract class AbstractDeliveryProductCommand extends BaseCommand {
 	private String customerOrderId;
 	private String offerOrderId;
 	private String productOrderId;
 	private String productId;
 	private Timestamp effectiveTime;
 	private Timestamp expireTime;
-	public AbstractActivateProductCommand() {
+	public AbstractDeliveryProductCommand() {
 		
 	}
 	public String getCustomerOrderId() {

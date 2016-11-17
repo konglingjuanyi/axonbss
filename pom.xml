@@ -61,6 +61,7 @@
   	<module>aibss-activation</module>
   	<module>aibss-intergration-ri</module>
   	<module>aibss-productspecification-query-api</module>
+  	<module>aibss-delivery-api</module>
   </modules>
 
     <dependencies>

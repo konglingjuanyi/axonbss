@@ -6,8 +6,8 @@ import org.axonframework.eventhandling.annotation.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import com.ai.bss.api.activation.event.ProductOrderActivatedEvent;
 import com.ai.bss.api.customerorder.event.OrderPaidEvent;
+import com.ai.bss.api.delivery.event.ProductOrderDeliveredEvent;
 import com.ai.bss.intergration.ri.customerorder.util.IProductOrderUtil;
 import com.ai.bss.query.api.customerorder.CustomerOrderEntry;
 import com.ai.bss.query.api.customerorder.OfferOrderEntry;
@@ -16,17 +16,16 @@ import com.ai.bss.query.api.customerorder.OrderItemEntry;
 import com.ai.bss.query.api.customerorder.ProductOrderEntry;
 import com.ai.bss.query.api.productspecification.ProductSpecificationEntry;
 
-public class ActivationListener {
+public class DeliveryListener {
 	@Autowired
 	public RestTemplate client;
 	@Autowired
 	private IProductOrderUtil productOrderUtil;
-	
-	public ActivationListener() {
+
+	public DeliveryListener() {
 		
 	}
-	
-	@EventHandler
+
 	public void onOrderPaid(OrderPaidEvent event) throws Exception{
 		CustomerOrderEntry customerOrder=client.getForObject("http://customerorder-query-service/customerorder/customerOrderId/"+event.getCustomerOrderId(),CustomerOrderEntry.class);
 		Set<OrderItemEntry> orderItems=customerOrder.getOrderItems();
@@ -38,7 +37,7 @@ public class ActivationListener {
 					for (OfferOrderProductRelEntry orderItemOfferProductRel : offerProducts) {
 						ProductOrderEntry productOrder=(ProductOrderEntry)orderItemOfferProductRel.getProduct();
 						ProductSpecificationEntry productSpec=client.getForObject("http://productspecification-query-service/productspecification/productspecificationId/"+productOrder.getProductSpecificationId(),ProductSpecificationEntry.class);
-						productOrderUtil.activateProductOrder(orderItemEntry, productOrder,productSpec.getCode());
+						productOrderUtil.deliveryProductOrder(orderItemEntry, productOrder,productSpec.getCode());
 					}
 				}
 			}
@@ -46,18 +45,17 @@ public class ActivationListener {
 	}
 	
 	@EventHandler
-	public void onProductOrderActivated(ProductOrderActivatedEvent event) throws Exception{
+	public void onProductOrderDelivered(ProductOrderDeliveredEvent event) throws Exception{
 		String productOrderId = event.getProductOrderId();
 		ProductOrderEntry productOrder= client.getForObject("http://customerorder-query-service/customerorder/productOrder/productOrderId/"+productOrderId,ProductOrderEntry.class);
 		if (null!=productOrder){
-			Set<ProductOrderEntry> beDependOns = productOrder.getActivationBeDependOns();
-			//to activate be depended on product orders
-			for (ProductOrderEntry beDependProductOrder : beDependOns) {				
+			Set<ProductOrderEntry> beDependOnDeliveries = productOrder.getActivationBeDependOnDeliveries();
+			//after delivered, to activate be depended on product orders
+			for (ProductOrderEntry beDependProductOrder : beDependOnDeliveries) {				
 				OrderItemEntry orderItem=client.getForObject("http://customerorder-query-service/customerorder/productOrder/purchaseOffer/productOrderId/"+beDependProductOrder.getId(),OrderItemEntry.class);
 				ProductSpecificationEntry productSpec=client.getForObject("http://productspecification-query-service/productspecification/productspecificationId/"+beDependProductOrder.getProductSpecificationId(),ProductSpecificationEntry.class);
-				productOrderUtil.activateProductOrder(orderItem, beDependProductOrder,productSpec.getCode());
+				productOrderUtil.deliveryProductOrder(orderItem, beDependProductOrder,productSpec.getCode());
 			}
 		}
 	}
-
 }

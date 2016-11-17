@@ -23,14 +23,8 @@ import com.ai.bss.api.customerorder.event.OrderFinishedEvent;
 import com.ai.bss.api.customerorder.event.OrderRealObjectReceivedEvent;
 import com.ai.bss.api.customerorder.event.OrderRealObjectReturnedEvent;
 import com.ai.bss.api.customerorder.event.OrderInitializedEvent;
-import com.ai.bss.api.customerorder.event.ProductOrderDeliverRequestedEvent;
-import com.ai.bss.api.customerorder.event.ProductOrderDeliveredEvent;
-import com.ai.bss.api.customerorder.event.ProductOrderRealObjectReceivedEvent;
-import com.ai.bss.api.customerorder.event.ProductOrderRealObjectReturnedEvent;
-import com.ai.bss.api.customerorder.event.ProductOrderReturnRealObjectRequestedEvent;
 import com.ai.bss.api.customerorder.event.OrderPaidEvent;
 import com.ai.bss.api.customerorder.event.OrderRefundedEvent;
-import com.ai.bss.api.customerorder.event.OrderReturnRealObjectRequestedEvent;
 import com.ai.bss.api.product.dto.BuyOffer;
 
 public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
@@ -88,14 +82,6 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 		apply(event);
 	}
 	
-	public void requestDeliveryOrderItem(String[] itemIds){
-		for (String orderItemId : itemIds) {
-			ProductOrderDeliverRequestedEvent event=new ProductOrderDeliverRequestedEvent();
-			event.setCustomerOrderId(customerOrderId);
-			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
-			apply(event);
-		}		
-	}
 	
 	public void finishDeliveryOrder(){
 		OrderDeliveredEvent event=new OrderDeliveredEvent();
@@ -103,14 +89,6 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 		apply(event);
 	}
 	
-	public void finishDeliveryOrderItem(String[] itemIds){
-		for (String orderItemId : itemIds) {
-			ProductOrderDeliveredEvent event=new ProductOrderDeliveredEvent();
-			event.setCustomerOrderId(customerOrderId);
-			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
-			apply(event);
-		}		
-	}
 	
 	public void requestCompleteOrder(){
 		CompleteOrderRequestedEvent event=new CompleteOrderRequestedEvent();
@@ -142,52 +120,17 @@ public class CustomerOrder extends AbstractAnnotatedAggregateRoot {
 		apply(event);
 	}
 	
-	public void requestReturnGoodsOrder(){
-		OrderReturnRealObjectRequestedEvent event=new OrderReturnRealObjectRequestedEvent();
-		event.setCustomerOrderId(customerOrderId);
-		apply(event);
-	}
-	
-	public void requestReturnItemGoodsOrder(String[] itemIds){
-		for (String orderItemId : itemIds) {
-			ProductOrderReturnRealObjectRequestedEvent event=new ProductOrderReturnRealObjectRequestedEvent();
-			event.setCustomerOrderId(customerOrderId);
-			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
-			apply(event);
-		}		
-	}
-	
 	public void returnGoodsOrder(){
 		OrderRealObjectReturnedEvent event=new OrderRealObjectReturnedEvent();
 		event.setCustomerOrderId(customerOrderId);
 		apply(event);
 	}
 	
-	public void returnItemGoodsOrder(String[] itemIds){
-		for (String orderItemId : itemIds) {
-			ProductOrderRealObjectReturnedEvent event=new ProductOrderRealObjectReturnedEvent();
-			event.setCustomerOrderId(customerOrderId);
-			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
-			apply(event);
-		}		
-	}
-	
 	public void receiveGoodsOrder(){
 		OrderRealObjectReceivedEvent event=new OrderRealObjectReceivedEvent();
 		event.setCustomerOrderId(customerOrderId);
 		apply(event);
-	}
-	
-	public void receiveItemGoodsOrder(String[] itemIds){
-		for (String orderItemId : itemIds) {
-			ProductOrderRealObjectReceivedEvent event=new ProductOrderRealObjectReceivedEvent();
-			event.setCustomerOrderId(customerOrderId);
-			event.setCustomerOrderItemId(new CustomerOrderItemId(orderItemId));
-			apply(event);
-		}		
-	}
-	
-	
+	}	
 	
 	public void refundOrder(){
 		OrderRefundedEvent event=new OrderRefundedEvent();

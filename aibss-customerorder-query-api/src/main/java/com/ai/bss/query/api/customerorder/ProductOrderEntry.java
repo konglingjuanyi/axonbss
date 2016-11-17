@@ -12,7 +12,10 @@ import com.ai.bss.query.api.product.AbstractProductSuspendReason;
 public class ProductOrderEntry extends AbstractProduct {
 	private String action;
 	private String state;
-	Set<ProductOrderEntry> activationDependOns = new LinkedHashSet<>();
+	Set<ProductOrderEntry> activationDependOns = new LinkedHashSet<>();//activation after beDependOns activation.
+	Set<ProductOrderEntry> activationBeDependOns = new LinkedHashSet<>();//activation first then DependOns activation.
+	Set<ProductOrderEntry> activationDependOnDeliveries = new LinkedHashSet<>();//activation after beDependOns delivery.
+	Set<ProductOrderEntry> activationBeDependOnDeliveries = new LinkedHashSet<>();//delivery first then DependOns activation.
 	public ProductOrderEntry() {
 	}
 	
@@ -78,6 +81,36 @@ public class ProductOrderEntry extends AbstractProduct {
 	public void addActivationDependOn(ProductOrderEntry productOrder){
 		if (!activationDependOns.contains(productOrder)){
 			activationDependOns.add(productOrder);
+		}
+	}
+
+	public Set<ProductOrderEntry> getActivationBeDependOns() {
+		return activationBeDependOns;
+	}
+	
+	public void addActivationBeDependOn(ProductOrderEntry productOrder){
+		if (!activationBeDependOns.contains(productOrder)){
+			activationBeDependOns.add(productOrder);
+		}
+	}
+
+	public Set<ProductOrderEntry> getActivationDependOnDeliveries() {
+		return activationDependOnDeliveries;
+	}
+	
+	public void addActivationDependOnDelivery(ProductOrderEntry productOrder){
+		if (!activationDependOnDeliveries.contains(productOrder)){
+			activationDependOnDeliveries.add(productOrder);
+		}
+	}
+
+	public Set<ProductOrderEntry> getActivationBeDependOnDeliveries() {
+		return activationBeDependOnDeliveries;
+	}
+	
+	public void addActivationBeDependOnDelivery(ProductOrderEntry productOrder){
+		if (!activationBeDependOnDeliveries.contains(productOrder)){
+			activationBeDependOnDeliveries.add(productOrder);
 		}
 	}
 }

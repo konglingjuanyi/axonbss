@@ -5,31 +5,16 @@
     <artifactId>axonbss</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>aibss-intergration-ri</artifactId>
+  <artifactId>aibss-delivery-api</artifactId>
   <dependencies> 
-        <dependency>
+   		<dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-customerorder-api</artifactId>
+            <artifactId>aibss-common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>aibss-customerorder-query-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-productspecification-query-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-activation-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>aibss-delivery-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -46,16 +31,5 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-    </dependencies>  
-    <dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-parent</artifactId>
-				<version>Brixton.RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    </dependencies>
 </project>

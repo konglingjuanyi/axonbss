@@ -14,7 +14,9 @@ public abstract class PolicyOperatorEntry{
 	private long id;	
 	private String name;
 	private String code;
+	//logical,mathematic...
 	private String operatorType;
+	// + - * / and or !
 	private String operator;
 	public PolicyOperatorEntry() {
 	}

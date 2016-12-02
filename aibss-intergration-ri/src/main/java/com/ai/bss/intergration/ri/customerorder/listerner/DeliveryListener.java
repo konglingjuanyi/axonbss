@@ -25,7 +25,8 @@ public class DeliveryListener {
 	public DeliveryListener() {
 		
 	}
-
+	
+	@EventHandler
 	public void onOrderPaid(OrderPaidEvent event) throws Exception{
 		CustomerOrderEntry customerOrder=client.getForObject("http://customerorder-query-service/customerorder/customerOrderId/"+event.getCustomerOrderId(),CustomerOrderEntry.class);
 		Set<OrderItemEntry> orderItems=customerOrder.getOrderItems();

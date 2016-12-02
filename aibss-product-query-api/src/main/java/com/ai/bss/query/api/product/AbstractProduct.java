@@ -33,7 +33,7 @@ public abstract class AbstractProduct{
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private Set<AbstractProductCharacterValue> characterValues=new LinkedHashSet<AbstractProductCharacterValue>();
 	
-	protected  Set<AbstractProductCharacterValue> getCharacterValues(){
+	public  Set<AbstractProductCharacterValue> getCharacterValues(){
 		return this.characterValues;
 	}
 	

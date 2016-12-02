@@ -8,6 +8,7 @@ public abstract class AbstractActivateProductEvent extends BaseCommand {
 	private String customerOrderId;
 	private String offerOrderId;
 	private String productOrderId;
+	private String productSpecId;
 	private String productId;
 	private Timestamp effectiveTime;
 	private Timestamp expireTime;
@@ -49,6 +50,12 @@ public abstract class AbstractActivateProductEvent extends BaseCommand {
 	}
 	public void setProductOrderId(String productOrderId) {
 		this.productOrderId = productOrderId;
+	}
+	public String getProductSpecId() {
+		return productSpecId;
+	}
+	public void setProductSpecId(String productSpecId) {
+		this.productSpecId = productSpecId;
 	}
 
 }

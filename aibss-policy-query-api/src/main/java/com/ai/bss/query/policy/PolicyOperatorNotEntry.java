@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 public class PolicyOperatorNotEntry extends PolicyConditionOperatorEntry{
 
 	public PolicyOperatorNotEntry() {
-		super.setOperatorType(operatorType);
+		super.setOperatorType("");
 		super.setOperator("!");
 	}
 

@@ -6,6 +6,7 @@ import org.axonframework.commandhandling.callbacks.FutureCallback;
 import org.axonframework.eventhandling.annotation.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ai.bss.api.activation.event.AbstractActivateProductEvent;
 import com.ai.bss.api.activation.event.ProductActivateOrderCreatedEvent;
 import com.ai.bss.api.activation.event.ProductOrderActivatedEvent;
 import com.ai.bss.api.customerorder.command.UpdateProductOrderStateCommand;
@@ -22,7 +23,7 @@ public class CustomerOrderListener {
 	
 	@EventHandler
 	//update productOrder state to Activating
-	public void onProductActivateOrderCreated(ProductActivateOrderCreatedEvent event){
+	public void onProductActivateOrderCreated(AbstractActivateProductEvent event){
 		String productOrderId=event.getProductOrderId();
 		UpdateProductOrderStateCommand command = new UpdateProductOrderStateCommand();
 		command.setProductOrderId(productOrderId);
